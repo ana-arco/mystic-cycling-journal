@@ -1,0 +1,463 @@
+/* =======================================================================
+   1. SISTEMA DE DISEÑO DE LA PIEDRA ARCANA (THEME TOKENS)
+   ======================================================================= */
+:root {
+  --bg-page: #0f0a18;
+  /* Espacio místico, calabozo oscuro */
+  --bg-darker: #150f1f;
+  /* Paneles de fondo */
+  --bg-book: #1f182c;
+  /* Piedra grabada */
+  --text-main: #e6dbf3;
+  /* Lilac radiante */
+  --text-muted: #8d79a5;
+  /* Violeta gastado */
+  --border-color: #45355c;
+  /* Bordes de runa */
+
+  --accent-gold: #f4be37;
+  --accent-gold-glow: #ffee7d;
+  --accent-red: #f34b4b;
+  --accent-purple: #a855f7;
+
+  --shadow-color: rgba(0, 0, 0, 0.6);
+  --parchment-color: #f4eccf;
+  /* Hoja de papel interna */
+}
+
+/* =======================================================================
+   2. REGLAS BASE Y RETRO ANIMACIONES
+   ======================================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  image-rendering: pixelated;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  line-height: 1.4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  background-image:
+    radial-gradient(var(--accent-purple) 1px, transparent 1px),
+    radial-gradient(var(--border-color) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* =======================================================================
+   3. MAQUETA: LIBRETA DE SOBREMESA MEDIEVAL
+   ======================================================================= */
+.portal-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  max-width: 900px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .portal-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+/* Soporte de cuero */
+.notebook-stand {
+  background-color: #382216;
+  /* Cuero oscuro */
+  border: 5px solid #1b0f0a;
+  /* Sombra pixelada */
+  padding: 16px 20px 20px 20px;
+  width: 280px;
+  height: 350px;
+  position: relative;
+  box-shadow:
+    0 12px 0px var(--shadow-color),
+    inset -4px -4px 0px #22140d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 6px;
+}
+
+/* Anillas metálicas */
+.notebook-rings {
+  display: flex;
+  justify-content: space-between;
+  width: 76%;
+  position: absolute;
+  top: -26px;
+  left: 12%;
+  z-index: 10;
+}
+
+.ring {
+  width: 16px;
+  height: 38px;
+  background: linear-gradient(135deg, #7c8389 30%, #52585c 70%);
+  border: 4px solid #1b0f0a;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+.ring::before {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: -2px;
+  width: 12px;
+  height: 8px;
+  background: #1b0f0a;
+}
+
+/* Contenedor de la Hoja con perspectiva */
+.notebook-page-container {
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Hoja de pergamino claro */
+.notebook-page {
+  background-color: var(--parchment-color);
+  color: #2b1d0f;
+  /* Tinta marrón oscuro */
+  border: 4px solid #2b1d0f;
+  width: 100%;
+  height: 100%;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow:
+    0 4px 0 -4px var(--parchment-color),
+    4px 0 0 -4px var(--parchment-color),
+    -4px 0 0 -4px var(--parchment-color),
+    0 -4px 0 -4px var(--parchment-color),
+    4px 4px 0 0 #2b1d0f,
+    -4px -4px 0 0 #2b1d0f,
+    4px -4px 0 0 #2b1d0f,
+    -4px 4px 0 0 #2b1d0f;
+  position: relative;
+  transform-origin: top center;
+  transition: transform 0.15s ease-out;
+}
+
+/* Agujeros del espiral en la hoja */
+.notebook-page::before {
+  content: 'o   o   o';
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  letter-spacing: 30px;
+  color: #a59c7b;
+  position: absolute;
+  top: 6px;
+  left: 26px;
+  opacity: 0.7;
+}
+
+/* Línea vertical de sangrado del bloc */
+.notebook-page::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 12px;
+  width: 2px;
+  border-left: 2px dashed rgba(43, 29, 15, 0.15);
+}
+
+/* Textos de la Hoja */
+.notebook-month {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  color: #a63143;
+  /* Tinta roja */
+  letter-spacing: 1px;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.notebook-day {
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  font-size: 88px;
+  color: #2b1b10;
+  line-height: 1;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.notebook-weekday {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #5c469c;
+  /* Tinta violeta */
+  letter-spacing: 1px;
+}
+
+/* Animación 3D de Rotar/Voltear Hoja */
+@keyframes flipPage {
+  0% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+
+  30% {
+    transform: rotateX(-35deg);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+
+  50.1% {
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+.pasar-pagina {
+  animation: flipPage 1s ease-in-out forwards;
+}
+
+/* =======================================================================
+   4. PANEL LATERAL (INFORMACIÓN MÍSTICA)
+   ======================================================================= */
+.mystic-panel {
+  background-color: var(--bg-book);
+  border: 4px solid var(--border-color);
+  padding: 24px;
+  flex: 1;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 6px 6px 0px var(--shadow-color);
+  border-radius: 4px;
+}
+
+.panel-header {
+  font-size: 22px;
+  color: var(--accent-gold);
+  border-bottom: 2px dashed var(--border-color);
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+  text-shadow: 1px 1px 0px #000;
+}
+
+.data-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.data-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.data-value {
+  font-size: 24px;
+  color: var(--text-main);
+  background: var(--bg-darker);
+  border: 2px solid var(--border-color);
+  padding: 8px 12px;
+  border-radius: 2px;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+}
+
+/* =======================================================================
+   5. BOTONES PIXEL ART
+   ======================================================================= */
+.pixel-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: var(--bg-page);
+  background-color: var(--accent-gold);
+  border: 4px solid #000;
+  padding: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  outline: none;
+  text-decoration: none;
+  box-shadow:
+    0 4px 0 -4px var(--accent-gold-glow),
+    4px 0 0 -4px var(--accent-gold-glow),
+    4px 4px 0 0 #000;
+  transition: transform 0.1s steps(2);
+  user-select: none;
+  font-weight: bold;
+}
+
+.pixel-btn:hover {
+  filter: brightness(1.1);
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000;
+}
+
+.pixel-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px #000;
+}
+
+.btn-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .btn-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =======================================================================
+   6. DIORAMA VIVO (ESCENARIO DE CAPAS - HITO A)
+   ======================================================================= */
+.interfaz-bloque {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Diorama background setup */
+.diorama-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.capa-cielo,
+.capa-estrellas,
+.capa-horizonte,
+.capa-clima {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Sky layers color gradients */
+#skyBg {
+  transition: background 1.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: var(--bg-page);
+}
+
+body.cielo-amanecer #skyBg {
+  background: linear-gradient(to bottom, #2c1b4d 0%, #e28743 100%);
+}
+
+body.cielo-dia #skyBg {
+  background: linear-gradient(to bottom, #1d2b53 0%, #29adff 100%);
+}
+
+body.cielo-atardecer #skyBg {
+  background: linear-gradient(to bottom, #4c1c5c 0%, #ab5236 100%);
+}
+
+body.cielo-noche #skyBg {
+  background: linear-gradient(to bottom, #0b0711 0%, #1b0f2a 100%);
+}
+
+/* Twinkling Stars */
+#starsBg {
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  background-image: 
+    radial-gradient(1px 1px at 25px 75px, #ffffff 100%, transparent),
+    radial-gradient(2px 2px at 75px 180px, #ffffff 100%, transparent),
+    radial-gradient(1.5px 1.5px at 150px 60px, #f4be37 100%, transparent),
+    radial-gradient(2px 2px at 240px 300px, #ffffff 100%, transparent),
+    radial-gradient(1px 1px at 300px 110px, #f4be37 100%, transparent),
+    radial-gradient(2px 2px at 420px 190px, #ffffff 100%, transparent),
+    radial-gradient(1.5px 1.5px at 500px 40px, #ffffff 100%, transparent),
+    radial-gradient(2px 2px at 580px 280px, #f4be37 100%, transparent),
+    radial-gradient(1px 1px at 660px 150px, #ffffff 100%, transparent),
+    radial-gradient(2.5px 2.5px at 740px 90px, #ffffff 100%, transparent),
+    radial-gradient(1.5px 1.5px at 820px 220px, #f4be37 100%, transparent),
+    radial-gradient(2px 2px at 900px 320px, #ffffff 100%, transparent);
+  background-size: 960px 960px;
+}
+
+body.cielo-noche #starsBg {
+  opacity: 0.9;
+  animation: tintinearEstrellas 4s steps(4) infinite;
+}
+
+body.cielo-amanecer #starsBg {
+  opacity: 0.35;
+  animation: tintinearEstrellas 6s steps(3) infinite;
+}
+
+@keyframes tintinearEstrellas {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Silhouette of the Forest (Pine Trees) */
+#horizonBg {
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='120' viewBox='0 0 80 120'%3E%3Cpolygon points='40,20 20,60 30,60 15,85 25,85 10,110 70,110 55,85 65,85 50,60 60,60' fill='%23080c14'/%3E%3Crect x='36' y='110' width='8' height='10' fill='%23080c14'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='140' viewBox='0 0 100 140'%3E%3Cpolygon points='50,15 25,65 37,65 18,95 30,95 10,125 90,125 70,95 82,95 63,65 75,65' fill='%231b1428'/%3E%3Crect x='45' y='125' width='10' height='15' fill='%231b1428'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: bottom left, bottom right 40px;
+  background-size: 80px 120px, 100px 140px;
+  height: 140px;
+  top: auto;
+  bottom: 0;
+  opacity: 0.95;
+}

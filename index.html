@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal del Ciclo - Grimorio Místico</title>
+  <!-- Google Fonts for Gothic Medieval and Pixel Vibes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Press+Start+2P&family=VT323&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="estilos-dashboard.css">
+</head>
+
+<body>
+
+  <!-- Diorama Vivo (Hito A) -->
+  <div class="diorama-fondo">
+    <div class="capa-cielo" id="skyBg"></div>
+    <div class="capa-estrellas" id="starsBg"></div>
+    <div class="capa-horizonte" id="horizonBg"></div>
+    <div class="capa-clima" id="weatherBg"></div>
+  </div>
+
+  <div class="interfaz-bloque">
+    <h1
+      style="font-size: 34px; margin-bottom: 24px; text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8); color: var(--accent-gold); display: flex; align-items: center; justify-content: center; gap: 12px; font-family: 'Cinzel', serif;">
+      <span>🏰</span> PORTAL DE INGRESO <span>🏰</span>
+    </h1>
+
+    <div class="portal-container">
+
+      <!-- Libreta de Sobremesa (Calendario Medieval) -->
+      <div class="notebook-stand">
+        <div class="notebook-rings">
+          <div class="ring"></div>
+          <div class="ring"></div>
+          <div class="ring"></div>
+        </div>
+        <div class="notebook-page-container" id="contenedorHoja"
+          title="Haz clic en la hoja para pasar página manualmente">
+          <div class="notebook-page">
+            <div id="calMes" class="notebook-month">CARGANDO...</div>
+            <div id="calDia" class="notebook-day">--</div>
+            <div id="calSemana" class="notebook-weekday">CARGANDO...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel Místico Lateral -->
+      <div class="mystic-panel">
+        <h2 class="panel-header">🕰️ RELOJ TEMPORAL</h2>
+
+        <!-- Reloj Digital -->
+        <div class="data-row">
+          <span class="data-label">Hora del Reino</span>
+          <div id="relojDigital" class="data-value">00:00:00</div>
+        </div>
+
+        <!-- Ciclo de la Tierra -->
+        <div class="data-row">
+          <span class="data-label">Estación Actual</span>
+          <div id="cicloTierra" class="data-value">Cargando...</div>
+        </div>
+
+        <!-- Coordenadas Geográficas -->
+        <div class="data-row">
+          <span class="data-label">Alineación del Cielo</span>
+          <div id="datosUbicacion" class="data-value" style="font-size: 19px; word-break: break-all;">Ubicación sin
+            alinear</div>
+          <button class="pixel-btn" style="margin-top: 4px; background-color: var(--accent-purple); color: white;"
+            onclick="obtenerUbicacion()">
+            📍 Sincronizar GPS
+          </button>
+          
+          <div class="controles-tiempo-simulado" style="display: flex; gap: 8px; margin: 10px 0;">
+            <input type="date" id="inputFechaSimulada" class="pixel-input-form" onchange="iniciarViajeTemporal()" style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); width: 50%;">
+            <input type="time" id="inputHoraSimulada" class="pixel-input-form" onchange="iniciarViajeTemporal()" style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); width: 50%;">
+          </div>
+        </div>
+
+        <!-- Botones de Enlace del Portal -->
+        <div class="btn-row">
+          <a href="grimorio-activo.html" class="pixel-btn" style="background-color: var(--accent-gold); color: #1b0f0a;">
+            🔮 Abrir Grimorio
+          </a>
+          <a href="documentacion.html" class="pixel-btn" style="background-color: #7c8389; color: #1b0f0a;">
+            📜 Hoja de Ruta
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script src="reloj.js"></script>
+</body>
+
+</html>

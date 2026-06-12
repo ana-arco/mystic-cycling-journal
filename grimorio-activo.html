@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grimorio del Ciclo Místico y Lunar</title>
+  <!-- Google Fonts for Pixel Art & Medieval vibes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================
+       1. VARIABLES Y SISTEMA DE TEMAS (CSS VARIABLES)
+       ========================================== */
+    :root {
+      /* Tema por defecto: Pergamino Cozy */
+      --bg-page: #d4c5a1; /* Fondo cálido madera/mesa */
+      --bg-book: #f4eccf; /* Pergamino claro */
+      --bg-darker: #e2d7b2; /* Pergamino sombreado */
+      --text-main: #3c2a1a; /* Marrón oscuro cuero */
+      --text-muted: #7d5c41; /* Marrón medio */
+      --border-color: #2e1d11; /* Borde oscuro pixel */
+      
+      --accent-gold: #b3861b;
+      --accent-gold-glow: #ffd700;
+      --accent-red: #a32e2e;
+      --accent-green: #3b7e46;
+      --accent-purple: #5c2d7a;
+      
+      --shadow-color: rgba(46, 29, 17, 0.25);
+      
+      /* Animaciones */
+      --retro-transition: all 0.15s steps(4);
+    }
+
+    [data-theme="stone"] {
+      /* Tema Alternativo: Piedra Arcana Nocturna */
+      --bg-page: #0f0a18; /* Espacio exterior / calabozo oscuro */
+      --bg-book: #1f182c; /* Piedra oscura */
+      --bg-darker: #150f1f; /* Huecos oscuros */
+      --text-main: #e6dbf3; /* Lilac luminoso */
+      --text-muted: #8d79a5; /* Morado apagado */
+      --border-color: #45355c; /* Borde runa */
+      
+      --accent-gold: #f4be37;
+      --accent-gold-glow: #ffee7d;
+      --accent-red: #f34b4b;
+      --accent-green: #4ade80;
+      --accent-purple: #a855f7;
+      
+      --shadow-color: rgba(0, 0, 0, 0.6);
+    }
+
+    /* ==========================================
+       2. REGLAS GENERALES Y RESET
+       ========================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      image-rendering: pixelated;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      font-family: 'VT323', monospace;
+      color: var(--text-main);
+      font-size: 20px;
+      line-height: 1.4;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-x: hidden;
+      transition: background-color 0.4s ease;
+      background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    [data-theme="stone"] body {
+      background-image: radial-gradient(var(--accent-purple) 1px, transparent 1px);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    /* ==========================================
+       3. DISEÑO PIXEL ART UTILS
+       ========================================== */
+    .pixel-border-4 {
+      border: 4px solid var(--border-color);
+      box-shadow: 
+        0 4px 0 -4px var(--bg-book),
+        4px 0 0 -4px var(--bg-book),
+        -4px 0 0 -4px var(--bg-book),
+        0 -4px 0 -4px var(--bg-book),
+        4px 4px 0 0 var(--border-color),
+        -4px -4px 0 0 var(--border-color),
+        4px -4px 0 0 var(--border-color),
+        -4px 4px 0 0 var(--border-color);
+    }
+
+    .pixel-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      color: var(--text-main);
+      background-color: var(--bg-darker);
+      border: 4px solid var(--border-color);
+      padding: 8px 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      outline: none;
+      position: relative;
+      user-select: none;
+      margin-bottom: 4px;
+    }
+
+    .pixel-btn:active {
+      transform: translateY(2px);
+      background-color: var(--bg-book);
+    }
+
+    .pixel-btn.active {
+      background-color: var(--accent-gold);
+      color: var(--bg-page);
+    }
+
+    /* ==========================================
+       4. CABECERA & CONTROLES
+       ========================================== */
+    header {
+      width: 100%;
+      max-width: 1024px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .header-title {
+      font-size: 38px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-shadow: 2px 2px 0 var(--shadow-color);
+    }
+
+    .header-subtitle {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .controls-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* ==========================================
+       5. EL GRIMORIO / LIBRO PRINCIPAL
+       ========================================== */
+    .grimoire-container {
+      width: 100%;
+      max-width: 1024px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin-top: 10px;
+    }
+
+    /* Pestañas (Marcadores del Libro) */
+    .grimoire-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      z-index: 5;
+      padding-left: 20px;
+      gap: 4px;
+    }
+
+    .grimoire-tab {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      background-color: var(--bg-darker);
+      border: 4px solid var(--border-color);
+      border-bottom: none;
+      padding: 10px 14px;
+      cursor: pointer;
+      color: var(--text-muted);
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      transition: transform 0.1s steps(2);
+      transform: translateY(4px);
+    }
+
+    .grimoire-tab:hover {
+      color: var(--text-main);
+      transform: translateY(2px);
+    }
+
+    .grimoire-tab.active {
+      background-color: var(--bg-book);
+      color: var(--text-main);
+      transform: translateY(0);
+      font-weight: bold;
+      border-bottom: 4px solid var(--bg-book);
+      padding-bottom: 12px;
+    }
+
+    /* El Libro Abierto */
+    .grimoire-book {
+      background-color: var(--bg-book);
+      border: 6px solid var(--border-color);
+      box-shadow: 0 10px 0 var(--shadow-color);
+      display: grid;
+      grid-template-columns: 1fr 4px 1fr;
+      min-height: 580px;
+      position: relative;
+      border-radius: 4px;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .grimoire-book {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+      }
+      .grimoire-spine {
+        height: 6px !important;
+        width: 100% !important;
+        background-color: var(--border-color);
+      }
+    }
+
+    /* Páginas */
+    .grimoire-page {
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Lomo Central del Libro */
+    .grimoire-spine {
+      background-color: var(--border-color);
+      height: 100%;
+      width: 4px;
+      position: relative;
+    }
+
+    .grimoire-spine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -8px;
+      width: 8px;
+      background: linear-gradient(to right, transparent, rgba(0,0,0,0.15));
+    }
+    .grimoire-spine::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: -8px;
+      width: 8px;
+      background: linear-gradient(to left, transparent, rgba(0,0,0,0.15));
+    }
+
+    .page-title {
+      font-size: 26px;
+      margin-bottom: 16px;
+      border-bottom: 2px dashed var(--border-color);
+      padding-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent-gold);
+    }
+
+    .page-content-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ==========================================
+       6. VISTA 1: RUEDA DE LAS ESTACIONES
+       ========================================== */
+    .wheel-container {
+      position: relative;
+      width: 100%;
+      max-width: 340px;
+      aspect-ratio: 1;
+    }
+
+    .wheel-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .sabbat-node {
+      cursor: pointer;
+      transition: var(--retro-transition);
+    }
+
+    .sabbat-node circle {
+      stroke: var(--border-color);
+      stroke-width: 1.5;
+      transition: var(--retro-transition);
+    }
+
+    .sabbat-node:hover circle {
+      r: 14;
+      stroke: var(--accent-gold-glow);
+      stroke-width: 2.5;
+      filter: drop-shadow(0 0 4px var(--accent-gold-glow));
+    }
+
+    .sabbat-node.selected circle {
+      r: 15;
+      stroke: var(--accent-gold-glow);
+      stroke-width: 3;
+      fill: var(--text-main);
+    }
+
+    .sabbat-node text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 6px;
+      fill: var(--text-main);
+      pointer-events: none;
+      text-anchor: middle;
+    }
+
+    .wheel-center-txt {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      fill: var(--text-muted);
+      text-anchor: middle;
+      pointer-events: none;
+    }
+
+    /* ==========================================
+       7. VISTA 2: ANILLO DE 28 DÍAS (MENSTRUAL)
+       ========================================== */
+    .ring-container {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ring-bead {
+      cursor: pointer;
+      transition: var(--retro-transition);
+    }
+
+    .ring-bead:hover {
+      filter: brightness(1.3) drop-shadow(0 0 3px var(--accent-gold-glow));
+      transform: scale(1.15);
+    }
+
+    .ring-bead.selected {
+      stroke: var(--accent-gold-glow);
+      stroke-width: 3;
+      stroke-dasharray: none;
+      filter: drop-shadow(0 0 5px var(--accent-gold-glow));
+    }
+
+    .ring-center-panel {
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: var(--bg-darker);
+      border: 3px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.1);
+      pointer-events: none;
+    }
+
+    .ring-center-day {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      margin-bottom: 2px;
+      color: var(--text-main);
+    }
+
+    .ring-center-phase {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.1;
+      font-weight: bold;
+    }
+
+    .phase-color-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 14px;
+      width: 100%;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+    }
+
+    /* ==========================================
+       8. VISTA 3: CALENDARIO DE LA LUNA
+       ========================================== */
+    .lunar-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .lunar-day-card {
+      background: var(--bg-darker);
+      border: 2px solid var(--border-color);
+      aspect-ratio: 0.9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px;
+      cursor: pointer;
+      transition: var(--retro-transition);
+    }
+
+    .lunar-day-card:hover {
+      background: var(--bg-book);
+      border-color: var(--accent-gold-glow);
+      transform: translateY(-2px);
+    }
+
+    .lunar-day-card.selected {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 2px var(--accent-gold-glow);
+      background: var(--bg-book);
+    }
+
+    .lunar-day-num {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7px;
+      color: var(--text-muted);
+    }
+
+    .lunar-day-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .lunar-day-card.major-phase {
+      border: 2px double var(--accent-gold);
+      background: linear-gradient(135deg, var(--bg-darker), rgba(255, 215, 0, 0.05));
+    }
+
+    /* ==========================================
+       9. VISTA 4: SELECCIÓN LIBRE (PAINT GRID)
+       ========================================== */
+    .free-selection-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .toolbox {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .tool-btn {
+      width: 38px;
+      height: 38px;
+      border: 3px solid var(--border-color);
+      background: var(--bg-darker);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--retro-transition);
+      position: relative;
+    }
+
+    .tool-btn:hover {
+      background: var(--bg-book);
+      transform: translateY(-2px);
+    }
+
+    .tool-btn.active {
+      background: var(--accent-gold);
+      border-color: var(--accent-gold-glow);
+      box-shadow: 0 0 6px var(--accent-gold-glow);
+    }
+
+    .tool-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--text-main);
+    }
+
+    .tool-btn.active svg {
+      fill: var(--bg-page);
+    }
+
+    .paint-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      width: 100%;
+      user-select: none;
+    }
+
+    .grid-cell {
+      background: var(--bg-darker);
+      border: 2px solid var(--border-color);
+      aspect-ratio: 1;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px;
+      position: relative;
+      transition: var(--retro-transition);
+    }
+
+    .grid-cell:hover {
+      background: var(--bg-book);
+      border-color: var(--accent-gold);
+    }
+
+    .grid-cell.selected {
+      background: var(--bg-book);
+      outline: 2px solid var(--accent-gold-glow);
+    }
+
+    .cell-number {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7px;
+      color: var(--text-muted);
+      align-self: flex-start;
+    }
+
+    .cell-indicators {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      flex: 1;
+    }
+
+    .cell-indicators svg {
+      width: 11px;
+      height: 11px;
+    }
+
+    /* ==========================================
+       10. PÁGINA DERECHA (EL DIARIO / GRIMORIO)
+       ========================================== */
+    .journal-frame {
+      border: 4px double var(--border-color);
+      padding: 16px;
+      background: var(--bg-darker);
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border-radius: 2px;
+    }
+
+    .journal-decor {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .decor-corner {
+      font-size: 12px;
+      color: var(--accent-gold);
+    }
+
+    .journal-title {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 12px;
+      color: var(--text-main);
+      border-bottom: 2px dashed var(--border-color);
+      padding-bottom: 4px;
+    }
+
+    .journal-section {
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .journal-body {
+      font-size: 19px;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .journal-stats {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 17px;
+    }
+
+    .stat-badge {
+      background: var(--bg-book);
+      border: 1px solid var(--border-color);
+      padding: 2px 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Notas del Grimorio (Formulario) */
+    .shadow-notes-form {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-top: 2px dashed var(--border-color);
+      padding-top: 12px;
+    }
+
+    .shadow-notes-textarea {
+      width: 100%;
+      min-height: 80px;
+      background: var(--bg-book);
+      border: 2px solid var(--border-color);
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      color: var(--text-main);
+      padding: 8px;
+      resize: none;
+      outline: none;
+    }
+
+    .shadow-notes-textarea:focus {
+      border-color: var(--accent-gold);
+    }
+
+    /* ==========================================
+       11. COMPONENTE DE NOTIFICACIÓN PIXEL
+       ========================================== */
+    .toast-notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--bg-book);
+      border: 4px solid var(--border-color);
+      padding: 12px 20px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--text-main);
+      z-index: 100;
+      box-shadow: 4px 4px 0 var(--shadow-color);
+      transform: translateY(150%);
+      transition: transform 0.3s steps(5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toast-notification.show {
+      transform: translateY(0);
+    }
+
+    /* SVG Pixel Icons inside styling */
+    .pixel-icon {
+      image-rendering: pixelated;
+    }
+    .icon-blood { fill: var(--accent-red); }
+    .icon-fire { fill: var(--accent-red); }
+    .icon-candle { fill: var(--text-main); }
+    .icon-star { fill: var(--accent-gold-glow); }
+    .icon-broom { fill: var(--accent-gold); }
+
+    /* Estrellas decorativas del fondo */
+    .star-bg {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background-color: var(--accent-gold-glow);
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 0;
+      animation: blink 2s infinite steps(2);
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.9; }
+    }
+  </style>
+</head>
+<body data-theme="parchment">
+
+  <!-- Estrellas de fondo para piedra oscura -->
+  <div class="star-bg" style="top: 10%; left: 15%; animation-delay: 0.2s;"></div>
+  <div class="star-bg" style="top: 25%; left: 80%; animation-delay: 0.7s;"></div>
+  <div class="star-bg" style="top: 70%; left: 10%; animation-delay: 1.2s;"></div>
+  <div class="star-bg" style="top: 85%; left: 85%; animation-delay: 0.4s;"></div>
+
+  <!-- Cabecera -->
+  <header>
+    <h1 class="header-title">
+      <span style="font-size: 32px;">🔮</span>
+      Grimorio Ciclo Místico
+      <span style="font-size: 32px;">✨</span>
+    </h1>
+    <p class="header-subtitle">Registros Lunares y de la Tierra</p>
+    
+    <div class="controls-row">
+      <a href="index.html" class="pixel-btn" style="text-decoration: none; background-color: var(--accent-purple); color: white;">🏰 Ir al Portal</a>
+      <!-- Mute / Unmute Button -->
+      <button class="pixel-btn" id="audio-toggle" onclick="toggleAudio()">
+        <span id="audio-icon">🔊</span> Sonido: ON
+      </button>
+      
+      <!-- Theme Switcher -->
+      <button class="pixel-btn" id="theme-toggle" onclick="toggleTheme()">
+        📖 Tema: Pergamino
+      </button>
+
+      <!-- Clear Data -->
+      <button class="pixel-btn" style="border-color: var(--accent-red);" onclick="clearAllData()">
+        🧹 Borrar Datos
+      </button>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal del Libro -->
+  <div class="grimoire-container">
+    
+    <!-- Pestañas del Grimorio (Marcadores) -->
+    <div class="grimoire-tabs">
+      <button class="grimoire-tab active" onclick="switchView('stations', this)">🌱 Estaciones</button>
+      <button class="grimoire-tab" onclick="switchView('cycle28', this)">🔮 Anillo 28 Días</button>
+      <button class="grimoire-tab" onclick="switchView('moon', this)">🌙 Lunación</button>
+      <button class="grimoire-tab" onclick="switchView('free', this)">🕯️ Pintar Ritual</button>
+    </div>
+
+    <!-- El Libro Abierto -->
+    <div class="grimoire-book pixel-border-4">
+      
+      <!-- Página Izquierda: Calendario Dinámico -->
+      <div class="grimoire-page">
+        <h2 class="page-title" id="left-page-title">
+          <span>🌱</span> Vista por Estaciones
+        </h2>
+        
+        <div class="page-content-wrapper" id="left-page-content">
+          <!-- El contenido de la vista activa se renderizará aquí dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Lomo del libro -->
+      <div class="grimoire-spine"></div>
+
+      <!-- Página Derecha: Diario e Interpretaciones -->
+      <div class="grimoire-page">
+        <h2 class="page-title">
+          <span>📖</span> Diario del Grimorio
+        </h2>
+        
+        <div class="journal-frame">
+          <div class="journal-decor">
+            <span class="decor-corner">✦</span>
+            <span class="decor-corner">✦</span>
+          </div>
+          
+          <h3 class="journal-title" id="journal-title">Selecciona un elemento</h3>
+          
+          <div id="journal-content-area">
+            <!-- Detalles cargados dinámicamente -->
+            <p style="text-align: center; color: var(--text-muted); margin-top: 40px;">
+              Haz clic en cualquier nodo de la Rueda del Año, gema del ciclo menstrual o día lunar para leer el conocimiento místico guardado.
+            </p>
+          </div>
+
+          <!-- Formulario de notas para la vista activa -->
+          <form class="shadow-notes-form" id="notes-form" onsubmit="saveNotes(event)" style="display: none;">
+            <div class="section-title">Apuntes del Diario de Sombras</div>
+            <textarea 
+              class="shadow-notes-textarea" 
+              id="shadow-notes-input" 
+              placeholder="Escribe tus reflexiones, síntomas, pociones o rituales realizados hoy..."
+            ></textarea>
+            <button type="submit" class="pixel-btn" style="width: 100%;">
+              💾 Guardar en Grimorio
+            </button>
+          </form>
+
+          <div class="journal-decor" style="margin-top: auto; margin-bottom: 0;">
+            <span class="decor-corner">✦</span>
+            <span class="decor-corner">✦</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Notificación flotante retro -->
+  <div class="toast-notification" id="toast">
+    <span>✨</span> <span id="toast-text">Grimorio Actualizado</span>
+  </div>
+
+  <!-- ==========================================
+       12. LÓGICA JAVASCRIPT EMBUDIDA
+       ========================================== -->
+  <script>
+    /* ----------------------------------------------------
+       Variables Globales y Estado
+       ---------------------------------------------------- */
+    let currentView = 'stations';
+    let selectedSabbat = 'yule';
+    let selectedCycleDay = 1;
+    let selectedLunarDay = 1;
+    let selectedFreeDay = 1;
+    
+    // Herramienta activa para Vista de Pintado Libre
+    let activeTool = 'blood'; 
+    let isDrawing = false;
+
+    // Datos guardados del usuario (Pintura y Notas)
+    let savedFreeGrid = JSON.parse(localStorage.getItem('savedFreeGrid')) || {};
+    let savedNotes = JSON.parse(localStorage.getItem('savedNotes')) || {};
+
+    /* ----------------------------------------------------
+       Sintetizador de Audio Retro (Web Audio API)
+       ---------------------------------------------------- */
+    class RetroAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.muted = false;
+      }
+
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      }
+
+      playClick() {
+        if (this.muted) return;
+        this.init();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(300, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(150, this.ctx.currentTime + 0.08);
+
+        gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.08);
+
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.08);
+      }
+
+      playShimmer() {
+        if (this.muted) return;
+        this.init();
+        const now = this.ctx.currentTime;
+        // Escala pentatónica mágica retro (Arpegio rápido)
+        const notes = [523.25, 659.25, 783.99, 987.77, 1046.50];
+        
+        notes.forEach((freq, index) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + index * 0.05);
+
+          gain.gain.setValueAtTime(0.06, now + index * 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + index * 0.05 + 0.2);
+
+          osc.start(now + index * 0.05);
+          osc.stop(now + index * 0.05 + 0.2);
+        });
+      }
+
+      playBookFlip() {
+        if (this.muted) return;
+        this.init();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(180, this.ctx.currentTime);
+        osc.frequency.linearRampToValueAtTime(80, this.ctx.currentTime + 0.25);
+
+        gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.25);
+
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.25);
+      }
+
+      playSuccess() {
+        if (this.muted) return;
+        this.init();
+        const now = this.ctx.currentTime;
+        const notes = [587.33, 880];
+        notes.forEach((freq, index) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + index * 0.1);
+          gain.gain.setValueAtTime(0.1, now + index * 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + index * 0.1 + 0.2);
+
+          osc.start(now + index * 0.1);
+          osc.stop(now + index * 0.1 + 0.2);
+        });
+      }
+    }
+
+    const audio = new RetroAudioEngine();
+
+    function toggleAudio() {
+      audio.muted = !audio.muted;
+      const btn = document.getElementById('audio-toggle');
+      if (audio.muted) {
+        btn.innerHTML = '🔈 Sonido: OFF';
+        btn.style.opacity = '0.7';
+      } else {
+        btn.innerHTML = '🔊 Sonido: ON';
+        btn.style.opacity = '1';
+        audio.playClick();
+      }
+    }
+
+    /* ----------------------------------------------------
+       Control de Temas
+       ---------------------------------------------------- */
+    function toggleTheme() {
+      audio.playBookFlip();
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      const btn = document.getElementById('theme-toggle');
+      
+      if (currentTheme === 'parchment') {
+        body.setAttribute('data-theme', 'stone');
+        btn.innerHTML = '🔮 Tema: Runa Oscura';
+      } else {
+        body.setAttribute('data-theme', 'parchment');
+        btn.innerHTML = '📖 Tema: Pergamino';
+      }
+    }
+
+    /* ----------------------------------------------------
+       Iconos Pixel Art SVG Dinámicos
+       ---------------------------------------------------- */
+    const PIXEL_SVGS = {
+      blood: `<svg viewBox="0 0 8 8" class="pixel-icon icon-blood"><rect x="3" y="0" width="2" height="1"/><rect x="2" y="1" width="4" height="1"/><rect x="1" y="2" width="6" height="1"/><rect x="0" y="3" width="8" height="3"/><rect x="1" y="6" width="6" height="1"/><rect x="2" y="7" width="4" height="1"/><rect x="2" y="3" width="1" height="2" fill="#fff" opacity="0.65"/></svg>`,
+      
+      fire: `<svg viewBox="0 0 8 8" class="pixel-icon icon-fire"><rect x="3" y="0" width="2" height="1"/><rect x="2" y="1" width="4" height="2"/><rect x="1" y="3" width="6" height="2"/><rect x="0" y="5" width="8" height="2"/><rect x="1" y="7" width="6" height="1"/><rect x="3" y="4" width="2" height="2" fill="#ffb834"/></svg>`,
+      
+      candle: `<svg viewBox="0 0 8 8" class="pixel-icon icon-candle"><rect x="3" y="0" width="2" height="1" fill="var(--accent-gold-glow)"/><rect x="3" y="1" width="2" height="1" fill="var(--accent-gold)"/><rect x="2" y="2" width="4" height="5"/><rect x="3" y="3" width="2" height="1" fill="#fff" opacity="0.7"/><rect x="1" y="7" width="6" height="1" fill="var(--border-color)"/></svg>`,
+      
+      star: `<svg viewBox="0 0 8 8" class="pixel-icon icon-star"><rect x="3" y="0" width="2" height="1"/><rect x="2" y="1" width="4" height="1"/><rect x="1" y="2" width="6" height="1"/><rect x="0" y="3" width="8" height="2"/><rect x="1" y="5" width="6" height="1"/><rect x="2" y="6" width="4" height="1"/><rect x="3" y="7" width="2" height="1"/></svg>`,
+      
+      broom: `<svg viewBox="0 0 8 8" class="pixel-icon icon-broom"><rect x="6" y="0" width="2" height="2" fill="var(--text-muted)"/><rect x="5" y="2" width="2" height="1" fill="var(--text-muted)"/><rect x="4" y="3" width="2" height="1" fill="var(--text-muted)"/><rect x="3" y="4" width="2" height="1" fill="var(--text-muted)"/><rect x="1" y="5" width="3" height="2" fill="var(--accent-gold)"/><rect x="0" y="7" width="5" height="1" fill="var(--accent-gold)"/></svg>`
+    };
+
+    /* ----------------------------------------------------
+       Datos del Universo Místico
+       ---------------------------------------------------- */
+    const sabbatsData = [
+      {
+        id: "yule",
+        name: "Yule",
+        title: "Solsticio de Invierno",
+        date: "21-22 de Diciembre",
+        description: "El punto de giro del año. La noche es la más larga, pero contiene la promesa del retorno de la luz. Es el renacimiento de la chispa solar del vientre oscuro de la Tierra.",
+        ritual: "Enciende tres velas (dorada, roja y verde) rodeadas de piñas de pino. Escribe las cosas que deseas ver nacer en el ciclo venidero y quémalas bajo la llama de la vela dorada.",
+        color: "#3a7f9c",
+        symbol: "❄️",
+        x: 100, y: 22,
+        element: "Tierra / Agua",
+        energy: "Renacimiento e Introspección"
+      },
+      {
+        id: "imbolc",
+        name: "Imbolc",
+        title: "Fiesta de Brigid",
+        date: "1-2 de Febrero",
+        description: "El despertar inicial de las semillas profundas. Purificación y preparación del suelo de la conciencia. Es la transición de la oscuridad del invierno a los primeros hilos de luz primaveral.",
+        ritual: "Realiza una limpieza física de tu altar o grimorio. Bendice una vela blanca y unge tus muñecas con un aceite esencial de lavanda para consagrar tu camino espiritual.",
+        color: "#ebe5c5",
+        symbol: "🕯️",
+        x: 155, y: 45,
+        element: "Fuego",
+        energy: "Purificación e Iniciación"
+      },
+      {
+        id: "ostara",
+        name: "Ostara",
+        title: "Equinoccio de Primavera",
+        date: "20-23 de Marzo",
+        description: "Luz y oscuridad en perfecto balance. La vida renace en la naturaleza con fuerza arrolladora. Tiempo de siembra activa, renovación y balance de nuestras polaridades internas.",
+        ritual: "Dibuja símbolos rúnicos protectores en cáscaras de huevo cocido con tintes naturales. Siembra semillas reales en una maceta para enlazar tu intención de crecimiento con el crecimiento físico de la planta.",
+        color: "#5db468",
+        symbol: "🌱",
+        x: 178, y: 100,
+        element: "Aire",
+        energy: "Renovación y Crecimiento"
+      },
+      {
+        id: "beltane",
+        name: "Beltane",
+        title: "Fuegos de Mayo",
+        date: "30 de Abril - 1 de Mayo",
+        description: "El pico de la primavera. La energía sexual, creativa y vital fluye desbordante. Representa la unión de las polaridades que trae la abundancia y belleza al reino físico.",
+        ritual: "Crea una corona floral o trenza cintas de tres colores (rojo, blanco, verde). Baila o realiza estiramientos al aire libre para activar la energía de la vitalidad y el placer corporal.",
+        color: "#c94680",
+        symbol: "🌸",
+        x: 155, y: 155,
+        element: "Fuego / Tierra",
+        energy: "Vitalidad, Unión y Placer"
+      },
+      {
+        id: "litha",
+        name: "Litha",
+        title: "Solsticio de Verano",
+        date: "20-22 de Junio",
+        description: "El solsticio de verano, la máxima luz y poder del Sol. Celebración de los logros cosechados y consolidación de nuestra fuerza de voluntad.",
+        ritual: "Deja un cuenco con agua limpia al sol de mediodía junto con cristales de cuarzo o citrino. Usa esa agua solarizada para limpiar tus ojos y tu rostro para expandir tu percepción espiritual.",
+        color: "#cca627",
+        symbol: "☀️",
+        x: 100, y: 178,
+        element: "Fuego / Aire",
+        energy: "Poder, Éxito y Celebración"
+      },
+      {
+        id: "lammas",
+        name: "Lammas / Lughnasadh",
+        title: "Primera Cosecha",
+        date: "1-2 de Agosto",
+        description: "La festividad del primer corte y agradecimiento por el alimento. La energía solar comienza a madurar los frutos. Aprender a sacrificar lo innecesario para asegurar el sustento.",
+        ritual: "Hornea o consume un pan integral de cereales bendecido. Escribe tres cosas por las cuales estás profundamente agradecida y entierra una pequeña porción de pan en la tierra como ofrenda.",
+        color: "#d07335",
+        symbol: "🌾",
+        x: 45, y: 155,
+        element: "Tierra",
+        energy: "Gratitud y Desapego"
+      },
+      {
+        id: "mabon",
+        name: "Mabon",
+        title: "Equinoccio de Otoño",
+        date: "20-23 de Septiembre",
+        description: "Segundo equilibrio del ciclo. Agradecimiento por la cosecha total y preparación para el repliegue. El día y la noche vuelven a igualar su duración antes de entrar al reposo frío.",
+        ritual: "Crea una ofrenda con manzanas cortadas, canela y nueces. Comparte este banquete de otoño con seres queridos, reflexionando en voz alta sobre las lecciones de maduración del año.",
+        color: "#b0542d",
+        symbol: "🍎",
+        x: 22, y: 100,
+        element: "Agua / Tierra",
+        energy: "Balance e Integración"
+      },
+      {
+        id: "samhain",
+        name: "Samhain",
+        title: "Año Nuevo Místico",
+        date: "31 de Octubre - 1 de Noviembre",
+        description: "El velo se desvanece entre los reinos visible e invisible. Es el final y el comienzo de la rueda pagana. Tiempo de honrar a los ancestros, soltar lo obsoleto y entrar al vacío creativo.",
+        ritual: "Enciende una vela negra en la ventana para guiar los espíritus del pasado. Escribe en un pergamino tus miedos o dependencias que deseas quemar definitivamente en un caldero.",
+        color: "#55327b",
+        symbol: "🎃",
+        x: 45, y: 45,
+        element: "Agua / Espíritu",
+        energy: "Trascendencia y Transmutación"
+      }
+    ];
+
+    // Datos del Anillo de 28 Días
+    const cyclePhases = [
+      { name: "Menstruación", range: [1, 5], color: "var(--accent-red)", archetype: "La Anciana / Bruja", description: "Fase de descanso, sangrado y renovación. La energía física está en su nivel más bajo, pero la intuición y la conexión espiritual están al máximo.", guidance: "Disminuye el ritmo, descansa y medita. Excelente momento para soñar despierta y escribir tus visiones." },
+      { name: "Fase Folicular", range: [6, 11], color: "var(--accent-green)", archetype: "La Doncella", description: "Inicio del crecimiento folicular. La energía física y el entusiasmo mental retornan. Claridad para iniciar proyectos y aprender habilidades nuevas.", guidance: "Planifica tus metas, haz ejercicio estimulante y lánzate a nuevas aventuras creativas." },
+      { name: "Fase Ovulatoria", range: [12, 16], color: "var(--accent-gold)", archetype: "La Madre", description: "Pico de fertilidad y magnetismo social. Energía expansiva, propicia para la comunicación, la empatía y la materialización de proyectos.", guidance: "Conecta con los demás, haz presentaciones públicas, celebra rituales de abundancia y autocuidado." },
+      { name: "Fase Lútea", range: [17, 28], color: "var(--accent-purple)", archetype: "La Hechicera", description: "Fase de introspección y preparación. La energía se vuelca hacia el interior. Sensibilidad a flor de piel y necesidad de límites saludables.", guidance: "Realiza rituales de desterrar y limpieza energética. Escribe en tu diario de sombras sobre tus verdaderos deseos ocultos." }
+    ];
+
+    /* ----------------------------------------------------
+       Cambio de Vistas Principal
+       ---------------------------------------------------- */
+    function switchView(viewName, tabEl) {
+      if (currentView === viewName) return;
+      currentView = viewName;
+      
+      // Reproducir sonido de cambio
+      audio.playBookFlip();
+      
+      // Actualizar pestañas
+      document.querySelectorAll('.grimoire-tab').forEach(t => t.classList.remove('active'));
+      tabEl.classList.add('active');
+      
+      // Actualizar título y contenido del lado izquierdo
+      const leftTitle = document.getElementById('left-page-title');
+      const leftContent = document.getElementById('left-page-content');
+      
+      if (viewName === 'stations') {
+        leftTitle.innerHTML = `<span>🌱</span> Rueda de las Estaciones`;
+        renderStationsView(leftContent);
+      } else if (viewName === 'cycle28') {
+        leftTitle.innerHTML = `<span>🔮</span> Anillo de 28 Días`;
+        renderCycle28View(leftContent);
+      } else if (viewName === 'moon') {
+        leftTitle.innerHTML = `<span>🌙</span> Lunación Sinódica`;
+        renderMoonView(leftContent);
+      } else if (viewName === 'free') {
+        leftTitle.innerHTML = `<span>🕯️</span> Registro del Ritual`;
+        renderFreeView(leftContent);
+      }
+    }
+
+    /* ----------------------------------------------------
+       Renders de las Páginas del Calendario (Página Izquierda)
+       ---------------------------------------------------- */
+    
+    // Vista 1: Rueda de las Estaciones (Sabbats)
+    function renderStationsView(container) {
+      let nodesHtml = '';
+      
+      sabbatsData.forEach(s => {
+        const isSelected = selectedSabbat === s.id;
+        nodesHtml += `
+          <g class="sabbat-node ${isSelected ? 'selected' : ''}" 
+             data-id="${s.id}" 
+             onclick="selectSabbat('${s.id}')">
+            <!-- Halo de brillo para seleccionado -->
+            ${isSelected ? `<circle cx="${s.x}" cy="${s.y}" r="17" fill="none" stroke="var(--accent-gold-glow)" stroke-width="2" stroke-dasharray="2 2"/>` : ''}
+            <!-- Círculo del nodo -->
+            <circle cx="${s.x}" cy="${s.y}" r="11" fill="${s.color}"/>
+            <circle cx="${s.x}" cy="${s.y}" r="8" fill="var(--bg-book)" opacity="0.3"/>
+            <!-- Símbolo de texto -->
+            <text x="${s.x}" y="${s.y + 2.5}" font-size="10">${s.symbol}</text>
+            <!-- Nombre del Sabbat fuera del nodo -->
+            <text x="${s.x}" y="${s.y < 100 ? s.y - 15 : s.y + 20}" font-size="7">${s.name.toUpperCase()}</text>
+          </g>
+        `;
+      });
+
+      container.innerHTML = `
+        <div class="wheel-container">
+          <svg viewBox="0 0 200 200" class="wheel-svg">
+            <!-- Divisiones de las 4 estaciones -->
+            <!-- Primavera (Derecha Superior) -->
+            <path d="M 100 100 L 100 20 A 80 80 0 0 1 180 100 Z" fill="rgba(93, 180, 104, 0.08)" />
+            <!-- Verano (Derecha Inferior) -->
+            <path d="M 100 100 L 180 100 A 80 80 0 0 1 100 180 Z" fill="rgba(204, 166, 39, 0.08)" />
+            <!-- Otoño (Izquierda Inferior) -->
+            <path d="M 100 100 L 100 180 A 80 80 0 0 1 20 100 Z" fill="rgba(176, 84, 45, 0.08)" />
+            <!-- Invierno (Izquierda Superior) -->
+            <path d="M 100 100 L 20 100 A 80 80 0 0 1 100 20 Z" fill="rgba(58, 127, 156, 0.08)" />
+
+            <!-- Líneas de las estaciones -->
+            <line x1="100" y1="18" x2="100" y2="182" stroke="var(--border-color)" stroke-width="2.5" />
+            <line x1="18" y1="100" x2="182" y2="100" stroke="var(--border-color)" stroke-width="2.5" />
+            
+            <!-- Anillo Interior Astrológico -->
+            <circle cx="100" cy="100" r="50" fill="none" stroke="var(--border-color)" stroke-dasharray="3 3" stroke-width="1.5" />
+            
+            <text x="100" y="103" class="wheel-center-txt">RUEDA</text>
+            
+            <!-- Inyección de los Nodos Sabbat -->
+            ${nodesHtml}
+          </svg>
+        </div>
+      `;
+      
+      // Cargar detalles de Sabbat activo por defecto en la derecha
+      updateJournalForSabbat(selectedSabbat);
+    }
+
+    // Vista 2: Anillo de 28 Días
+    function renderCycle28View(container) {
+      let beadsHtml = '';
+      const R = 72; // Radio del anillo
+      const cx = 100;
+      const cy = 100;
+
+      for (let day = 1; day <= 28; day++) {
+        // Encontrar la fase a la que pertenece
+        const phase = cyclePhases.find(p => day >= p.range[0] && day <= p.range[1]);
+        
+        // Calcular posición en el círculo (partiendo desde las 12 en sentido horario)
+        const angle = (day - 1) * (360 / 28) - 90;
+        const rad = (angle * Math.PI) / 180;
+        const bx = cx + R * Math.cos(rad);
+        const by = cy + R * Math.sin(rad);
+
+        const isSelected = day === selectedCycleDay;
+
+        beadsHtml += `
+          <circle 
+            class="ring-bead ${isSelected ? 'selected' : ''}" 
+            cx="${bx}" 
+            cy="${by}" 
+            r="${isSelected ? 8.5 : 6.5}" 
+            fill="${phase.color}" 
+            stroke="var(--border-color)" 
+            stroke-width="1.5"
+            onclick="selectCycleDay(${day})"
+          />
+        `;
+      }
+
+      // Obtener detalles de la fase seleccionada
+      const activePhase = cyclePhases.find(p => selectedCycleDay >= p.range[0] && selectedCycleDay <= p.range[1]);
+
+      container.innerHTML = `
+        <div class="ring-container">
+          <svg viewBox="0 0 200 200" style="width:100%; height:100%;">
+            <!-- Fondo orbital -->
+            <circle cx="100" cy="100" r="72" fill="none" stroke="var(--border-color)" stroke-width="1" stroke-dasharray="2 2" />
+            
+            <!-- Gemas del ciclo -->
+            ${beadsHtml}
+          </svg>
+          
+          <!-- Cuadro informativo interior -->
+          <div class="ring-center-panel">
+            <div class="ring-center-day">DÍA ${selectedCycleDay}</div>
+            <div class="ring-center-phase" style="color: ${activePhase.color};">${activePhase.name.toUpperCase()}</div>
+          </div>
+        </div>
+        
+        <div class="phase-color-legend">
+          ${cyclePhases.map(p => `
+            <div class="legend-item">
+              <span class="legend-dot" style="background-color: ${p.color};"></span>
+              <span>${p.name}</span>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      updateJournalForCycleDay(selectedCycleDay);
+    }
+
+    // Vista 3: Ciclo de la Luna (Lunación)
+    function renderMoonView(container) {
+      let gridHtml = '';
+      
+      for (let day = 1; day <= 30; day++) {
+        // Calcular la fase lunar (0 a 7) para graficar el SVG pixel
+        // Dividimos la lunación de 29.5 en 8 fases discretas
+        const phasePercentage = ((day - 1) % 29.5) / 29.5;
+        const phaseIndex = Math.floor(phasePercentage * 8);
+        const isSelected = day === selectedLunarDay;
+        
+        // Identificar hitos de la lunación
+        let isMajor = false;
+        let majorLabel = '';
+        if (day === 1) { isMajor = true; majorLabel = '🌑'; }
+        if (day === 8) { isMajor = true; majorLabel = '🌓'; }
+        if (day === 15) { isMajor = true; majorLabel = '🌕'; }
+        if (day === 22) { isMajor = true; majorLabel = '🌗'; }
+
+        gridHtml += `
+          <div class="lunar-day-card ${isSelected ? 'selected' : ''} ${isMajor ? 'major-phase' : ''}" 
+               onclick="selectLunarDay(${day})"
+               title="Día Lunar ${day} ${majorLabel}">
+            <span class="lunar-day-num">${day}</span>
+            <div class="lunar-day-icon">
+              ${generateMoonSvg(phaseIndex)}
+            </div>
+            <span class="lunar-day-num" style="font-size: 6px; color: var(--accent-gold);">${majorLabel}</span>
+          </div>
+        `;
+      }
+
+      container.innerHTML = `
+        <div style="font-family:'Press Start 2P', monospace; font-size: 8px; margin-bottom: 12px; text-align: center; color: var(--text-muted);">
+          LUNACIÓN COMPLETA (29.5 DÍAS)
+        </div>
+        <div class="lunar-grid">
+          ${gridHtml}
+        </div>
+      `;
+
+      updateJournalForLunarDay(selectedLunarDay);
+    }
+
+    // Algoritmo matemático para dibujar el sprite SVG de la Luna en 16x16
+    function generateMoonSvg(phaseIndex, lightColor = 'var(--accent-gold-glow)', shadowColor = 'var(--bg-book)') {
+      let illuminatedPart = '';
+      
+      if (phaseIndex === 0) { // Luna Nueva
+        illuminatedPart = '';
+      } else if (phaseIndex === 1) { // Creciente Cóncava
+        illuminatedPart = `<path d="M 8 1 A 7 7 0 0 1 8 15 A 3 7 0 0 1 8 1 Z" fill="${lightColor}"/>`;
+      } else if (phaseIndex === 2) { // Cuarto Creciente
+        illuminatedPart = `<path d="M 8 1 A 7 7 0 0 1 8 15 Z" fill="${lightColor}"/>`;
+      } else if (phaseIndex === 3) { // Creciente Gibbosa
+        illuminatedPart = `<path d="M 8 1 A 7 7 0 0 1 8 15 A 3 7 0 0 0 8 1 Z" fill="${lightColor}"/>`;
+      } else if (phaseIndex === 4) { // Luna Llena
+        illuminatedPart = `<circle cx="8" cy="8" r="7" fill="${lightColor}"/>`;
+      } else if (phaseIndex === 5) { // Menguante Gibbosa
+        illuminatedPart = `<path d="M 8 1 A 7 7 0 0 0 8 15 A 3 7 0 0 1 8 1 Z" fill="${lightColor}"/>`;
+      } else if (phaseIndex === 6) { // Cuarto Menguante
+        illuminatedPart = `<path d="M 8 1 A 7 7 0 0 0 8 15 Z" fill="${lightColor}"/>`;
+      } else if (phaseIndex === 7) { // Menguante Cóncava
+        illuminatedPart = `<path d="M 8 1 A 7 7 0 0 0 8 15 A 3 7 0 0 0 8 1 Z" fill="${lightColor}"/>`;
+      }
+
+      return `
+        <svg viewBox="0 0 16 16" width="100%" height="100%" class="pixel-icon">
+          <circle cx="8" cy="8" r="7" fill="${shadowColor}" opacity="0.45"/>
+          ${illuminatedPart}
+        </svg>
+      `;
+    }
+
+    // Vista 4: Selección Libre (Grid del Ritual)
+    function renderFreeView(container) {
+      let cellsHtml = '';
+      
+      // 35 celdas para representar un tablero del mes
+      for (let cell = 1; cell <= 35; cell++) {
+        const cellData = savedFreeGrid[cell] || {};
+        let iconsHtml = '';
+        
+        // Agregar iconos pixel de los estados guardados
+        if (cellData.blood) iconsHtml += PIXEL_SVGS.blood;
+        if (cellData.fire) iconsHtml += PIXEL_SVGS.fire;
+        if (cellData.candle) iconsHtml += PIXEL_SVGS.candle;
+        if (cellData.star) iconsHtml += PIXEL_SVGS.star;
+        
+        const isSelected = cell === selectedFreeDay;
+
+        cellsHtml += `
+          <div class="grid-cell ${isSelected ? 'selected' : ''}" 
+               data-cell="${cell}"
+               onmousedown="handleCellMouseDown(${cell}, event)"
+               onmouseenter="handleCellMouseEnter(${cell})"
+               title="Día del Registro ${cell}">
+            <span class="cell-number">${cell}</span>
+            <div class="cell-indicators">
+              ${iconsHtml}
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = `
+        <div class="free-selection-container">
+          <div style="font-family:'Press Start 2P', monospace; font-size: 8px; margin-bottom: 8px; text-align: center; color: var(--text-muted);">
+            PINCEL DE ENERGÍA Y SÍNTOMAS
+          </div>
+          
+          <!-- Herramientas del Pintor -->
+          <div class="toolbox">
+            <button class="tool-btn ${activeTool === 'blood' ? 'active' : ''}" onclick="selectTool('blood')" title="Registrar Sangrado (Gota)">
+              ${PIXEL_SVGS.blood}
+            </button>
+            <button class="tool-btn ${activeTool === 'fire' ? 'active' : ''}" onclick="selectTool('fire')" title="Registrar Cólicos o Dolor (Fuego)">
+              ${PIXEL_SVGS.fire}
+            </button>
+            <button class="tool-btn ${activeTool === 'candle' ? 'active' : ''}" onclick="selectTool('candle')" title="Registrar Ritual o Meditación (Vela)">
+              ${PIXEL_SVGS.candle}
+            </button>
+            <button class="tool-btn ${activeTool === 'star' ? 'active' : ''}" onclick="selectTool('star')" title="Registrar Energía Alta (Estrella)">
+              ${PIXEL_SVGS.star}
+            </button>
+            <button class="tool-btn ${activeTool === 'broom' ? 'active' : ''}" onclick="selectTool('broom')" title="Borrador de Estados">
+              ${PIXEL_SVGS.broom}
+            </button>
+          </div>
+          
+          <div class="paint-grid" id="drag-grid">
+            ${cellsHtml}
+          </div>
+          
+          <p style="font-size: 15px; color: var(--text-muted); margin-top: 10px; text-align: center;">
+            Haz clic y arrastra con el ratón para pintar estados en múltiples días.
+          </p>
+        </div>
+      `;
+
+      // Escuchadores de fin de dibujo
+      const grid = document.getElementById('drag-grid');
+      grid.addEventListener('mouseup', () => { isDrawing = false; });
+      grid.addEventListener('mouseleave', () => { isDrawing = false; });
+      
+      updateJournalForFreeDay(selectedFreeDay);
+    }
+
+    function selectTool(toolName) {
+      audio.playClick();
+      activeTool = toolName;
+      document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+
+    /* ----------------------------------------------------
+       Lógica de Pintura y Arrastre (Drag and Paint)
+       ---------------------------------------------------- */
+    function handleCellMouseDown(cellNum, e) {
+      e.preventDefault();
+      isDrawing = true;
+      audio.playClick();
+      selectedFreeDay = cellNum;
+      
+      // Aplicar el estado de la herramienta
+      applyToolToCell(cellNum);
+      
+      // Volver a renderizar para ver seleccionados y cambios
+      renderFreeView(document.getElementById('left-page-content'));
+    }
+
+    function handleCellMouseEnter(cellNum) {
+      if (isDrawing) {
+        applyToolToCell(cellNum);
+        renderFreeView(document.getElementById('left-page-content'));
+      }
+    }
+
+    function applyToolToCell(cellNum) {
+      if (!savedFreeGrid[cellNum]) {
+        savedFreeGrid[cellNum] = { blood: false, fire: false, candle: false, star: false };
+      }
+
+      if (activeTool === 'broom') {
+        // Borrar todo
+        savedFreeGrid[cellNum] = { blood: false, fire: false, candle: false, star: false };
+      } else {
+        // Alternar el estado seleccionado
+        savedFreeGrid[cellNum][activeTool] = !savedFreeGrid[cellNum][activeTool];
+      }
+
+      // Guardar en almacenamiento local
+      localStorage.setItem('savedFreeGrid', JSON.stringify(savedFreeGrid));
+    }
+
+    /* ----------------------------------------------------
+       Selección de Elementos de los Calendarios
+       ---------------------------------------------------- */
+    function selectSabbat(id) {
+      audio.playShimmer();
+      selectedSabbat = id;
+      
+      // Actualizar vista izquierda para marcar el seleccionado
+      renderStationsView(document.getElementById('left-page-content'));
+    }
+
+    function selectCycleDay(dayNum) {
+      audio.playClick();
+      selectedCycleDay = dayNum;
+      renderCycle28View(document.getElementById('left-page-content'));
+    }
+
+    function selectLunarDay(dayNum) {
+      audio.playClick();
+      selectedLunarDay = dayNum;
+      renderMoonView(document.getElementById('left-page-content'));
+    }
+
+    /* ----------------------------------------------------
+       Actualización del Diario de la Derecha
+       ---------------------------------------------------- */
+    
+    // Diario para Vista 1: Sabbat
+    function updateJournalForSabbat(id) {
+      const data = sabbatsData.find(s => s.id === id);
+      document.getElementById('journal-title').innerText = `${data.symbol} Sabbat: ${data.name}`;
+      
+      const contentArea = document.getElementById('journal-content-area');
+      contentArea.innerHTML = `
+        <div class="journal-section">
+          <div class="section-title">Festividad e Hito</div>
+          <div class="journal-body"><strong>${data.title}</strong> (${data.date})</div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Energía del Momento</div>
+          <div class="journal-body"><em>${data.energy}</em></div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Correspondencia Elemental</div>
+          <div class="journal-body">${data.element}</div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Sabiduría Ancestral</div>
+          <div class="journal-body">${data.description}</div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Ritual Sugerido</div>
+          <div class="journal-body" style="border-left: 2px solid var(--accent-gold); padding-left: 8px;">
+            ${data.ritual}
+          </div>
+        </div>
+      `;
+
+      // Ocultar formulario de notas
+      document.getElementById('notes-form').style.display = 'none';
+    }
+
+    // Diario para Vista 2: Ciclo Menstrual
+    function updateJournalForCycleDay(dayNum) {
+      const phase = cyclePhases.find(p => dayNum >= p.range[0] && dayNum <= p.range[1]);
+      document.getElementById('journal-title').innerText = `Día ${dayNum}: ${phase.name}`;
+      
+      // Niveles simulados de energía por fase para hacerlo interactivo
+      let energyHeart = '💖💖💖💖';
+      let socialState = 'Normal';
+      if (phase.name === 'Menstruación') { energyHeart = '💖'; socialState = 'Ermitaña/Introspección'; }
+      if (phase.name === 'Fase Folicular') { energyHeart = '💖💖💖'; socialState = 'Enérgica/Social'; }
+      if (phase.name === 'Fase Ovulatoria') { energyHeart = '💖💖💖💖💖'; socialState = 'Radiante/Seductora'; }
+      if (phase.name === 'Fase Lútea') { energyHeart = '💖💖'; socialState = 'Intuitiva/Selectiva'; }
+
+      const contentArea = document.getElementById('journal-content-area');
+      contentArea.innerHTML = `
+        <div class="journal-section">
+          <div class="section-title">Arquetipo Femenino</div>
+          <div class="journal-body"><strong>${phase.archetype}</strong></div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Vibración e Influencia</div>
+          <div class="journal-body">${phase.description}</div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Guía de Autocuidado</div>
+          <div class="journal-body" style="border-left: 2px solid ${phase.color}; padding-left: 8px;">
+            ${phase.guidance}
+          </div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Nivel de Energía Vital</div>
+          <div class="journal-body">${energyHeart}</div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Disposición Social</div>
+          <div class="journal-body">${socialState}</div>
+        </div>
+      `;
+
+      // Ocultar formulario de notas
+      document.getElementById('notes-form').style.display = 'none';
+    }
+
+    // Diario para Vista 3: Día Lunar
+    function updateJournalForLunarDay(dayNum) {
+      const phasePercentage = ((dayNum - 1) % 29.5) / 29.5;
+      const phaseIndex = Math.floor(phasePercentage * 8);
+      
+      const lunarPhasesNames = [
+        "Luna Nueva (Fase de Oscuridad)",
+        "Luna Creciente Cóncava",
+        "Cuarto Creciente",
+        "Luna Creciente Gibbosa",
+        "Luna Llena (Plenitud Absoluta)",
+        "Luna Menguante Gibbosa (Diseminadora)",
+        "Cuarto Menguante",
+        "Luna Menguante Cóncava (Balsámica)"
+      ];
+
+      const phaseName = lunarPhasesNames[phaseIndex];
+      document.getElementById('journal-title').innerText = `Día Lunar ${dayNum}`;
+
+      // Interpretaciones místicas simuladas basadas en fases arquetípicas
+      let energyDesc = '';
+      let crystalRitual = '';
+      
+      if (phaseIndex === 0) {
+        energyDesc = "Fase para sembrar intenciones en el vacío. Excelente para descansar y conectar con la introspección profunda. La oscuridad es un útero de potencial puro.";
+        crystalRitual = "Carga piedras negras de protección (turmalina, obsidiana) y escribe una lista de intenciones de lo que manifestarás en este ciclo.";
+      } else if (phaseIndex > 0 && phaseIndex < 4) {
+        energyDesc = "Fase de crecimiento e impulso. La luz crece día a día. Es momento de tomar acciones firmes, regar tus proyectos y superar la inercia.";
+        crystalRitual = "Lleva contigo cristales de cuarzo verde o aventurina para estimular la prosperidad y el éxito de tus esfuerzos.";
+      } else if (phaseIndex === 4) {
+        energyDesc = "El clímax de la lunación. Energía expansiva, mágica y creativa desbordante. Tus emociones se magnifican bajo el brillo de la luz lunar total.";
+        crystalRitual = "Carga tus cristales (sobre todo piedra de luna, amatista y cuarzo blanco) bajo la luz de la luna llena toda la noche. Prepara agua de luna.";
+      } else {
+        energyDesc = "Fase de limpieza, entrega y desapego. La luz decrece. Es momento de desintoxicar el cuerpo, limpiar tus espacios y soltar lo que ya no sirve.";
+        crystalRitual = "Limpia tus cristales físicamente y pásalos por el humo de un sahumerio de salvia o copal para purificar su energía.";
+      }
+
+      const contentArea = document.getElementById('journal-content-area');
+      contentArea.innerHTML = `
+        <div class="journal-section">
+          <div class="section-title">Fase Astronómica Dominante</div>
+          <div class="journal-body"><strong>${phaseName}</strong></div>
+        </div>
+        <div class="journal-section" style="margin: 10px 0; text-align: center;">
+          <div style="width: 50px; height: 50px; margin: 0 auto;">
+            ${generateMoonSvg(phaseIndex, 'var(--accent-gold-glow)', 'var(--bg-book)')}
+          </div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Influencia Mística</div>
+          <div class="journal-body">${energyDesc}</div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Ritual con Cristales</div>
+          <div class="journal-body" style="border-left: 2px solid var(--accent-gold-glow); padding-left: 8px;">
+            ${crystalRitual}
+          </div>
+        </div>
+      `;
+
+      // Ocultar formulario de notas
+      document.getElementById('notes-form').style.display = 'none';
+    }
+
+    // Diario para Vista 4: Selección Libre e Inyección del Editor de Notas
+    function updateJournalForFreeDay(dayNum) {
+      document.getElementById('journal-title').innerText = `Registro Diario: Día ${dayNum}`;
+      
+      const cellData = savedFreeGrid[dayNum] || {};
+      let statuses = [];
+      
+      if (cellData.blood) statuses.push(`<span class="stat-badge">🩸 Sangrado</span>`);
+      if (cellData.fire) statuses.push(`<span class="stat-badge">🔥 Cólicos</span>`);
+      if (cellData.candle) statuses.push(`<span class="stat-badge">🕯️ Ritual</span>`);
+      if (cellData.star) statuses.push(`<span class="stat-badge">🌟 Energía Alta</span>`);
+      
+      const textNotes = savedNotes[`day_${dayNum}`] || "";
+
+      const contentArea = document.getElementById('journal-content-area');
+      contentArea.innerHTML = `
+        <div class="journal-section">
+          <div class="section-title">Estados Registrados</div>
+          <div class="journal-stats">
+            ${statuses.length > 0 ? statuses.join(' ') : '<span style="color: var(--text-muted);">Sin estados registrados hoy. Usa la paleta de pinceles de la izquierda para marcar eventos.</span>'}
+          </div>
+        </div>
+        
+        <div class="journal-section" style="margin-top: 15px;">
+          <div class="section-title">Notas Guardadas en Grimorio</div>
+          <div class="journal-body" style="background: var(--bg-book); padding: 8px; border: 1px dashed var(--border-color); white-space: pre-wrap; min-height: 50px;">${textNotes ? textNotes : '<span style="color: var(--text-muted); font-style: italic;">No hay apuntes para este día. Escribe en el Diario de Sombras abajo para dejar constancia.</span>'}</div>
+        </div>
+      `;
+
+      // Mostrar el formulario para editar notas
+      const notesForm = document.getElementById('notes-form');
+      notesForm.style.display = 'flex';
+      
+      const notesInput = document.getElementById('shadow-notes-input');
+      notesInput.value = textNotes;
+    }
+
+    /* ----------------------------------------------------
+       Guardado de Notas en localStorage
+       ---------------------------------------------------- */
+    function saveNotes(e) {
+      e.preventDefault();
+      
+      if (currentView !== 'free') return;
+      
+      const noteContent = document.getElementById('shadow-notes-input').value;
+      savedNotes[`day_${selectedFreeDay}`] = noteContent;
+      
+      localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
+      
+      // Reproducir sonido exitoso
+      audio.playSuccess();
+      
+      // Mostrar Toast Retro
+      showToast("Notas guardadas en Grimorio");
+      
+      // Actualizar diario
+      updateJournalForFreeDay(selectedFreeDay);
+    }
+
+    /* ----------------------------------------------------
+       Notificaciones Retro (Toast)
+       ---------------------------------------------------- */
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = text.toUpperCase();
+      
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+
+    /* ----------------------------------------------------
+       Limpiar Todo el Historial
+       ---------------------------------------------------- */
+    function clearAllData() {
+      if (confirm("¿Estás segura de querer borrar todas las notas y registros de tu Grimorio? Esta acción no se puede deshacer.")) {
+        savedFreeGrid = {};
+        savedNotes = {};
+        localStorage.removeItem('savedFreeGrid');
+        localStorage.removeItem('savedNotes');
+        
+        audio.playSuccess();
+        showToast("Grimorio purificado");
+        
+        // Volver a renderizar la vista actual
+        if (currentView === 'free') {
+          renderFreeView(document.getElementById('left-page-content'));
+        }
+      }
+    }
+
+    /* ----------------------------------------------------
+       Inicialización de la Aplicación
+       ---------------------------------------------------- */
+    window.addEventListener('DOMContentLoaded', () => {
+      // Cargar vista de estaciones por defecto
+      renderStationsView(document.getElementById('left-page-content'));
+    });
+  </script>
+</body>
+</html>
