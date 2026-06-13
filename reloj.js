@@ -25,14 +25,14 @@ function iniciarReloj() {
 function inicializarInputsSimulados() {
   const dateInput = document.getElementById('inputFechaSimulada');
   const timeInput = document.getElementById('inputHoraSimulada');
-  
+
   if (dateInput && timeInput) {
     const ahora = new Date();
     const yyyy = ahora.getFullYear();
     const mm = String(ahora.getMonth() + 1).padStart(2, '0');
     const dd = String(ahora.getDate()).padStart(2, '0');
     dateInput.value = `${yyyy}-${mm}-${dd}`;
-    
+
     const hh = String(ahora.getHours()).padStart(2, '0');
     const min = String(ahora.getMinutes()).padStart(2, '0');
     timeInput.value = `${hh}:${min}`;
@@ -43,14 +43,14 @@ function inicializarInputsSimulados() {
 function iniciarViajeTemporal() {
   const dateInput = document.getElementById('inputFechaSimulada');
   const timeInput = document.getElementById('inputHoraSimulada');
-  
+
   if (dateInput && timeInput && dateInput.value && timeInput.value) {
     const [year, month, day] = dateInput.value.split('-').map(Number);
     const [hours, minutes] = timeInput.value.split(':').map(Number);
-    
+
     fechaActiva = new Date(year, month - 1, day, hours, minutes, 0);
     esTiempoSimulado = true;
-    
+
     // Actualizar inmediatamente
     actualizarReloj();
   }
@@ -100,7 +100,7 @@ function obtenerSabbatActivo(ahora) {
     let diff = s.day - dayOfYear;
     if (diff < -182) diff += 365;
     if (diff > 182) diff -= 365;
-    
+
     if (Math.abs(diff) < Math.abs(minDiff)) {
       minDiff = diff;
       closest = s;
@@ -126,6 +126,7 @@ function actualizarDiorama(fecha) {
   // Quitar clases anteriores del body y aplicar la nueva
   document.body.classList.remove('cielo-amanecer', 'cielo-dia', 'cielo-atardecer', 'cielo-noche');
   document.body.classList.add(claseCielo);
+  document.body.classList.add('litha-verano');
 }
 
 function actualizarReloj() {
@@ -148,31 +149,14 @@ function actualizarReloj() {
   const dia = ahora.getDate();
   const val = mes * 100 + dia;
 
-  let estacion = "Invierno";
-  let icono = "❄️";
+  // FORZADO DE ESTADO: Verano / Litha de forma fija para visualización inmediata
+  let estacion = "Verano";
+  let icono = "☀️";
+  const sabbatInfo = { name: "Solsticio de Litha", icon: "☀️", isActive: true };
 
-  if (val >= 320 && val <= 620) {
-    estacion = "Primavera";
-    icono = "🌱";
-  } else if (val >= 621 && val <= 921) {
-    estacion = "Verano";
-    icono = "☀️";
-  } else if (val >= 922 && val <= 1220) {
-    estacion = "Otoño";
-    icono = "🍂";
-  } else {
-    estacion = "Invierno";
-    icono = "❄️";
-  }
-
-  const sabbatInfo = obtenerSabbatActivo(ahora);
   const cicloTierraEl = document.getElementById('cicloTierra');
   if (cicloTierraEl) {
-    if (sabbatInfo.isActive) {
-      cicloTierraEl.innerText = `${estacion} (${sabbatInfo.name})`;
-    } else {
-      cicloTierraEl.innerText = `${estacion} (Cercano: ${sabbatInfo.icon} ${sabbatInfo.name})`;
-    }
+    cicloTierraEl.innerText = `${estacion} (${sabbatInfo.name})`;
   }
 
   // 3. Calendario sobremesa: calMes, calDia, calSemana

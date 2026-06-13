@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal del Ciclo - Grimorio Místico</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16' style='image-rendering:pixelated'%3E%3Crect x='2' y='1' width='12' height='14' fill='%23382216' stroke='%231b0f0a' stroke-width='1'/%3E%3Crect x='1' y='3' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='7' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='11' width='2' height='2' fill='%237c8389'/%3E%3Crect x='7' y='6' width='3' height='3' fill='%23d4af37'/%3E%3Crect x='8' y='7' width='1' height='1' fill='%23ffee7d'/%3E%3C/svg%3E">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16' style='image-rendering:pixelated'%3E%3Crect x='2' y='1' width='12' height='14' fill='%23382216' stroke='%231b0f0a' stroke-width='1'/%3E%3Crect x='1' y='3' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='7' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='11' width='2' height='2' fill='%237c8389'/%3E%3Crect x='7' y='6' width='3' height='3' fill='%23d4af37'/%3E%3Crect x='8' y='7' width='1' height='1' fill='%23ffee7d'/%3E%3C/svg%3E">
   <!-- Google Fonts for Gothic Medieval and Pixel Vibes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +16,7 @@
   <link rel="stylesheet" href="estilos-dashboard.css">
 </head>
 
-<body>
+<body class="litha-verano">
 
   <!-- Diorama Vivo (Hito A) -->
   <div class="diorama-fondo">
@@ -23,6 +24,17 @@
     <div class="capa-estrellas" id="starsBg"></div>
     <div class="capa-horizonte" id="horizonBg"></div>
     <div class="capa-clima" id="weatherBg"></div>
+    <!-- Luciérnagas Estivales -->
+    <div class="capa-luciernagas" id="luciernagasBg">
+      <div class="luciernaga luciernaga-1"></div>
+      <div class="luciernaga luciernaga-2"></div>
+      <div class="luciernaga luciernaga-3"></div>
+      <div class="luciernaga luciernaga-4"></div>
+      <div class="luciernaga luciernaga-5"></div>
+      <div class="luciernaga luciernaga-6"></div>
+      <div class="luciernaga luciernaga-7"></div>
+      <div class="luciernaga luciernaga-8"></div>
+    </div>
   </div>
 
   <div class="interfaz-bloque">
@@ -75,16 +87,19 @@
             onclick="obtenerUbicacion()">
             📍 Sincronizar GPS
           </button>
-          
+
           <div class="controles-tiempo-simulado" style="display: flex; gap: 8px; margin: 10px 0;">
-            <input type="date" id="inputFechaSimulada" class="pixel-input-form" onchange="iniciarViajeTemporal()" style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); width: 50%;">
-            <input type="time" id="inputHoraSimulada" class="pixel-input-form" onchange="iniciarViajeTemporal()" style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); width: 50%;">
+            <input type="date" id="inputFechaSimulada" class="pixel-input-form" onchange="iniciarViajeTemporal()"
+              style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); width: 50%;">
+            <input type="time" id="inputHoraSimulada" class="pixel-input-form" onchange="iniciarViajeTemporal()"
+              style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); width: 50%;">
           </div>
         </div>
 
         <!-- Botones de Enlace del Portal -->
         <div class="btn-row">
-          <a href="grimorio-activo.html" class="pixel-btn" style="background-color: var(--accent-gold); color: #1b0f0a;">
+          <a href="grimorio-activo.html" class="pixel-btn"
+            style="background-color: var(--accent-gold); color: #1b0f0a;">
             🔮 Abrir Grimorio
           </a>
           <a href="documentacion.html" class="pixel-btn" style="background-color: #7c8389; color: #1b0f0a;">
