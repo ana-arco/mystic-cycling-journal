@@ -1,54 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grimorio del Ciclo Místico y Lunar</title>
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16' style='image-rendering:pixelated'%3E%3Crect x='2' y='1' width='12' height='14' fill='%23382216' stroke='%231b0f0a' stroke-width='1'/%3E%3Crect x='1' y='3' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='7' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='11' width='2' height='2' fill='%237c8389'/%3E%3Crect x='7' y='6' width='3' height='3' fill='%23d4af37'/%3E%3Crect x='8' y='7' width='1' height='1' fill='%23ffee7d'/%3E%3C/svg%3E">
+
   <!-- Google Fonts for Pixel Art & Medieval vibes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Press+Start+2P&family=VT323&display=swap"
+    rel="stylesheet">
+
   <style>
     /* ==========================================
        1. VARIABLES Y SISTEMA DE TEMAS (CSS VARIABLES)
        ========================================== */
     :root {
       /* Tema por defecto: Pergamino Cozy */
-      --bg-page: #d4c5a1; /* Fondo cálido madera/mesa */
-      --bg-book: #f4eccf; /* Pergamino claro */
-      --bg-darker: #e2d7b2; /* Pergamino sombreado */
-      --text-main: #3c2a1a; /* Marrón oscuro cuero */
-      --text-muted: #7d5c41; /* Marrón medio */
-      --border-color: #2e1d11; /* Borde oscuro pixel */
-      
+      --bg-page: #d4c5a1;
+      /* Fondo cálido madera/mesa */
+      --bg-book: #f4eccf;
+      /* Pergamino claro */
+      --bg-darker: #e2d7b2;
+      /* Pergamino sombreado */
+      --text-main: #3c2a1a;
+      /* Marrón oscuro cuero */
+      --text-muted: #7d5c41;
+      /* Marrón medio */
+      --border-color: #2e1d11;
+      /* Borde oscuro pixel */
+
       --accent-gold: #b3861b;
       --accent-gold-glow: #ffd700;
       --accent-red: #a32e2e;
       --accent-green: #3b7e46;
       --accent-purple: #5c2d7a;
-      
+
       --shadow-color: rgba(46, 29, 17, 0.25);
-      
+
       /* Animaciones */
       --retro-transition: all 0.15s steps(4);
     }
 
     [data-theme="stone"] {
       /* Tema Alternativo: Piedra Arcana Nocturna */
-      --bg-page: #0f0a18; /* Espacio exterior / calabozo oscuro */
-      --bg-book: #1f182c; /* Piedra oscura */
-      --bg-darker: #150f1f; /* Huecos oscuros */
-      --text-main: #e6dbf3; /* Lilac luminoso */
-      --text-muted: #8d79a5; /* Morado apagado */
-      --border-color: #45355c; /* Borde runa */
-      
+      --bg-page: #0f0a18;
+      /* Espacio exterior / calabozo oscuro */
+      --bg-book: #1f182c;
+      /* Piedra oscura */
+      --bg-darker: #150f1f;
+      /* Huecos oscuros */
+      --text-main: #e6dbf3;
+      /* Lilac luminoso */
+      --text-muted: #8d79a5;
+      /* Morado apagado */
+      --border-color: #45355c;
+      /* Borde runa */
+
       --accent-gold: #f4be37;
       --accent-gold-glow: #ffee7d;
       --accent-red: #f34b4b;
       --accent-green: #4ade80;
       --accent-purple: #a855f7;
-      
+
       --shadow-color: rgba(0, 0, 0, 0.6);
     }
 
@@ -84,7 +102,10 @@
       background-image: radial-gradient(var(--accent-purple) 1px, transparent 1px);
     }
 
-    h1, h2, h3, h4 {
+    h1,
+    h2,
+    h3,
+    h4 {
       font-family: 'Cinzel', serif;
       font-weight: 700;
       letter-spacing: 1px;
@@ -95,7 +116,7 @@
        ========================================== */
     .pixel-border-4 {
       border: 4px solid var(--border-color);
-      box-shadow: 
+      box-shadow:
         0 4px 0 -4px var(--bg-book),
         4px 0 0 -4px var(--bg-book),
         -4px 0 0 -4px var(--bg-book),
@@ -241,6 +262,7 @@
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto;
       }
+
       .grimoire-spine {
         height: 6px !important;
         width: 100% !important;
@@ -272,8 +294,9 @@
       bottom: 0;
       left: -8px;
       width: 8px;
-      background: linear-gradient(to right, transparent, rgba(0,0,0,0.15));
+      background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.15));
     }
+
     .grimoire-spine::after {
       content: '';
       position: absolute;
@@ -281,7 +304,7 @@
       bottom: 0;
       right: -8px;
       width: 8px;
-      background: linear-gradient(to left, transparent, rgba(0,0,0,0.15));
+      background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.15));
     }
 
     .page-title {
@@ -402,7 +425,7 @@
       justify-content: center;
       text-align: center;
       padding: 10px;
-      box-shadow: inset 0 0 8px rgba(0,0,0,0.1);
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.1);
       pointer-events: none;
     }
 
@@ -729,11 +752,26 @@
     .pixel-icon {
       image-rendering: pixelated;
     }
-    .icon-blood { fill: var(--accent-red); }
-    .icon-fire { fill: var(--accent-red); }
-    .icon-candle { fill: var(--text-main); }
-    .icon-star { fill: var(--accent-gold-glow); }
-    .icon-broom { fill: var(--accent-gold); }
+
+    .icon-blood {
+      fill: var(--accent-red);
+    }
+
+    .icon-fire {
+      fill: var(--accent-red);
+    }
+
+    .icon-candle {
+      fill: var(--text-main);
+    }
+
+    .icon-star {
+      fill: var(--accent-gold-glow);
+    }
+
+    .icon-broom {
+      fill: var(--accent-gold);
+    }
 
     /* Estrellas decorativas del fondo */
     .star-bg {
@@ -748,11 +786,19 @@
     }
 
     @keyframes blink {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 0.9; }
+
+      0%,
+      100% {
+        opacity: 0.2;
+      }
+
+      50% {
+        opacity: 0.9;
+      }
     }
   </style>
 </head>
+
 <body data-theme="parchment">
 
   <!-- Estrellas de fondo para piedra oscura -->
@@ -769,14 +815,15 @@
       <span style="font-size: 32px;">✨</span>
     </h1>
     <p class="header-subtitle">Registros Lunares y de la Tierra</p>
-    
+
     <div class="controls-row">
-      <a href="index.html" class="pixel-btn" style="text-decoration: none; background-color: var(--accent-purple); color: white;">🏰 Ir al Portal</a>
+      <a href="index.html" class="pixel-btn"
+        style="text-decoration: none; background-color: var(--accent-purple); color: white;">🏰 Ir al Portal</a>
       <!-- Mute / Unmute Button -->
       <button class="pixel-btn" id="audio-toggle" onclick="toggleAudio()">
         <span id="audio-icon">🔊</span> Sonido: ON
       </button>
-      
+
       <!-- Theme Switcher -->
       <button class="pixel-btn" id="theme-toggle" onclick="toggleTheme()">
         📖 Tema: Pergamino
@@ -791,7 +838,7 @@
 
   <!-- Contenedor Principal del Libro -->
   <div class="grimoire-container">
-    
+
     <!-- Pestañas del Grimorio (Marcadores) -->
     <div class="grimoire-tabs">
       <button class="grimoire-tab active" onclick="switchView('stations', this)">🌱 Estaciones</button>
@@ -802,13 +849,13 @@
 
     <!-- El Libro Abierto -->
     <div class="grimoire-book pixel-border-4">
-      
+
       <!-- Página Izquierda: Calendario Dinámico -->
       <div class="grimoire-page">
         <h2 class="page-title" id="left-page-title">
           <span>🌱</span> Vista por Estaciones
         </h2>
-        
+
         <div class="page-content-wrapper" id="left-page-content">
           <!-- El contenido de la vista activa se renderizará aquí dinámicamente -->
         </div>
@@ -822,30 +869,28 @@
         <h2 class="page-title">
           <span>📖</span> Diario del Grimorio
         </h2>
-        
+
         <div class="journal-frame">
           <div class="journal-decor">
             <span class="decor-corner">✦</span>
             <span class="decor-corner">✦</span>
           </div>
-          
+
           <h3 class="journal-title" id="journal-title">Selecciona un elemento</h3>
-          
+
           <div id="journal-content-area">
             <!-- Detalles cargados dinámicamente -->
             <p style="text-align: center; color: var(--text-muted); margin-top: 40px;">
-              Haz clic en cualquier nodo de la Rueda del Año, gema del ciclo menstrual o día lunar para leer el conocimiento místico guardado.
+              Haz clic en cualquier nodo de la Rueda del Año, gema del ciclo menstrual o día lunar para leer el
+              conocimiento místico guardado.
             </p>
           </div>
 
           <!-- Formulario de notas para la vista activa -->
           <form class="shadow-notes-form" id="notes-form" onsubmit="saveNotes(event)" style="display: none;">
             <div class="section-title">Apuntes del Diario de Sombras</div>
-            <textarea 
-              class="shadow-notes-textarea" 
-              id="shadow-notes-input" 
-              placeholder="Escribe tus reflexiones, síntomas, pociones o rituales realizados hoy..."
-            ></textarea>
+            <textarea class="shadow-notes-textarea" id="shadow-notes-input"
+              placeholder="Escribe tus reflexiones, síntomas, pociones o rituales realizados hoy..."></textarea>
             <button type="submit" class="pixel-btn" style="width: 100%;">
               💾 Guardar en Grimorio
             </button>
@@ -878,9 +923,9 @@
     let selectedCycleDay = 1;
     let selectedLunarDay = 1;
     let selectedFreeDay = 1;
-    
+
     // Herramienta activa para Vista de Pintado Libre
-    let activeTool = 'blood'; 
+    let activeTool = 'blood';
     let isDrawing = false;
 
     // Datos guardados del usuario (Pintura y Notas)
@@ -927,7 +972,7 @@
         const now = this.ctx.currentTime;
         // Escala pentatónica mágica retro (Arpegio rápido)
         const notes = [523.25, 659.25, 783.99, 987.77, 1046.50];
-        
+
         notes.forEach((freq, index) => {
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
@@ -1009,7 +1054,7 @@
       const body = document.body;
       const currentTheme = body.getAttribute('data-theme');
       const btn = document.getElementById('theme-toggle');
-      
+
       if (currentTheme === 'parchment') {
         body.setAttribute('data-theme', 'stone');
         btn.innerHTML = '🔮 Tema: Runa Oscura';
@@ -1024,13 +1069,13 @@
        ---------------------------------------------------- */
     const PIXEL_SVGS = {
       blood: `<svg viewBox="0 0 8 8" class="pixel-icon icon-blood"><rect x="3" y="0" width="2" height="1"/><rect x="2" y="1" width="4" height="1"/><rect x="1" y="2" width="6" height="1"/><rect x="0" y="3" width="8" height="3"/><rect x="1" y="6" width="6" height="1"/><rect x="2" y="7" width="4" height="1"/><rect x="2" y="3" width="1" height="2" fill="#fff" opacity="0.65"/></svg>`,
-      
+
       fire: `<svg viewBox="0 0 8 8" class="pixel-icon icon-fire"><rect x="3" y="0" width="2" height="1"/><rect x="2" y="1" width="4" height="2"/><rect x="1" y="3" width="6" height="2"/><rect x="0" y="5" width="8" height="2"/><rect x="1" y="7" width="6" height="1"/><rect x="3" y="4" width="2" height="2" fill="#ffb834"/></svg>`,
-      
+
       candle: `<svg viewBox="0 0 8 8" class="pixel-icon icon-candle"><rect x="3" y="0" width="2" height="1" fill="var(--accent-gold-glow)"/><rect x="3" y="1" width="2" height="1" fill="var(--accent-gold)"/><rect x="2" y="2" width="4" height="5"/><rect x="3" y="3" width="2" height="1" fill="#fff" opacity="0.7"/><rect x="1" y="7" width="6" height="1" fill="var(--border-color)"/></svg>`,
-      
+
       star: `<svg viewBox="0 0 8 8" class="pixel-icon icon-star"><rect x="3" y="0" width="2" height="1"/><rect x="2" y="1" width="4" height="1"/><rect x="1" y="2" width="6" height="1"/><rect x="0" y="3" width="8" height="2"/><rect x="1" y="5" width="6" height="1"/><rect x="2" y="6" width="4" height="1"/><rect x="3" y="7" width="2" height="1"/></svg>`,
-      
+
       broom: `<svg viewBox="0 0 8 8" class="pixel-icon icon-broom"><rect x="6" y="0" width="2" height="2" fill="var(--text-muted)"/><rect x="5" y="2" width="2" height="1" fill="var(--text-muted)"/><rect x="4" y="3" width="2" height="1" fill="var(--text-muted)"/><rect x="3" y="4" width="2" height="1" fill="var(--text-muted)"/><rect x="1" y="5" width="3" height="2" fill="var(--accent-gold)"/><rect x="0" y="7" width="5" height="1" fill="var(--accent-gold)"/></svg>`
     };
 
@@ -1158,18 +1203,18 @@
     function switchView(viewName, tabEl) {
       if (currentView === viewName) return;
       currentView = viewName;
-      
+
       // Reproducir sonido de cambio
       audio.playBookFlip();
-      
+
       // Actualizar pestañas
       document.querySelectorAll('.grimoire-tab').forEach(t => t.classList.remove('active'));
       tabEl.classList.add('active');
-      
+
       // Actualizar título y contenido del lado izquierdo
       const leftTitle = document.getElementById('left-page-title');
       const leftContent = document.getElementById('left-page-content');
-      
+
       if (viewName === 'stations') {
         leftTitle.innerHTML = `<span>🌱</span> Rueda de las Estaciones`;
         renderStationsView(leftContent);
@@ -1188,11 +1233,11 @@
     /* ----------------------------------------------------
        Renders de las Páginas del Calendario (Página Izquierda)
        ---------------------------------------------------- */
-    
+
     // Vista 1: Rueda de las Estaciones (Sabbats)
     function renderStationsView(container) {
       let nodesHtml = '';
-      
+
       sabbatsData.forEach(s => {
         const isSelected = selectedSabbat === s.id;
         nodesHtml += `
@@ -1239,7 +1284,7 @@
           </svg>
         </div>
       `;
-      
+
       // Cargar detalles de Sabbat activo por defecto en la derecha
       updateJournalForSabbat(selectedSabbat);
     }
@@ -1254,7 +1299,7 @@
       for (let day = 1; day <= 28; day++) {
         // Encontrar la fase a la que pertenece
         const phase = cyclePhases.find(p => day >= p.range[0] && day <= p.range[1]);
-        
+
         // Calcular posición en el círculo (partiendo desde las 12 en sentido horario)
         const angle = (day - 1) * (360 / 28) - 90;
         const rad = (angle * Math.PI) / 180;
@@ -1313,14 +1358,14 @@
     // Vista 3: Ciclo de la Luna (Lunación)
     function renderMoonView(container) {
       let gridHtml = '';
-      
+
       for (let day = 1; day <= 30; day++) {
         // Calcular la fase lunar (0 a 7) para graficar el SVG pixel
         // Dividimos la lunación de 29.5 en 8 fases discretas
         const phasePercentage = ((day - 1) % 29.5) / 29.5;
         const phaseIndex = Math.floor(phasePercentage * 8);
         const isSelected = day === selectedLunarDay;
-        
+
         // Identificar hitos de la lunación
         let isMajor = false;
         let majorLabel = '';
@@ -1357,7 +1402,7 @@
     // Algoritmo matemático para dibujar el sprite SVG de la Luna en 16x16
     function generateMoonSvg(phaseIndex, lightColor = 'var(--accent-gold-glow)', shadowColor = 'var(--bg-book)') {
       let illuminatedPart = '';
-      
+
       if (phaseIndex === 0) { // Luna Nueva
         illuminatedPart = '';
       } else if (phaseIndex === 1) { // Creciente Cóncava
@@ -1387,18 +1432,18 @@
     // Vista 4: Selección Libre (Grid del Ritual)
     function renderFreeView(container) {
       let cellsHtml = '';
-      
+
       // 35 celdas para representar un tablero del mes
       for (let cell = 1; cell <= 35; cell++) {
         const cellData = savedFreeGrid[cell] || {};
         let iconsHtml = '';
-        
+
         // Agregar iconos pixel de los estados guardados
         if (cellData.blood) iconsHtml += PIXEL_SVGS.blood;
         if (cellData.fire) iconsHtml += PIXEL_SVGS.fire;
         if (cellData.candle) iconsHtml += PIXEL_SVGS.candle;
         if (cellData.star) iconsHtml += PIXEL_SVGS.star;
-        
+
         const isSelected = cell === selectedFreeDay;
 
         cellsHtml += `
@@ -1454,7 +1499,7 @@
       const grid = document.getElementById('drag-grid');
       grid.addEventListener('mouseup', () => { isDrawing = false; });
       grid.addEventListener('mouseleave', () => { isDrawing = false; });
-      
+
       updateJournalForFreeDay(selectedFreeDay);
     }
 
@@ -1473,10 +1518,10 @@
       isDrawing = true;
       audio.playClick();
       selectedFreeDay = cellNum;
-      
+
       // Aplicar el estado de la herramienta
       applyToolToCell(cellNum);
-      
+
       // Volver a renderizar para ver seleccionados y cambios
       renderFreeView(document.getElementById('left-page-content'));
     }
@@ -1511,7 +1556,7 @@
     function selectSabbat(id) {
       audio.playShimmer();
       selectedSabbat = id;
-      
+
       // Actualizar vista izquierda para marcar el seleccionado
       renderStationsView(document.getElementById('left-page-content'));
     }
@@ -1531,12 +1576,12 @@
     /* ----------------------------------------------------
        Actualización del Diario de la Derecha
        ---------------------------------------------------- */
-    
+
     // Diario para Vista 1: Sabbat
     function updateJournalForSabbat(id) {
       const data = sabbatsData.find(s => s.id === id);
       document.getElementById('journal-title').innerText = `${data.symbol} Sabbat: ${data.name}`;
-      
+
       const contentArea = document.getElementById('journal-content-area');
       contentArea.innerHTML = `
         <div class="journal-section">
@@ -1571,7 +1616,7 @@
     function updateJournalForCycleDay(dayNum) {
       const phase = cyclePhases.find(p => dayNum >= p.range[0] && dayNum <= p.range[1]);
       document.getElementById('journal-title').innerText = `Día ${dayNum}: ${phase.name}`;
-      
+
       // Niveles simulados de energía por fase para hacerlo interactivo
       let energyHeart = '💖💖💖💖';
       let socialState = 'Normal';
@@ -1614,7 +1659,7 @@
     function updateJournalForLunarDay(dayNum) {
       const phasePercentage = ((dayNum - 1) % 29.5) / 29.5;
       const phaseIndex = Math.floor(phasePercentage * 8);
-      
+
       const lunarPhasesNames = [
         "Luna Nueva (Fase de Oscuridad)",
         "Luna Creciente Cóncava",
@@ -1632,7 +1677,7 @@
       // Interpretaciones místicas simuladas basadas en fases arquetípicas
       let energyDesc = '';
       let crystalRitual = '';
-      
+
       if (phaseIndex === 0) {
         energyDesc = "Fase para sembrar intenciones en el vacío. Excelente para descansar y conectar con la introspección profunda. La oscuridad es un útero de potencial puro.";
         crystalRitual = "Carga piedras negras de protección (turmalina, obsidiana) y escribe una lista de intenciones de lo que manifestarás en este ciclo.";
@@ -1677,15 +1722,15 @@
     // Diario para Vista 4: Selección Libre e Inyección del Editor de Notas
     function updateJournalForFreeDay(dayNum) {
       document.getElementById('journal-title').innerText = `Registro Diario: Día ${dayNum}`;
-      
+
       const cellData = savedFreeGrid[dayNum] || {};
       let statuses = [];
-      
+
       if (cellData.blood) statuses.push(`<span class="stat-badge">🩸 Sangrado</span>`);
       if (cellData.fire) statuses.push(`<span class="stat-badge">🔥 Cólicos</span>`);
       if (cellData.candle) statuses.push(`<span class="stat-badge">🕯️ Ritual</span>`);
       if (cellData.star) statuses.push(`<span class="stat-badge">🌟 Energía Alta</span>`);
-      
+
       const textNotes = savedNotes[`day_${dayNum}`] || "";
 
       const contentArea = document.getElementById('journal-content-area');
@@ -1706,7 +1751,7 @@
       // Mostrar el formulario para editar notas
       const notesForm = document.getElementById('notes-form');
       notesForm.style.display = 'flex';
-      
+
       const notesInput = document.getElementById('shadow-notes-input');
       notesInput.value = textNotes;
     }
@@ -1716,20 +1761,20 @@
        ---------------------------------------------------- */
     function saveNotes(e) {
       e.preventDefault();
-      
+
       if (currentView !== 'free') return;
-      
+
       const noteContent = document.getElementById('shadow-notes-input').value;
       savedNotes[`day_${selectedFreeDay}`] = noteContent;
-      
+
       localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
-      
+
       // Reproducir sonido exitoso
       audio.playSuccess();
-      
+
       // Mostrar Toast Retro
       showToast("Notas guardadas en Grimorio");
-      
+
       // Actualizar diario
       updateJournalForFreeDay(selectedFreeDay);
     }
@@ -1740,7 +1785,7 @@
     function showToast(text) {
       const toast = document.getElementById('toast');
       document.getElementById('toast-text').innerText = text.toUpperCase();
-      
+
       toast.classList.add('show');
       setTimeout(() => {
         toast.classList.remove('show');
@@ -1756,10 +1801,10 @@
         savedNotes = {};
         localStorage.removeItem('savedFreeGrid');
         localStorage.removeItem('savedNotes');
-        
+
         audio.playSuccess();
         showToast("Grimorio purificado");
-        
+
         // Volver a renderizar la vista actual
         if (currentView === 'free') {
           renderFreeView(document.getElementById('left-page-content'));
@@ -1776,4 +1821,5 @@
     });
   </script>
 </body>
+
 </html>

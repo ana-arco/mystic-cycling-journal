@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manifiesto y Leyenda - Grimorio Cíclico</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16' style='image-rendering:pixelated'%3E%3Crect x='2' y='1' width='12' height='14' fill='%23382216' stroke='%231b0f0a' stroke-width='1'/%3E%3Crect x='1' y='3' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='7' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='11' width='2' height='2' fill='%237c8389'/%3E%3Crect x='7' y='6' width='3' height='3' fill='%23d4af37'/%3E%3Crect x='8' y='7' width='1' height='1' fill='%23ffee7d'/%3E%3C/svg%3E">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16' style='image-rendering:pixelated'%3E%3Crect x='2' y='1' width='12' height='14' fill='%23382216' stroke='%231b0f0a' stroke-width='1'/%3E%3Crect x='1' y='3' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='7' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='11' width='2' height='2' fill='%237c8389'/%3E%3Crect x='7' y='6' width='3' height='3' fill='%23d4af37'/%3E%3Crect x='8' y='7' width='1' height='1' fill='%23ffee7d'/%3E%3C/svg%3E">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Cinzel:wght@700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-dark: #120c06;
@@ -132,7 +135,8 @@
             text-align: justify;
         }
 
-        ul, ol {
+        ul,
+        ol {
             margin-bottom: 20px;
             padding-left: 24px;
             line-height: 1.4;
@@ -222,9 +226,10 @@
             <button class="tab-btn" onclick="switchPage('arquitectura', this)">3. LA INFRAESTRUCTURA</button>
             <button class="tab-btn" onclick="switchPage('hojaruta', this)">4. COMPÁS DINÁMICO Y ROADMAP</button>
             <button class="tab-btn" onclick="switchPage('brainstorm', this)">💡 BANCO DE IDEAS (TDAH COZY)</button>
-            
+
             <!-- Botón de Retorno al Portal -->
-            <a href="index.html" class="tab-btn" style="background-color: var(--magic-purple); color: white; margin-left: auto; border-left: 4px solid #000;">
+            <a href="index.html" class="tab-btn"
+                style="background-color: var(--magic-purple); color: white; margin-left: auto; border-left: 4px solid #000;">
                 🏰 VOLVER
             </a>
         </div>
@@ -232,70 +237,98 @@
         <!-- PÁGINA 1: Manifiesto y Visión -->
         <div id="vision" class="page-content active">
             <h2>Manifiesto: Soberanía Ginecológica y Tecnológica</h2>
-            
-            <p>En la era del silicio y la hiperconectividad, el registro de la salud reproductiva femenina se ha transformado en un jugoso botín corporativo. Millones de personas regalan diariamente datos de extrema intimidad (fechas de sangrado, variaciones del estado de ánimo, niveles de dolor, actividad sexual y síntomas físicos) a aplicaciones propietarias. Estos registros viajan a servidores oscuros en la nube, donde son anonimizados solo nominalmente para ser procesados por algoritmos comerciales que predicen patrones de consumo, influyen en publicidad dirigida y cotizan en bases de datos de terceros.</p>
-            
-            <p>Este proyecto se erige como una trinchera de **Soberanía Tecnológica y Ginecológica**. Declaramos que el cuerpo no es una mercancía y que la información biológica pertenece exclusivamente a quien la habita. Nuestra arquitectura descarta voluntariamente los servidores de bases de datos centralizados. Los datos permanecen localizados de manera local y encriptada en la memoria física de tu propio navegador (Local-First), garantizando privacidad absoluta.</p>
+
+            <p>En la era del silicio y la hiperconectividad, el registro de la salud reproductiva femenina se ha
+                transformado en un jugoso botín corporativo. Millones de personas regalan diariamente datos de extrema
+                intimidad (fechas de sangrado, variaciones del estado de ánimo, niveles de dolor, actividad sexual y
+                síntomas físicos) a aplicaciones propietarias. Estos registros viajan a servidores oscuros en la nube,
+                donde son anonimizados solo nominalmente para ser procesados por algoritmos comerciales que predicen
+                patrones de consumo, influyen en publicidad dirigida y cotizan en bases de datos de terceros.</p>
+
+            <p>Este proyecto se erige como una trinchera de **Soberanía Tecnológica y Ginecológica**. Declaramos que el
+                cuerpo no es una mercancía y que la información biológica pertenece exclusivamente a quien la habita.
+                Nuestra arquitectura descarta voluntariamente los servidores de bases de datos centralizados. Los datos
+                permanecen localizados de manera local y encriptada en la memoria física de tu propio navegador
+                (Local-First), garantizando privacidad absoluta.</p>
 
             <h3>La API Ginecológica Soberana (Gynae-JSON)</h3>
-            <p>Para dotar a este prototipo de trascendencia científica, proponemos la creación de un estándar abierto de datos biológicos: la **API Ginecológica Soberana**. Al registrar los datos de manera estructurada, el navegador genera un archivo JSON universal. La usuaria es dueña absoluta de su historial clínico, pudiendo exportarlo libremente entre dispositivos, graficarlo de forma autónoma o aportarlo de manera consciente a investigaciones científicas colectivas.</p>
-            
-            <p>A continuación se detalla el esquema de datos estándar (Gynae-JSON Schema) diseñado para este grimorio:</p>
-            
+            <p>Para dotar a este prototipo de trascendencia científica, proponemos la creación de un estándar abierto de
+                datos biológicos: la **API Ginecológica Soberana**. Al registrar los datos de manera estructurada, el
+                navegador genera un archivo JSON universal. La usuaria es dueña absoluta de su historial clínico,
+                pudiendo exportarlo libremente entre dispositivos, graficarlo de forma autónoma o aportarlo de manera
+                consciente a investigaciones científicas colectivas.</p>
+
+            <p>A continuación se detalla el esquema de datos estándar (Gynae-JSON Schema) diseñado para este grimorio:
+            </p>
+
             <div class="code-block">{
-  "fecha": "2026-06-12",
-  "fase_biologica": "ovulatoria",
-  "sintomas": {
-    "sangrado": false,
-    "crampings": false,
-    "energia_astral": "alta"
-  },
-  "diario_sombras": "Medité bajo la alineación del sol y sentí estabilidad...",
-  "compas_tierra": {
-    "estacion": "Primavera",
-    "sabbat_cercano": "Litha"
-  },
-  "compas_cielo": {
-    "fase_lunar_index": 4,
-    "luna_nombre": "Luna Llena",
-    "gps": { "lat": 28.4682, "lon": -16.2541 }
-  }
-}</div>
+                "fecha": "2026-06-12",
+                "fase_biologica": "ovulatoria",
+                "sintomas": {
+                "sangrado": false,
+                "crampings": false,
+                "energia_astral": "alta"
+                },
+                "diario_sombras": "Medité bajo la alineación del sol y sentí estabilidad...",
+                "compas_tierra": {
+                "estacion": "Primavera",
+                "sabbat_cercano": "Litha"
+                },
+                "compas_cielo": {
+                "fase_lunar_index": 4,
+                "luna_nombre": "Luna Llena",
+                "gps": { "lat": 28.4682, "lon": -16.2541 }
+                }
+                }</div>
 
             <h3>La Filosofía del Compás Espacio-Temporal</h3>
-            <p>La medicina hegemónica tradicional analiza el ciclo menstrual de forma aislada, como un reloj puramente endocrino e individual. Este grimorio adopta la perspectiva holística del <strong>Compás Espacio-Temporal</strong>:</p>
-            
+            <p>La medicina hegemónica tradicional analiza el ciclo menstrual de forma aislada, como un reloj puramente
+                endocrino e individual. Este grimorio adopta la perspectiva holística del <strong>Compás
+                    Espacio-Temporal</strong>:</p>
+
             <ul>
-                <li><strong>El Microcosmos (El Cuerpo):</strong> Las fluctuaciones estrogénicas, de progesterona, la temperatura basal, los síntomas físicos y los impulsos creativos internos.</li>
-                <li><strong>El Mesocosmos (La Tierra):</strong> El transcurrir de las cuatro estaciones, las cosechas y las festividades paganas de la Rueda del Año (Sabbats) que marcan la sintonía térmica y biológica del planeta.</li>
-                <li><strong>El Macrocosmos (El Cielo):</strong> El ciclo sinódico lunar de 29.5 días que gobierna el magnetismo de las mareas y resuena con los fluidos corporales, sincronizando los ritmos naturales astronómicos.</li>
+                <li><strong>El Microcosmos (El Cuerpo):</strong> Las fluctuaciones estrogénicas, de progesterona, la
+                    temperatura basal, los síntomas físicos y los impulsos creativos internos.</li>
+                <li><strong>El Mesocosmos (La Tierra):</strong> El transcurrir de las cuatro estaciones, las cosechas y
+                    las festividades paganas de la Rueda del Año (Sabbats) que marcan la sintonía térmica y biológica
+                    del planeta.</li>
+                <li><strong>El Macrocosmos (El Cielo):</strong> El ciclo sinódico lunar de 29.5 días que gobierna el
+                    magnetismo de las mareas y resuena con los fluidos corporales, sincronizando los ritmos naturales
+                    astronómicos.</li>
             </ul>
         </div>
 
         <!-- PÁGINA 2: Los 3 Calendarios (Leyenda) -->
         <div id="calendarios" class="page-content">
             <h2>Las Tres Capas del Tiempo</h2>
-            <p>En lugar de ver la típica cuadrícula rígida de Google Calendar, nuestra aplicación superpone tres formas distintas de entender los ciclos:</p>
+            <p>En lugar de ver la típica cuadrícula rígida de Google Calendar, nuestra aplicación superpone tres formas
+                distintas de entender los ciclos:</p>
 
             <div class="legend-grid">
                 <div class="legend-card">
                     <div class="legend-title">🌙 1. Ciclo Lunación</div>
                     <p><strong>Foco:</strong> El cielo astronómico (29.5 días).</p>
-                    <p>Muestra cómo influye la Luna Nueva, Creciente, Llena y Menguante. Utiliza una representación de iconos pixel-art que cambian de fase según el día lunar activo para alinear tu energía con el magnetismo del satélite.</p>
+                    <p>Muestra cómo influye la Luna Nueva, Creciente, Llena y Menguante. Utiliza una representación de
+                        iconos pixel-art que cambian de fase según el día lunar activo para alinear tu energía con el
+                        magnetismo del satélite.</p>
                 </div>
                 <div class="legend-card">
                     <div class="legend-title">🍂 2. Ciclo Terrestre</div>
                     <p><strong>Foco:</strong> Las Estaciones y la Rueda Pagana.</p>
-                    <p>Ubica tus registros dentro de los cuadrantes estacionales y resalta los 8 Sabbats (Yule, Imbolc, Ostara, Beltane...) como hitos de energía natural donde el Sol cambia de declinación.</p>
+                    <p>Ubica tus registros dentro de los cuadrantes estacionales y resalta los 8 Sabbats (Yule, Imbolc,
+                        Ostara, Beltane...) como hitos de energía natural donde el Sol cambia de declinación.</p>
                 </div>
                 <div class="legend-card">
                     <div class="legend-title">🩸 3. Ciclo Interno</div>
                     <p><strong>Foco:</strong> Salud y Síntomas Biológicos.</p>
-                    <p>Vistas flexibles por ciclos de 28 días (fases menstrual, folicular, ovulatoria y lútea) permitiendo ver la correspondencia hormonal libre de los límites gregorianos de los meses comunes.</p>
+                    <p>Vistas flexibles por ciclos de 28 días (fases menstrual, folicular, ovulatoria y lútea)
+                        permitiendo ver la correspondencia hormonal libre de los límites gregorianos de los meses
+                        comunes.</p>
                 </div>
                 <div class="legend-card" style="grid-column: 1 / -1;">
                     <div class="legend-title">📍 Capa Geográfica</div>
-                    <p>Integración de coordenadas GPS locales para mapear con precisión las horas solares reales e indexar la visualización del cielo sobre ti de manera local y soberana.</p>
+                    <p>Integración de coordenadas GPS locales para mapear con precisión las horas solares reales e
+                        indexar la visualización del cielo sobre ti de manera local y soberana.</p>
                 </div>
             </div>
         </div>
@@ -303,37 +336,53 @@
         <!-- PÁGINA 3: Infraestructura Técnica -->
         <div id="arquitectura" class="page-content">
             <h2>Cómo se Construye (Sin Colapsar)</h2>
-            <p>Para aprender desarrollo web sin que el backend se nos atraviese, utilizaremos una arquitectura puramente <strong>Frontend</strong> en las primeras fases:</p>
+            <p>Para aprender desarrollo web sin que el backend se nos atraviese, utilizaremos una arquitectura puramente
+                <strong>Frontend</strong> en las primeras fases:</p>
 
             <div class="legend-grid">
                 <div class="legend-card">
                     <div class="legend-title"><span class="badge">HTML5</span> El Pergamino</div>
-                    La estructura base de las páginas. Cada vista del calendario o diario será un archivo HTML limpio conectado a tu index.html.
+                    La estructura base de las páginas. Cada vista del calendario o diario será un archivo HTML limpio
+                    conectado a tu index.html.
                 </div>
                 <div class="legend-card">
                     <div class="legend-title"><span class="badge">CSS3</span> La Magia Visual</div>
-                    Hacer que todo parezca un videojuego pixel art acogedor usando fuentes pixeladas, colores tierra/nocturnos y renderizado crujiente.
+                    Hacer que todo parezca un videojuego pixel art acogedor usando fuentes pixeladas, colores
+                    tierra/nocturnos y renderizado crujiente.
                 </div>
                 <div class="legend-card">
                     <div class="legend-title"><span class="badge">JS</span> El Motor Cíclico</div>
-                    JavaScript se encargará de calcular las fechas, conectar con las APIs de astronomía y reaccionar cuando hagas clic en la pantalla.
+                    JavaScript se encargará de calcular las fechas, conectar con las APIs de astronomía y reaccionar
+                    cuando hagas clic en la pantalla.
                 </div>
                 <div class="legend-card">
                     <div class="legend-title"><span class="badge">Local</span> El Cofre Secreto</div>
-                    Usaremos <strong>LocalStorage</strong> del navegador. Tus datos de salud se quedan guardados en tu propio ordenador, sin bases de datos complejas ni servidores locales. Privacidad 100% soberana.
+                    Usaremos <strong>LocalStorage</strong> del navegador. Tus datos de salud se quedan guardados en tu
+                    propio ordenador, sin bases de datos complejas ni servidores locales. Privacidad 100% soberana.
                 </div>
             </div>
 
             <h3>Anomalía de la Marea Temporal: El Bug de la Hora UTC y la Solución Geográfica</h3>
-            <p><strong>El Desafío Técnico:</strong> Tanto los servidores de desarrollo (entornos Docker, VPS Cloud) como las APIs de efemérides astronómicas operan nativamente en la hora de Tiempo Universal Coordinado (UTC/Zulú). Esto genera un desfase visual muy molesto para la usuaria al calcular eventos solares y lunares, ya que la medianoche astronómica UTC choca con la zona horaria real local de la Península Ibérica y las Islas Canarias.</p>
-            
+            <p><strong>El Desafío Técnico:</strong> Tanto los servidores de desarrollo (entornos Docker, VPS Cloud) como
+                las APIs de efemérides astronómicas operan nativamente en la hora de Tiempo Universal Coordinado
+                (UTC/Zulú). Esto genera un desfase visual muy molesto para la usuaria al calcular eventos solares y
+                lunares, ya que la medianoche astronómica UTC choca con la zona horaria real local de la Península
+                Ibérica y las Islas Canarias.</p>
+
             <div class="legend-card" style="border-color: var(--blood-rose);">
-                <div class="legend-title" style="color: var(--blood-rose);">🛡️ La Solución de Ingeniería: El Guardián de los Husos Horarios</div>
-                <p>Implementación de un sistema de corrección inteligente basado en geolocalización. Al sintonizar las coordenadas por GPS, el script leerá la longitud geográfica:</p>
+                <div class="legend-title" style="color: var(--blood-rose);">🛡️ La Solución de Ingeniería: El Guardián
+                    de los Husos Horarios</div>
+                <p>Implementación de un sistema de corrección inteligente basado en geolocalización. Al sintonizar las
+                    coordenadas por GPS, el script leerá la longitud geográfica:</p>
                 <ul>
-                  <li>Si la longitud detectada se alinea con el huso atlántico (entre -15° y -18°), se identifica automáticamente la ubicación como las <strong>Islas Afortunadas (Islas Canarias)</strong>.</li>
-                  <li>La interfaz desplegará de inmediato un selector místico pixel art notificando: <em>"Detectada la alineación de las Islas Afortunadas (Canarias). ¿Deseas sintonizar este huso horario o el de la Península?"</em>.</li>
-                  <li>Esta sintonización ajustará de manera dinámica los desfases de hora local (UTC+0 / UTC+1 según la estación), blindando los cálculos del diorama del cielo, la posición de los astros y los registros en la enciclopedia ginecológica contra desfases horarios.</li>
+                    <li>Si la longitud detectada se alinea con el huso atlántico (entre -15° y -18°), se identifica
+                        automáticamente la ubicación como las <strong>Islas Afortunadas (Islas Canarias)</strong>.</li>
+                    <li>La interfaz desplegará de inmediato un selector místico pixel art notificando: <em>"Detectada la
+                            alineación de las Islas Afortunadas (Canarias). ¿Deseas sintonizar este huso horario o el de
+                            la Península?"</em>.</li>
+                    <li>Esta sintonización ajustará de manera dinámica los desfases de hora local (UTC+0 / UTC+1 según
+                        la estación), blindando los cálculos del diorama del cielo, la posición de los astros y los
+                        registros en la enciclopedia ginecológica contra desfases horarios.</li>
                 </ul>
             </div>
         </div>
@@ -341,60 +390,106 @@
         <!-- PÁGINA 4: Hitos del Compás y Roadmap -->
         <div id="hojaruta" class="page-content">
             <h2>Compás Dinámico y Roadmap Técnico</h2>
-            
-            <p>El siguiente paso en la evolución de nuestra plataforma es implementar el **Fondo Dinámico y Simulador Temporal (Estilo Daff Luna)**. Esta característica transformará el portal estático en un simulador visual interactivo que reacciona a cambios temporales. Al modificar la fecha y hora mediante controles ("viaje en el tiempo"), todo el firmamento físico y meteorológico de la pantalla cambiará al unísono.</p>
-            
+
+            <p>El siguiente paso en la evolución de nuestra plataforma es implementar el **Fondo Dinámico y Simulador
+                Temporal (Estilo Daff Luna)**. Esta característica transformará el portal estático en un simulador
+                visual interactivo que reacciona a cambios temporales. Al modificar la fecha y hora mediante controles
+                ("viaje en el tiempo"), todo el firmamento físico y meteorológico de la pantalla cambiará al unísono.
+            </p>
+
             <p>Estructuramos la hoja de ruta en 4 grandes hitos de desarrollo:</p>
 
             <div class="legend-card">
-                <div class="legend-title" style="color: var(--magic-purple);">🌌 Hito A: El Escenario de Capas (CSS & HTML)</div>
-                <p>Maquetación de un sándwich visual tridimensional compuesto por capas apiladas con posicionamiento absoluto:</p>
+                <div class="legend-title" style="color: var(--magic-purple);">🌌 Hito A: El Escenario de Capas (CSS &
+                    HTML)</div>
+                <p>Maquetación de un sándwich visual tridimensional compuesto por capas apiladas con posicionamiento
+                    absoluto:</p>
                 <ul>
-                    <li><strong>Capa 1 (Fondo):</strong> Degradado del cielo que muta de color. Mapeamos las 24 horas del día en 4 clases clave: <code>.cielo-amanecer</code> (naranjas y rosas), <code>.cielo-dia</code> (celeste brillante), <code>.cielo-atardecer</code> (ocres y dorados) y <code>.cielo-noche</code> (azul noche con estrellas titilantes).</li>
-                    <li><strong>Capa 2 (Astros móviles):</strong> Sol y Luna (con su fase respectiva) representados como elementos SVG que se trasladan en una trayectoria parabólica.</li>
-                    <li><strong>Capa 3 (Silueta del Bosque):</strong> Una franja pixel art estática de un bosque de pinos en primer plano para dar profundidad.</li>
-                    <li><strong>Capa 4 (Clima):</strong> Capa de filtros estacionales y partículas animadas (lluvia, nieve o niebla).</li>
+                    <li><strong>Capa 1 (Fondo):</strong> Degradado del cielo que muta de color. Mapeamos las 24 horas
+                        del día en 4 clases clave: <code>.cielo-amanecer</code> (naranjas y rosas),
+                        <code>.cielo-dia</code> (celeste brillante), <code>.cielo-atardecer</code> (ocres y dorados) y
+                        <code>.cielo-noche</code> (azul noche con estrellas titilantes).</li>
+                    <li><strong>Capa 2 (Astros móviles):</strong> Sol y Luna (con su fase respectiva) representados como
+                        elementos SVG que se trasladan en una trayectoria parabólica.</li>
+                    <li><strong>Capa 3 (Silueta del Bosque):</strong> Una franja pixel art estática de un bosque de
+                        pinos en primer plano para dar profundidad.</li>
+                    <li><strong>Capa 4 (Clima):</strong> Capa de filtros estacionales y partículas animadas (lluvia,
+                        nieve o niebla).</li>
                 </ul>
             </div>
 
             <div class="legend-card">
-                <div class="legend-title" style="color: var(--blood-rose);">🕰️ Hito B: El Simulador de Tiempo (JavaScript)</div>
-                <p>Desvincular el sistema de la hora estática del ordenador. Introducimos una variable global reactiva <code>fechaActiva</code>. Se crearán deslizadores y selectores de fecha en la UI para simular un "viaje temporal". Al arrastrar la hora de la tarde a la noche, el firmamento pasará de naranja a estrellado de forma fluida y la libreta de sobremesa recalculará su fecha.</p>
+                <div class="legend-title" style="color: var(--blood-rose);">🕰️ Hito B: El Simulador de Tiempo
+                    (JavaScript)</div>
+                <p>Desvincular el sistema de la hora estática del ordenador. Introducimos una variable global reactiva
+                    <code>fechaActiva</code>. Se crearán deslizadores y selectores de fecha en la UI para simular un
+                    "viaje temporal". Al arrastrar la hora de la tarde a la noche, el firmamento pasará de naranja a
+                    estrellado de forma fluida y la libreta de sobremesa recalculará su fecha.</p>
             </div>
 
             <div class="legend-card">
-                <div class="legend-title" style="color: var(--gold);">🌧️ Hito C: Invocación del Clima Real (API Fetch)</div>
-                <p>Conexión del GPS con la API meteorológica libre de **Open-Meteo**. Al sincronizar coordenadas o ingresar una fecha, JavaScript realizará un <code>fetch</code> para obtener la temperatura y estado meteorológico real en tu ubicación. Si la API indica tormenta o nieve, se activarán las partículas de lluvia o copos pixel-art en la capa climática superior.</p>
+                <div class="legend-title" style="color: var(--gold);">🌧️ Hito C: Invocación del Clima Real (API Fetch)
+                </div>
+                <p>Conexión del GPS con la API meteorológica libre de **Open-Meteo**. Al sincronizar coordenadas o
+                    ingresar una fecha, JavaScript realizará un <code>fetch</code> para obtener la temperatura y estado
+                    meteorológico real en tu ubicación. Si la API indica tormenta o nieve, se activarán las partículas
+                    de lluvia o copos pixel-art en la capa climática superior.</p>
             </div>
 
             <div class="legend-card">
-                <div class="legend-title" style="color: #4682B4;">☀️ Hito D: El Firmamento de Daff Luna (Astronomía)</div>
-                <p>Implementación de algoritmos matemáticos basados en fórmulas trigonométricas de efemérides. Utilizando la latitud, longitud y fecha seleccionadas, calcularemos la elevación exacta del Sol y el ángulo de iluminación lunar. Esto posicionará de forma matemáticamente exacta los astros móviles en nuestra Capa 2 para simular el cielo real sobre España (Península o Canarias) en cualquier época del año.</p>
+                <div class="legend-title" style="color: #4682B4;">☀️ Hito D: El Firmamento de Daff Luna (Astronomía)
+                </div>
+                <p>Implementación de algoritmos matemáticos basados en fórmulas trigonométricas de efemérides.
+                    Utilizando la latitud, longitud y fecha seleccionadas, calcularemos la elevación exacta del Sol y el
+                    ángulo de iluminación lunar. Esto posicionará de forma matemáticamente exacta los astros móviles en
+                    nuestra Capa 2 para simular el cielo real sobre España (Península o Canarias) en cualquier época del
+                    año.</p>
             </div>
         </div>
 
         <!-- PÁGINA 5: Banco de Ideas (TDAH Cozy) -->
         <div id="brainstorm" class="page-content">
             <h2>Santuario Digital de Autoestudio y Conexión (TDAH Cozy)</h2>
-            <p>Diseñado especialmente para mentes neurodivergentes (TDAH y Altas Capacidades). Proponemos un sistema de registro flexible, estimulante, no intrusivo y altamente visual que promueve el autoconocimiento reflexivo en lugar de la presión de tareas rígidas.</p>
+            <p>Diseñado especialmente para mentes neurodivergentes (TDAH y Altas Capacidades). Proponemos un sistema de
+                registro flexible, estimulante, no intrusivo y altamente visual que promueve el autoconocimiento
+                reflexivo en lugar de la presión de tareas rígidas.</p>
 
             <div class="legend-grid">
                 <div class="legend-card">
-                    <div class="legend-title" style="color: var(--blood-rose);"><span class="badge">A</span> Cuerpo y Biología: Bullet Journal Digital</div>
-                    <p><strong>Registro sin números ni presiones:</strong> Reemplazamos las métricas cuantitativas de dolor o energía (del 1 al 5) por arquetipos y palabras evocadoras que permiten un registro intuitivo y descriptivo (ej. <em>"Ermitaña"</em>, <em>"Radiante"</em>, <em>"Calma"</em>, <em>"Neblina"</em>).</p>
-                    <p><strong>Bitácora Nutricional y Enciclopedia Orgánica:</strong> Incorpora un organizador de comidas semanal y una base de autoconocimiento personalizada que archiva automáticamente los síntomas recurrentes de la usuaria. Esto permite analizar retrospectivamente y de manera soberana las correlaciones ginecológicas con su propia neurodivergencia.</p>
+                    <div class="legend-title" style="color: var(--blood-rose);"><span class="badge">A</span> Cuerpo y
+                        Biología: Bullet Journal Digital</div>
+                    <p><strong>Registro sin números ni presiones:</strong> Reemplazamos las métricas cuantitativas de
+                        dolor o energía (del 1 al 5) por arquetipos y palabras evocadoras que permiten un registro
+                        intuitivo y descriptivo (ej. <em>"Ermitaña"</em>, <em>"Radiante"</em>, <em>"Calma"</em>,
+                        <em>"Neblina"</em>).</p>
+                    <p><strong>Bitácora Nutricional y Enciclopedia Orgánica:</strong> Incorpora un organizador de
+                        comidas semanal y una base de autoconocimiento personalizada que archiva automáticamente los
+                        síntomas recurrentes de la usuaria. Esto permite analizar retrospectivamente y de manera
+                        soberana las correlaciones ginecológicas con su propia neurodivergencia.</p>
                 </div>
 
                 <div class="legend-card">
-                    <div class="legend-title" style="color: var(--gold);"><span class="badge">B</span> Alma, Fe y Ritmo: Sincronía Mística y Litúrgica</div>
-                    <p><strong>Sincretismo Temporal:</strong> Fusión armónica de los 8 Sabbats de la Rueda del Año con las festividades litúrgicas cristianas y tradicionales de mayor arraigo cultural (Yule/Navidad, Imbolc/Candelaria, Litha/San Juan, Samhain/Todos los Santos), sintonizando los ritmos naturales con el calendario festivo colectivo.</p>
-                    <p><strong>Refugio del Estudio Bíblico:</strong> Un motor devocional que sugiere de forma inteligente pasajes y versículos bíblicos alineados con la estación del año y la tónica de la energía física diaria, aportando un espacio diario para la calma y la contemplación mística.</p>
+                    <div class="legend-title" style="color: var(--gold);"><span class="badge">B</span> Alma, Fe y Ritmo:
+                        Sincronía Mística y Litúrgica</div>
+                    <p><strong>Sincretismo Temporal:</strong> Fusión armónica de los 8 Sabbats de la Rueda del Año con
+                        las festividades litúrgicas cristianas y tradicionales de mayor arraigo cultural (Yule/Navidad,
+                        Imbolc/Candelaria, Litha/San Juan, Samhain/Todos los Santos), sintonizando los ritmos naturales
+                        con el calendario festivo colectivo.</p>
+                    <p><strong>Refugio del Estudio Bíblico:</strong> Un motor devocional que sugiere de forma
+                        inteligente pasajes y versículos bíblicos alineados con la estación del año y la tónica de la
+                        energía física diaria, aportando un espacio diario para la calma y la contemplación mística.</p>
                 </div>
 
                 <div class="legend-card" style="grid-column: 1 / -1;">
-                    <div class="legend-title" style="color: var(--magic-purple);"><span class="badge">C</span> Entorno y Etnografía Sonora: Armonía Vibracional</div>
-                    <p><strong>Sintonía Cozy Integrada:</strong> Enlace nativo con la API de Spotify para reproducir música instrumental, sonidos de naturaleza y melodías cozy directamente desde el grimorio interactivo para hacer del momento de registro un ritual agradable y sensorial.</p>
-                    <p><strong>Spotify Wrapped Ginecológico:</strong> Un algoritmo etnográfico propio que al final del año analiza el microcosmos y el macrocosmos de la usuaria, cruzando datos musicales con sus estados emocionales y ciclos lunares para regalarle un reporte visual de qué canciones, lunas y estados marcaron sus patrones creativos y biológicos anuales.</p>
+                    <div class="legend-title" style="color: var(--magic-purple);"><span class="badge">C</span> Entorno y
+                        Etnografía Sonora: Armonía Vibracional</div>
+                    <p><strong>Sintonía Cozy Integrada:</strong> Enlace nativo con la API de Spotify para reproducir
+                        música instrumental, sonidos de naturaleza y melodías cozy directamente desde el grimorio
+                        interactivo para hacer del momento de registro un ritual agradable y sensorial.</p>
+                    <p><strong>Spotify Wrapped Ginecológico:</strong> Un algoritmo etnográfico propio que al final del
+                        año analiza el microcosmos y el macrocosmos de la usuaria, cruzando datos musicales con sus
+                        estados emocionales y ciclos lunares para regalarle un reporte visual de qué canciones, lunas y
+                        estados marcaron sus patrones creativos y biológicos anuales.</p>
                 </div>
             </div>
         </div>
