@@ -277,6 +277,7 @@ function obtenerUbicacion() {
 // Inicializar al cargar el DOM
 window.addEventListener('DOMContentLoaded', () => {
   iniciarReloj();
+  inicializarMusica();
 
   // Permitir pasar página haciendo clic directo sobre la libreta
   const contenedorHoja = document.getElementById('contenedorHoja');
@@ -284,3 +285,35 @@ window.addEventListener('DOMContentLoaded', () => {
     contenedorHoja.addEventListener('click', pasarPaginaAnimacion);
   }
 });
+
+/* 
+ * Etnografía Sonora - Función: Música de Ambiente
+ * Music by Vlad Bakutov from Pixabay (https://pixabay.com/users/deuslower-45666444/)
+ */
+function inicializarMusica() {
+  const audio = document.getElementById('audioReproductor');
+  const btn = document.getElementById('btnSintonia');
+  if (!audio || !btn) return;
+
+  audio.volume = 0.2; // Volumen suave (20%) para convivir con los sonidos de los clics del grimorio
+  audio.src = "assets/musica/ambiente-cozy.mp3"; 
+
+  let sonando = false;
+
+  btn.addEventListener('click', () => {
+    if (!sonando) {
+      audio.play()
+        .then(() => {
+          sonando = true;
+          btn.innerHTML = "🔊 Música de ambiente: ON";
+          btn.classList.add('activo');
+        })
+        .catch(err => console.log("Permiso de audio requerido:", err));
+    } else {
+      audio.pause();
+      sonando = false;
+      btn.innerHTML = "🔈 Música de ambiente: OFF";
+      btn.classList.remove('activo');
+    }
+  });
+}
