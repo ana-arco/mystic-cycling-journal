@@ -69,11 +69,12 @@ h3 {
 .portal-container {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: 40px;
-  max-width: 900px;
+  gap: 20px;
+  max-width: 1200px;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 768px) {
@@ -702,4 +703,15 @@ body.litha-verano #horizonBg {
   top: 76%;
   left: 42%;
   animation: flotarLuciernaga3 14s infinite ease-in-out 2.2s;
+}
+
+/* Botones de flecha para el viaje temporal */
+.btn-flecha {
+  padding: 4px 8px !important;
+  font-size: 11px !important;
+  margin: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 34px;
 }

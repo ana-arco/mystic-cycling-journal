@@ -415,3 +415,34 @@ function inicializarMusica() {
     }
   });
 }
+
+// Controles de paso temporal interactivos
+function modificarFechaSimulada(dias) {
+    if (!esTiempoSimulado) esTiempoSimulado = true;
+    fechaActiva.setDate(fechaActiva.getDate() + dias);
+    sincronizarInputsConFechaActiva();
+    actualizarReloj();
+}
+
+function modificarHoraSimulada(horas) {
+    if (!esTiempoSimulado) esTiempoSimulado = true;
+    fechaActiva.setHours(fechaActiva.getHours() + horas);
+    sincronizarInputsConFechaActiva();
+    actualizarReloj();
+}
+
+function sincronizarInputsConFechaActiva() {
+  const dateInput = document.getElementById('inputFechaSimulada');
+  const timeInput = document.getElementById('inputHoraSimulada');
+  
+  if (dateInput && timeInput) {
+    const yyyy = fechaActiva.getFullYear();
+    const mm = String(fechaActiva.getMonth() + 1).padStart(2, '0');
+    const dd = String(fechaActiva.getDate()).padStart(2, '0');
+    dateInput.value = `${yyyy}-${mm}-${dd}`;
+    
+    const hh = String(fechaActiva.getHours()).padStart(2, '0');
+    const min = String(fechaActiva.getMinutes()).padStart(2, '0');
+    timeInput.value = `${hh}:${min}`;
+  }
+}
