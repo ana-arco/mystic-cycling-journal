@@ -296,7 +296,7 @@ function inicializarMusica() {
   if (!audio || !btn) return;
 
   audio.volume = 0.2; // Volumen suave (20%) para convivir con los sonidos de los clics del grimorio
-  audio.src = "assets/musica/ambiente-cozy.mp3"; 
+  audio.src = "assets/musica/deuslower-mountain-knight-castle-medieval-fantasy-orchestral-music-264986.mp3";
 
   let sonando = false;
 
