@@ -181,8 +181,7 @@ function actualizarReloj() {
   const datosLuna = obtenerDatosLunares(ahora);
   const faseLunarEl = document.getElementById('faseLunar');
   if (faseLunarEl) {
-    // Esto pintará en la pantalla, por ejemplo: "🌒 Creciente Iluminada (Luna 6 del Año)"
-    faseLunarEl.innerText = `${datosLuna.fase} ${datosLuna.icono}  (Luna ${datosLuna.numeroLuna} del Año)`;
+    faseLunarEl.innerText = ` ${datosLuna.fase} ${datosLuna.icono} - ${datosLuna.porcentaje}% (${datosLuna.iconoAnual} ${datosLuna.nombreAnual})`;
   }
 
   // 3. Calendario sobremesa: calMes, calDia, calSemana
@@ -213,58 +212,70 @@ function actualizarReloj() {
 // -- FASE LUNAR --
 // Calcular la fase lunar aproximada y el número de lunación del año
 function obtenerDatosLunares(fecha) {
-  // 1. Fecha de referencia conocida: Luna Nueva el 18 de Diciembre de 2025
-  const fechaReferencia = new Date(2025, 11, 18, 20, 43, 0);
-  const longitudCiclo = 29.530588853; // Duración media de un mes sinódico
+  const año = fecha.getFullYear();
+  const mes = fecha.getMonth() + 1;
+  const dia = fecha.getDate();
 
-  // Diferencia en milisegundos y conversión a días
-  const diffTiempo = fecha - fechaReferencia;
-  const diffDias = diffTiempo / (1000 * 60 * 60 * 24);
+  // 1. ALGORITMO DE CONWAY: Calcula la edad de la luna (0 a 29.5)
+  const r = (año - 2000) % 19;
+  let epacta = (r * 11 + 11) % 30;
 
-  // Días transcurridos dentro del ciclo actual (0 a 29.53)
-  let diasCiclo = diffDias % longitudCiclo;
-  if (diasCiclo < 0) diasCiclo += longitudCiclo;
+  if (mes === 1 || mes === 2) epacta += 0;
+  else epacta += (mes - 3);
 
-  // 2. Determinar el nombre de la fase y su icono místico
-  let fase = "";
+  epacta += 1;
+
+  let edadLuna = (epacta + dia) % 30;
+  if (edadLuna < 0) edadLuna += 30;
+
+  // 2. CALCULAR PORCENTAJE EXACTO DE ILUMINACIÓN
+  let iluminacion = (1 - Math.abs((edadLuna / 14.765) - 1)) * 100;
+  if (iluminacion < 0) iluminacion = 0;
+  if (iluminacion > 100) iluminacion = 100;
+
+  // 3. DETERMINAR NOMBRE DE LA FASE VISUAL
+  let faseNombre = "";
   let icono = "";
+  if (edadLuna < 1 || edadLuna >= 28.5) { faseNombre = "Nueva"; icono = "🌑"; }
+  else if (edadLuna < 6.5) { faseNombre = "Creciente Iluminada"; icono = "🌒"; }
+  else if (edadLuna < 8.5) { faseNombre = "Cuarto Creciente"; icono = "🌓"; }
+  else if (edadLuna < 13.7) { faseNombre = "Gibosa Creciente"; icono = "🌔"; }
+  else if (edadLuna < 15.8) { faseNombre = "Llena"; icono = "🌕"; }
+  else if (edadLuna < 21.0) { faseNombre = "Gibosa Menguante"; icono = "🌖"; }
+  else if (edadLuna < 23.0) { faseNombre = "Cuarto Menguante"; icono = "🌗"; }
+  else { faseNombre = "Creciente Menguante"; icono = "🌘"; }
 
-  if (diasCiclo < 1) {
-    fase = "Luna Nueva"; icono = "🌑";
-  } else if (diasCiclo < 6.38) {
-    fase = "Creciente Iluminada"; icono = "🌒";
-  } else if (diasCiclo < 8.38) {
-    fase = "Cuarto Creciente"; icono = "🌓";
-  } else if (diasCiclo < 13.76) {
-    fase = "Gibosa Creciente"; icono = "🌔";
-  } else if (diasCiclo < 15.76) {
-    fase = "Luna Llena"; icono = "🌕";
-  } else if (diasCiclo < 21.14) {
-    fase = "Gibosa Menguante"; icono = "🌖";
-  } else if (diasCiclo < 23.14) {
-    fase = "Cuarto Menguante"; icono = "🌗";
-  } else if (diasCiclo < 28.53) {
-    fase = "Creciente Menguante"; icono = "🌘";
-  } else {
-    fase = "Nueva"; icono = "🌑";
+  // 4. LÓGICA DE LAS 13 LUNAS LLENAS DEL AÑO (Con sus iconos tradicionales)
+  const lunasLlenasDelAño = [
+    { nombre: "Luna de Lobo", icono: "🐺" },     // Enero
+    { nombre: "Luna de Nieve", icono: "❄️" },    // Febrero
+    { nombre: "Luna de Gusano", icono: "🪱" },   // Marzo
+    { nombre: "Luna Rosa", icono: "🌸" },        // Abril
+    { nombre: "Luna de Flores", icono: "💐" },   // Mayo
+    { nombre: "Luna de Fresa", icono: "🍓" },    // Junio
+    { nombre: "Luna de Ciervo", icono: "🦌" },   // Julio
+    { nombre: "Luna de Esturión", icono: "🐟" }, // Agosto
+    { nombre: "Luna de Cosecha", icono: "🌾" },  // Septiembre
+    { nombre: "Luna del Cazador", icono: "🏹" }, // Octubre
+    { nombre: "Luna del Castor", icono: "🦫" },  // Noviembre
+    { nombre: "Luna Fría", icono: "🥶" }         // Diciembre
+  ];
+
+  let lunaActual = lunasLlenasDelAño[mes - 1];
+  let nombreLunaDelAño = lunaActual.nombre;
+  let iconoLunaDelAño = lunaActual.icono;
+
+  if (faseNombre === "Llena" && dia >= 30) {
+    nombreLunaDelAño = "Luna Azul (Mística)";
+    iconoLunaDelAño = "🌌";
   }
 
-  // 3. Calcular en qué Luna (lunación) del año estamos
-  // Contamos cuántas lunas nuevas aproximadas han pasado desde el inicio del año actual
-  const inicioAño = new Date(fecha.getFullYear(), 0, 1);
-  const diffDesdeInicioAño = (fecha - inicioAño) / (1000 * 60 * 60 * 24);
-
-  // Añadimos el desfase de dónde empezó el ciclo al iniciar el año
-  const diasDesdeReferenciaAlAño = (inicioAño - fechaReferencia) / (1000 * 60 * 60 * 24);
-  const residuoAño = diasDesdeReferenciaAlAño % longitudCiclo;
-
-  // Número de luna (de 1 a 12, o 13 si hay Luna Azul)
-  let numeroLuna = Math.floor((diffDesdeInicioAño + residuoAño) / longitudCiclo) + 1;
-
   return {
-    fase: fase,
+    porcentaje: iluminacion.toFixed(1),
+    fase: faseNombre,
     icono: icono,
-    numeroLuna: numeroLuna
+    nombreAnual: nombreLunaDelAño,
+    iconoAnual: iconoLunaDelAño
   };
 }
 
