@@ -304,6 +304,17 @@ h3 {
   align-items: center;
 }
 
+.alineacion-astral {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  /* Un pelín más pequeña para que quepa bien en el recuadro */
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  color: #e0dcd3;
+  /* El color sutil que usa tu interfaz */
+}
+
 /* =======================================================================
    5. BOTONES PIXEL ART
    ======================================================================= */
