@@ -144,19 +144,37 @@ function actualizarReloj() {
     relojEl.innerText = `${horas}:${minutos}:${segundos}`;
   }
 
+
   // 2. Estación del año según el mes y día exacto (Hemisferio Norte)
   const mes = ahora.getMonth() + 1; // 1-12
   const dia = ahora.getDate();
-  const val = mes * 100 + dia;
+  const val = mes * 100 + dia; // Ej: 14 de Junio -> 6 * 100 + 14 = 614
 
-  // FORZADO DE ESTADO: Verano / Litha de forma fija para visualización inmediata
-  let estacion = "Verano";
-  let icono = "☀️";
-  const sabbatInfo = { name: "Solsticio de Litha", icon: "☀️", isActive: true };
+  // 🌟 Primero. Llamamos a tu función para saber qué Sabbat toca (trae nombre e icono místico)
+  const sabbatInfo = obtenerSabbatActivo(ahora);
+
+  // 🌟 Segundo. Calculamos la estación real usando los días exactos de los solsticios/equinoccios
+  let estacion = "";
+  let iconoEstacion = "";
+
+  if (val >= 321 && val < 621) {
+    estacion = "Primavera";
+    iconoEstacion = "🌱";
+  } else if (val >= 621 && val < 921) {
+    estacion = "Verano";
+    iconoEstacion = "☀️";
+  } else if (val >= 921 && val < 1221) {
+    estacion = "Otoño";
+    iconoEstacion = "🍎";
+  } else {
+    // Invierno va desde el 21 de Diciembre (1221) hasta el 20 de Marzow (320)
+    estacion = "Invierno";
+    iconoEstacion = "❄️";
+  }
 
   const cicloTierraEl = document.getElementById('cicloTierra');
   if (cicloTierraEl) {
-    cicloTierraEl.innerText = `${estacion} (${sabbatInfo.name})`;
+    cicloTierraEl.innerText = `${estacion} ${iconoEstacion} (${sabbatInfo.name} ${sabbatInfo.icon})`;
   }
 
   // 3. Calendario sobremesa: calMes, calDia, calSemana
