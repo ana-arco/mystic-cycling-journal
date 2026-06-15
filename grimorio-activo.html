@@ -893,9 +893,9 @@
 
     <!-- Pestañas del Grimorio (Marcadores) -->
     <div class="grimoire-tabs">
-      <button class="grimoire-tab active" onclick="switchView('stations', this)">🌱 Estaciones</button>
+      <button class="grimoire-tab active" onclick="switchView('moon', this)">🌙 Lunación</button>
+      <button class="grimoire-tab" onclick="switchView('stations', this)">🌱 Estaciones</button>
       <button class="grimoire-tab" onclick="switchView('cycle28', this)">🔮 Anillo 28 Días</button>
-      <button class="grimoire-tab" onclick="switchView('moon', this)">🌙 Lunación</button>
       <button class="grimoire-tab" onclick="switchView('free', this)">🕯️ Pintar Ritual</button>
     </div>
 
@@ -905,13 +905,14 @@
       <!-- Página Izquierda: Calendario Dinámico -->
       <div class="grimoire-page">
         <h2 class="page-title" id="left-page-title">
-          <span>🌱</span> Vista por Estaciones
+          <span>🌙</span> Lunación Sinódica
         </h2>
 
         <div class="page-content-wrapper" id="left-page-content">
           <!-- El contenido de la vista activa se renderizará aquí dinámicamente -->
         </div>
       </div>
+
 
       <!-- Lomo del libro -->
       <div class="grimoire-spine"></div>
@@ -970,7 +971,7 @@
     /* ----------------------------------------------------
        Variables Globales y Estado
        ---------------------------------------------------- */
-    let currentView = 'stations';
+    let currentView = 'moon';
     let selectedSabbat = 'yule';
     let selectedCycleDay = 1;
     let selectedLunarDay = 1;
@@ -1462,10 +1463,7 @@
           <button class="pixel-btn" id="btnMesSiguiente" style="padding: 4px 8px; font-size: 10px;">▶</button>
         </div>
 
-        <!-- Cabecera de días de la semana -->
-        <div class="almanaque-semana-cabecera" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--text-muted); margin-bottom: 6px;">
-          <div>L</div><div>M</div><div>X</div><div>J</div><div>V</div><div>S</div><div>D</div>
-        </div>
+
 
         <!-- Rejilla del Almanaque -->
         <div id="cuadrculaAlmanaque" class="almanaque-grid" style="margin-bottom: 20px;">
@@ -1539,18 +1537,18 @@
     function obtenerDatosLunares(fecha) {
       const fechaReferencia = new Date(2026, 5, 15, 20, 0, 0); // 15 de Junio de 2026 (Mes indexado 5)
       const longitudCiclo = 29.530588853; // Duración media del mes sinódico
-      
+
       const diffTiempo = fecha - fechaReferencia;
       const diffDias = diffTiempo / (1000 * 60 * 60 * 24);
-      
+
       let diasCiclo = diffDias % longitudCiclo;
       if (diasCiclo < 0) diasCiclo += longitudCiclo;
-      
+
       // Calcular porcentaje de iluminación exacto
       let iluminacion = (1 - Math.abs((diasCiclo / 14.7652944) - 1)) * 100;
       if (iluminacion < 0) iluminacion = 0;
       if (iluminacion > 100) iluminacion = 100;
-      
+
       // Determinar fase visual
       let faseNombre = "";
       let icono = "";
@@ -2017,8 +2015,8 @@
        Inicialización de la Aplicación
        ---------------------------------------------------- */
     window.addEventListener('DOMContentLoaded', () => {
-      // Cargar vista de estaciones por defecto
-      renderStationsView(document.getElementById('left-page-content'));
+      // Cargar vista de lunación por defecto
+      renderMoonView(document.getElementById('left-page-content'));
     });
   </script>
 </body>
