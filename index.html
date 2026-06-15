@@ -64,7 +64,7 @@
 
       <!-- TARJETA 1 (Panel de Observación Astral) -->
       <div class="mystic-panel">
-        <h2 class="panel-header">🕰️ OBSERVACIÓN ASTRAL</h2>
+        <h2 class="panel-header">🔮 PANEL DE OBSERVACIÓN</h2>
 
         <!-- Reloj Digital -->
         <div class="data-row">
@@ -83,6 +83,12 @@
           <span class="data-label">Fase Lunar</span>
           <div id="faseLunar" class="data-value">Cargando...</div>
         </div>
+
+        <!-- Ciclo Biológico -->
+        <div class="data-row">
+          <span class="data-label">Ciclo Biológico</span>
+          <div id="cicloMenstrual" class="data-value">Cargando ciclo...</div>
+        </div>
       </div>
 
       <!-- TARJETA 2 (Panel de Control y Herramientas del Reino) -->
@@ -96,6 +102,12 @@
           <button class="pixel-btn" style="margin-top: 4px; background-color: var(--accent-purple); color: white;" onclick="obtenerUbicacion()">
             📍 Sincronizar GPS
           </button>
+        </div>
+
+        <!-- Día 1 de la última regla -->
+        <div class="data-row" style="margin-bottom: 12px;">
+          <span class="data-label" style="display: block; margin-bottom: 4px;">Día 1 de la última regla</span>
+          <input type="date" id="inputUltimaRegla" class="pixel-input-form" onchange="actualizarReloj()" style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); width: 100%;">
         </div>
 
         <!-- Controles de Paso Temporal -->

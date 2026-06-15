@@ -469,6 +469,58 @@
     /* ==========================================
        8. VISTA 3: CALENDARIO DE LA LUNA
        ========================================== */
+    .almanaque-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .almanaque-dia-card {
+      background: var(--bg-darker);
+      border: 2px solid var(--border-color);
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px;
+      cursor: pointer;
+      transition: var(--retro-transition);
+      position: relative;
+    }
+
+    .almanaque-dia-card:hover {
+      background: var(--bg-book);
+      border-color: var(--accent-gold-glow);
+      transform: translateY(-2px);
+    }
+
+    .almanaque-dia-card.selected {
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 0 2px var(--accent-gold-glow);
+      background: var(--bg-book);
+    }
+
+    .almanaque-dia-vacio {
+      aspect-ratio: 1;
+      visibility: hidden;
+    }
+
+    .almanaque-dia-num {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--text-muted);
+      align-self: flex-start;
+    }
+
+    .almanaque-luna-icon {
+      font-size: 18px;
+      margin: auto 0;
+      line-height: 1;
+    }
+
     .lunar-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -923,6 +975,8 @@
     let selectedCycleDay = 1;
     let selectedLunarDay = 1;
     let selectedFreeDay = 1;
+    let mesAlmanaqueActivo = 5; // Junio
+    const añoAlmanaqueActivo = 2026;
 
     // Herramienta activa para Vista de Pintado Libre
     let activeTool = 'blood';
@@ -1355,49 +1409,196 @@
       updateJournalForCycleDay(selectedCycleDay);
     }
 
-    // Vista 3: Ciclo de la Luna (Lunación)
+    // Vista 3: Ciclo de la Luna (Lunación) - ALMANAQUE LUNAR INTERACTIVO 2026
     function renderMoonView(container) {
+      const nombresMeses = [
+        "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO",
+        "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
+      ];
+
+      // Calcular primer día y total de días
+      const primerDia = new Date(añoAlmanaqueActivo, mesAlmanaqueActivo, 1).getDay(); // 0 = Domingo, 1 = Lunes...
+      // Desfase para que Lunes sea el primer día de la semana (0:L, 1:M, 2:X, 3:J, 4:V, 5:S, 6:D)
+      const desfase = (primerDia === 0) ? 6 : primerDia - 1;
+      const totalDias = new Date(añoAlmanaqueActivo, mesAlmanaqueActivo + 1, 0).getDate();
+
       let gridHtml = '';
 
-      for (let day = 1; day <= 30; day++) {
-        // Calcular la fase lunar (0 a 7) para graficar el SVG pixel
-        // Dividimos la lunación de 29.5 en 8 fases discretas
-        const phasePercentage = ((day - 1) % 29.5) / 29.5;
-        const phaseIndex = Math.floor(phasePercentage * 8);
-        const isSelected = day === selectedLunarDay;
+      // Rellenar días de desfase vacíos
+      for (let i = 0; i < desfase; i++) {
+        gridHtml += `<div class="almanaque-dia-vacio"></div>`;
+      }
 
-        // Identificar hitos de la lunación
-        let isMajor = false;
-        let majorLabel = '';
-        if (day === 1) { isMajor = true; majorLabel = '🌑'; }
-        if (day === 8) { isMajor = true; majorLabel = '🌓'; }
-        if (day === 15) { isMajor = true; majorLabel = '🌕'; }
-        if (day === 22) { isMajor = true; majorLabel = '🌗'; }
+      // Rellenar días del mes
+      for (let dia = 1; dia <= totalDias; dia++) {
+        const fechaDia = new Date(añoAlmanaqueActivo, mesAlmanaqueActivo, dia);
+        const datosLuna = obtenerDatosLunares(fechaDia);
+        const isSelected = (dia === selectedLunarDay);
 
         gridHtml += `
-          <div class="lunar-day-card ${isSelected ? 'selected' : ''} ${isMajor ? 'major-phase' : ''}" 
-               onclick="selectLunarDay(${day})"
-               title="Día Lunar ${day} ${majorLabel}">
-            <span class="lunar-day-num">${day}</span>
-            <div class="lunar-day-icon">
-              ${generateMoonSvg(phaseIndex)}
+          <div class="almanaque-dia-card ${isSelected ? 'selected' : ''}" 
+               onclick="selectLunarDay(${dia})"
+               title="Día ${dia} | ${datosLuna.fase} | Iluminación: ${datosLuna.porcentaje}%">
+            <span class="almanaque-dia-num">${dia}</span>
+            <div class="almanaque-luna-icon" style="font-size: 18px; margin-top: 4px;">
+              ${datosLuna.icono}
             </div>
-            <span class="lunar-day-num" style="font-size: 6px; color: var(--accent-gold);">${majorLabel}</span>
+            <span style="font-size: 7px; color: var(--accent-gold);">${datosLuna.porcentaje}%</span>
           </div>
         `;
       }
 
       container.innerHTML = `
         <div style="font-family:'Press Start 2P', monospace; font-size: 8px; margin-bottom: 12px; text-align: center; color: var(--text-muted);">
-          LUNACIÓN COMPLETA (29.5 DÍAS)
+          📅 ALMANAQUE LUNAR 2026
         </div>
-        <div class="lunar-grid">
+
+        <!-- Controles del Mes -->
+        <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 12px;">
+          <button class="pixel-btn" id="btnMesAnterior" style="padding: 4px 8px; font-size: 10px;">◀</button>
+          <span id="nombreMesAlmanaque" style="font-family: 'Cinzel', serif; font-size: 20px; color: var(--accent-gold); min-width: 140px; text-align: center;">
+            ${nombresMeses[mesAlmanaqueActivo]} ${añoAlmanaqueActivo}
+          </span>
+          <button class="pixel-btn" id="btnMesSiguiente" style="padding: 4px 8px; font-size: 10px;">▶</button>
+        </div>
+
+        <!-- Cabecera de días de la semana -->
+        <div class="almanaque-semana-cabecera" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--text-muted); margin-bottom: 6px;">
+          <div>L</div><div>M</div><div>X</div><div>J</div><div>V</div><div>S</div><div>D</div>
+        </div>
+
+        <!-- Rejilla del Almanaque -->
+        <div id="cuadrculaAlmanaque" class="almanaque-grid" style="margin-bottom: 20px;">
           ${gridHtml}
+        </div>
+
+        <!-- ALMANAQUE MÍSTICO COMPLETO -->
+        <div class="almanaque-lunar" style="display: flex; flex-direction: column; gap: 20px; border-top: 2px dashed var(--border-color); padding-top: 15px; margin-top: 15px; text-align: left;">
+          
+          <!-- BLOQUE 1: El Almanaque de las 13 Lunas Llenas del Año -->
+          <div class="bloque-almanaque-lunas">
+            <h3 style="font-family:'Press Start 2P', monospace; font-size: 8px; color: var(--accent-gold); margin-bottom: 12px; text-align: left;">
+              🌟 LAS 13 LUNAS LLENAS
+            </h3>
+            <ul style="list-style: none; font-size: 18px; color: var(--text-main); display: flex; flex-direction: column; gap: 8px; padding-left: 0;">
+              <li>🐺 <strong>Enero:</strong> Luna de Lobo <span style="color: var(--text-muted); font-size: 16px;">(Introspección y guía interna)</span></li>
+              <li>❄️ <strong>Febrero:</strong> Luna de Nieve <span style="color: var(--text-muted); font-size: 16px;">(Purificación y resiliencia)</span></li>
+              <li>🪱 <strong>Marzo:</strong> Luna de Gusano <span style="color: var(--text-muted); font-size: 16px;">(Renacimiento y primeros brotes)</span></li>
+              <li>🌸 <strong>Abril:</strong> Luna Rosa <span style="color: var(--text-muted); font-size: 16px;">(Crecimiento, deseo y apertura)</span></li>
+              <li>💐 <strong>Mayo:</strong> Luna de Flores <span style="color: var(--text-muted); font-size: 16px;">(Plenitud, fertilidad y abundancia)</span></li>
+              <li>🍓 <strong>Junio:</strong> Luna de Fresa <span style="color: var(--text-muted); font-size: 16px;">(Cosecha de los primeros frutos)</span></li>
+              <li>🦌 <strong>Julio:</strong> Luna de Ciervo <span style="color: var(--text-muted); font-size: 16px;">(Fuerza, maduración y soberanía)</span></li>
+              <li>🐟 <strong>Agosto:</strong> Luna de Esturión <span style="color: var(--text-muted); font-size: 16px;">(Gratitud y recolección generosa)</span></li>
+              <li>🌾 <strong>Septiembre:</strong> Luna de Cosecha <span style="color: var(--text-muted); font-size: 16px;">(Equilibrio y almacenamiento)</span></li>
+              <li>🏹 <strong>Octubre:</strong> Luna del Cazador <span style="color: var(--text-muted); font-size: 16px;">(Transformación y soltar amarras)</span></li>
+              <li>🦫 <strong>Noviembre:</strong> Luna del Castor <span style="color: var(--text-muted); font-size: 16px;">(Preparación y refugio interno)</span></li>
+              <li>🥶 <strong>Diciembre:</strong> Luna Fría <span style="color: var(--text-muted); font-size: 16px;">(Descanso, oscuridad y reflexión)</span></li>
+              <li>🌌 <strong>Luna Azul:</strong> Segunda luna llena en un mismo mes natural <span style="color: var(--text-muted); font-size: 16px;">(Poder místico duplicado y eventos extraordinarios)</span></li>
+            </ul>
+          </div>
+          
+          <!-- BLOQUE 2: Guía de Intenciones de Luna Nueva 🌑 -->
+          <div class="bloque-intenciones-nueva" style="border-top: 1px dashed var(--border-color); padding-top: 15px;">
+            <h3 style="font-family:'Press Start 2P', monospace; font-size: 8px; color: var(--accent-gold); margin-bottom: 12px; text-align: left;">
+              🌑 GUÍA DE INTENCIONES DE LUNA NUEVA
+            </h3>
+            <ul style="list-style: none; font-size: 18px; color: var(--text-main); display: flex; flex-direction: column; gap: 8px; padding-left: 0;">
+              <li>🌌 <strong>El Vacío Fértil:</strong> La Luna Nueva representa el lienzo en blanco del cosmos. Es el momento de sembrar, no de cosechar.</li>
+              <li>📜 <strong>Rituales de Intención:</strong> Espacio óptimo para escribir propósitos, decretos de nuevos inicios y proyectos para las próximas dos semanas (hasta la Luna Llena).</li>
+              <li>🧘 <strong>Lógica Energética:</strong> Foco en la introspección, la meditación, la limpieza de espacios (limpieza con sahumerios) y el descanso corporal.</li>
+            </ul>
+          </div>
+          
         </div>
       `;
 
+      // Registrar los escuchadores de eventos para los botones de cambio de mes
+      const btnAnterior = document.getElementById('btnMesAnterior');
+      const btnSiguiente = document.getElementById('btnMesSiguiente');
+      if (btnAnterior) {
+        btnAnterior.addEventListener('click', () => {
+          if (mesAlmanaqueActivo > 5) {
+            mesAlmanaqueActivo--;
+            renderMoonView(container);
+          }
+        });
+      }
+      if (btnSiguiente) {
+        btnSiguiente.addEventListener('click', () => {
+          if (mesAlmanaqueActivo < 11) {
+            mesAlmanaqueActivo++;
+            renderMoonView(container);
+          }
+        });
+      }
+
       updateJournalForLunarDay(selectedLunarDay);
     }
+
+    // Calcular la fase lunar calibrada para 2026 (Anclada al Lunes 15 de Junio de 2026 como Luna Nueva 0%)
+    function obtenerDatosLunares(fecha) {
+      const fechaReferencia = new Date(2026, 5, 15, 20, 0, 0); // 15 de Junio de 2026 (Mes indexado 5)
+      const longitudCiclo = 29.530588853; // Duración media del mes sinódico
+      
+      const diffTiempo = fecha - fechaReferencia;
+      const diffDias = diffTiempo / (1000 * 60 * 60 * 24);
+      
+      let diasCiclo = diffDias % longitudCiclo;
+      if (diasCiclo < 0) diasCiclo += longitudCiclo;
+      
+      // Calcular porcentaje de iluminación exacto
+      let iluminacion = (1 - Math.abs((diasCiclo / 14.7652944) - 1)) * 100;
+      if (iluminacion < 0) iluminacion = 0;
+      if (iluminacion > 100) iluminacion = 100;
+      
+      // Determinar fase visual
+      let faseNombre = "";
+      let icono = "";
+      if (diasCiclo < 1.0 || diasCiclo >= 28.53) { faseNombre = "Nueva"; icono = "🌑"; }
+      else if (diasCiclo < 6.38) { faseNombre = "Creciente Iluminada"; icono = "🌒"; }
+      else if (diasCiclo < 8.38) { faseNombre = "Cuarto Creciente"; icono = "🌓"; }
+      else if (diasCiclo < 13.76) { faseNombre = "Gibosa Creciente"; icono = "🌔"; }
+      else if (diasCiclo < 15.76) { faseNombre = "Llena"; icono = "🌕"; }
+      else if (diasCiclo < 21.14) { faseNombre = "Gibosa Menguante"; icono = "🌖"; }
+      else if (diasCiclo < 23.14) { faseNombre = "Cuarto Menguante"; icono = "🌗"; }
+      else { faseNombre = "Creciente Menguante"; icono = "🌘"; }
+
+      const mes = fecha.getMonth() + 1;
+      const dia = fecha.getDate();
+
+      const lunasLlenasDelAño = [
+        { nombre: "Luna de Lobo", icono: "🐺" },
+        { nombre: "Luna de Nieve", icono: "❄️" },
+        { nombre: "Luna de Gusano", icono: "🪱" },
+        { nombre: "Luna Rosa", icono: "🌸" },
+        { nombre: "Luna de Flores", icono: "💐" },
+        { nombre: "Luna de Fresa", icono: "🍓" },
+        { nombre: "Luna de Ciervo", icono: "🦌" },
+        { nombre: "Luna de Esturión", icono: "🐟" },
+        { nombre: "Luna de Cosecha", icono: "🌾" },
+        { nombre: "Luna del Cazador", icono: "🏹" },
+        { nombre: "Luna del Castor", icono: "🦫" },
+        { nombre: "Luna Fría", icono: "🥶" }
+      ];
+
+      let lunaActual = lunasLlenasDelAño[mes - 1];
+      let nombreLunaDelAño = lunaActual.nombre;
+      let iconoLunaDelAño = lunaActual.icono;
+
+      if (faseNombre === "Llena" && dia >= 30) {
+        nombreLunaDelAño = "Luna Azul (Mística)";
+        iconoLunaDelAño = "🌌";
+      }
+
+      return {
+        porcentaje: iluminacion.toFixed(1),
+        fase: faseNombre,
+        icono: icono,
+        nombreAnual: nombreLunaDelAño,
+        iconoAnual: iconoLunaDelAño
+      };
+    }
+
 
     // Algoritmo matemático para dibujar el sprite SVG de la Luna en 16x16
     function generateMoonSvg(phaseIndex, lightColor = 'var(--accent-gold-glow)', shadowColor = 'var(--bg-book)') {

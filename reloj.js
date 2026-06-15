@@ -184,6 +184,17 @@ function actualizarReloj() {
     faseLunarEl.innerText = ` ${datosLuna.fase} ${datosLuna.icono} - ${datosLuna.porcentaje}% (${datosLuna.iconoAnual} ${datosLuna.nombreAnual})`;
   }
 
+  // 🌟 ¡NUEVA LÓGICA DE CICLO MENSTRUAL AQUÍ!
+  const datosCiclo = obtenerDatosCicloMenstrual(ahora);
+  const cicloMenstrualEl = document.getElementById('cicloMenstrual');
+  if (cicloMenstrualEl) {
+    if (datosCiclo.dia > 0) {
+      cicloMenstrualEl.innerText = `Día ${datosCiclo.dia} - ${datosCiclo.texto}`;
+    } else {
+      cicloMenstrualEl.innerText = datosCiclo.texto;
+    }
+  }
+
   // 3. Calendario sobremesa: calMes, calDia, calSemana
   const calMes = document.getElementById('calMes');
   const calDia = document.getElementById('calDia');
@@ -377,6 +388,17 @@ window.addEventListener('DOMContentLoaded', () => {
   iniciarReloj();
   inicializarMusica();
 
+  // Cargar fecha de la última regla desde localStorage
+  const inputRegla = document.getElementById('inputUltimaRegla');
+  if (inputRegla) {
+    const savedRegla = localStorage.getItem('fechaUltimaRegla');
+    if (savedRegla) {
+      inputRegla.value = savedRegla;
+      // Forzar actualización inicial
+      actualizarReloj();
+    }
+  }
+
   // Permitir pasar página haciendo clic directo sobre la libreta
   const contenedorHoja = document.getElementById('contenedorHoja');
   if (contenedorHoja) {
@@ -445,4 +467,43 @@ function sincronizarInputsConFechaActiva() {
     const min = String(fechaActiva.getMinutes()).padStart(2, '0');
     timeInput.value = `${hh}:${min}`;
   }
+}
+
+function obtenerDatosCicloMenstrual(fechaActual) {
+  const inputRegla = document.getElementById('inputUltimaRegla');
+  if (!inputRegla || !inputRegla.value) {
+    return { texto: "Fecha no introducida 🩸", dia: 0 };
+  }
+  
+  // Guardar en localStorage
+  localStorage.setItem('fechaUltimaRegla', inputRegla.value);
+  
+  const fechaInicio = new Date(inputRegla.value);
+  // Ponemos ambas fechas a las 00:00 para calcular días enteros exactos
+  const fActual = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate());
+  const fInicio = new Date(fechaInicio.getFullYear(), fechaInicio.getMonth(), fechaInicio.getDate());
+  
+  const diffTiempo = fActual - fInicio;
+  let diffDias = Math.floor(diffTiempo / (1000 * 60 * 60 * 24));
+  
+  if (diffDias < 0) return { texto: "Esperando ciclo...⏳", dia: 0 };
+  
+  // Ciclo infinito cada 28 días (el día va de 1 a 28)
+  const diaCiclo = (diffDias % 28) + 1;
+  
+  let fase = "";
+  if (diaCiclo >= 1 && diaCiclo <= 5) {
+    fase = "Fase Menstrual 🩸";
+  } else if (diaCiclo >= 6 && diaCiclo <= 14) {
+    fase = "Fase Folicular 🌱";
+  } else if (diaCiclo === 15 || diaCiclo === 16) {
+    fase = "Fase Ovulatoria 🌸";
+  } else {
+    fase = "Fase Lútea 🌙";
+    if (diaCiclo >= 25 && diaCiclo <= 28) {
+      fase += " (Premenstrual ⚠️)";
+    }
+  }
+  
+  return { texto: fase, dia: diaCiclo };
 }
