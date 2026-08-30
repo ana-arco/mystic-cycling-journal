@@ -7,11 +7,11 @@
   <title>Portal del Ciclo - Grimorio Místico</title>
   <link rel="icon"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16' style='image-rendering:pixelated'%3E%3Crect x='2' y='1' width='12' height='14' fill='%23382216' stroke='%231b0f0a' stroke-width='1'/%3E%3Crect x='1' y='3' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='7' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='11' width='2' height='2' fill='%237c8389'/%3E%3Crect x='7' y='6' width='3' height='3' fill='%23d4af37'/%3E%3Crect x='8' y='7' width='1' height='1' fill='%23ffee7d'/%3E%3C/svg%3E">
-  <!-- Google Fonts for Gothic Medieval and Pixel Vibes -->
+  <!-- Google Fonts for Gothic Medieval and Retro 8-Bit Pixel Art -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Press+Start+2P&family=VT323&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="estilos-dashboard.css">
 </head>
@@ -39,7 +39,7 @@
 
   <div class="interfaz-bloque">
     <h1
-      style="font-size: 34px; margin-bottom: 24px; text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8); color: var(--accent-gold); display: flex; align-items: center; justify-content: center; gap: 12px; font-family: 'Cinzel', serif;">
+      style="font-size: 24px; margin-bottom: 24px; text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.9); color: var(--accent-gold); display: flex; align-items: center; justify-content: center; gap: 12px; font-family: 'Press Start 2P', monospace; text-align: center;">
       <span>🏰</span> PORTAL DE INGRESO <span>🏰</span>
     </h1>
 
@@ -98,8 +98,10 @@
         <!-- Coordenadas Geográficas -->
         <div class="data-row">
           <span class="data-label">Alineación del Cielo</span>
-          <div id="datosUbicacion" class="data-value" style="font-size: 19px; word-break: break-all;">Ubicación sin alinear</div>
-          <button class="pixel-btn" style="margin-top: 4px; background-color: var(--accent-purple); color: white;" onclick="obtenerUbicacion()">
+          <div id="datosUbicacion" class="data-value" style="font-size: 19px; word-break: break-all;">Ubicación sin
+            alinear</div>
+          <button class="pixel-btn" style="margin-top: 4px; background-color: var(--accent-purple); color: white;"
+            onclick="obtenerUbicacion()">
             📍 Sincronizar GPS
           </button>
         </div>
@@ -107,7 +109,8 @@
         <!-- Día 1 de la última regla -->
         <div class="data-row" style="margin-bottom: 12px;">
           <span class="data-label" style="display: block; margin-bottom: 4px;">Día 1 de la última regla</span>
-          <input type="date" id="inputUltimaRegla" class="pixel-input-form" onchange="actualizarReloj()" style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); width: 100%;">
+          <input type="date" id="inputUltimaRegla" class="pixel-input-form" onchange="actualizarReloj()"
+            style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); width: 100%;">
         </div>
 
         <!-- Controles de Paso Temporal -->
@@ -116,22 +119,30 @@
           <div class="control-temporal-bloque" style="margin: 10px 0;">
             <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 8px;">
               <button class="pixel-btn btn-flecha" onclick="modificarFechaSimulada(-1)">◀</button>
-              <input type="date" id="inputFechaSimulada" class="pixel-input-form" onchange="iniciarViajeTemporal()" style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); flex-grow: 1;">
+              <input type="date" id="inputFechaSimulada" class="pixel-input-form" onchange="iniciarViajeTemporal()"
+                style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); flex-grow: 1;">
               <button class="pixel-btn btn-flecha" onclick="modificarFechaSimulada(1)">▶</button>
             </div>
-            
+
             <div style="display: flex; align-items: center; gap: 4px;">
               <button class="pixel-btn btn-flecha" onclick="modificarHoraSimulada(-1)">◀</button>
-              <input type="time" id="inputHoraSimulada" class="pixel-input-form" onchange="iniciarViajeTemporal()" style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); flex-grow: 1;">
+              <input type="time" id="inputHoraSimulada" class="pixel-input-form" onchange="iniciarViajeTemporal()"
+                style="font-family: 'VT323', monospace; font-size: 18px; padding: 4px; border: 2px solid var(--border-color); background: var(--bg-page); color: var(--text-main); flex-grow: 1;">
               <button class="pixel-btn btn-flecha" onclick="modificarHoraSimulada(1)">▶</button>
             </div>
           </div>
         </div>
 
         <!-- Botones de Enlace del Portal -->
-        <div class="btn-row">
-          <a href="grimorio-activo.html" class="pixel-btn" style="background-color: var(--accent-gold); color: #1b0f0a;">
+        <div class="btn-row"
+          style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 10px;">
+          <a href="grimorio-activo.html" class="pixel-btn"
+            style="background-color: var(--accent-gold); color: #1b0f0a;">
             🔮 Abrir Grimorio
+          </a>
+          <a href="banco-pruebas-calendario.html" class="pixel-btn"
+            style="background-color: var(--accent-purple); color: white;">
+            📅 Calendario
           </a>
           <a href="documentacion.html" class="pixel-btn" style="background-color: #7c8389; color: #1b0f0a;">
             📜 Hoja de Ruta
@@ -139,7 +150,8 @@
         </div>
 
         <div class="sintonia-sonora">
-          <button id="btnSintonia" class="retro-btn" title="Activar sintonía de ambiente">🔈 Música de ambiente: OFF</button>
+          <button id="btnSintonia" class="retro-btn" title="Activar sintonía de ambiente">🔈 Música de ambiente:
+            OFF</button>
           <audio id="audioReproductor" style="display:none;" preload="auto" loop></audio>
         </div>
       </div>

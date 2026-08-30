@@ -1,0 +1,2056 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario Interactivo - Grimorio Cíclico</title>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16' style='image-rendering:pixelated'%3E%3Crect x='2' y='1' width='12' height='14' fill='%23382216' stroke='%231b0f0a' stroke-width='1'/%3E%3Crect x='1' y='3' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='7' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='11' width='2' height='2' fill='%237c8389'/%3E%3Crect x='7' y='6' width='3' height='3' fill='%23d4af37'/%3E%3Crect x='8' y='7' width='1' height='1' fill='%23ffee7d'/%3E%3C/svg%3E">
+  <!-- Google Fonts: Retro 8-Bit Pixel Art & Handwritten Cursive Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Kalam:wght@300;400;700&family=Pixelify+Sans:wght@400..700&family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. VARIABLES CSS Y TEMA PIXEL ART COZY
+       ========================================================================== */
+    :root {
+      --bg-dark: #120b17;
+      --bg-panel: #201429;
+      --bg-card: #2e1d3a;
+      --bg-card-hover: #402950;
+      --bg-cell-other: #160d1d;
+      --border-pixel: #08040a;
+      
+      --text-main: #f8edfd;
+      --text-muted: #bba4c9;
+      --text-accent: #ffd56b;
+
+      --accent-pink: #ff7aa2;
+      --accent-lavender: #c084fc;
+      --accent-mint: #5eead4;
+      --accent-gold: #fde047;
+      --accent-coral: #f87171;
+      --accent-green: #4ade80;
+      --accent-orange: #fb923c;
+      --accent-blue: #60a5fa;
+
+      --shadow-pixel: 0 4px 0 #08040a;
+      --border-retro: 3px solid #08040a;
+
+      --pixel-transition: all 0.1s steps(2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      image-rendering: pixelated;
+    }
+
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(rgba(192, 132, 252, 0.12) 1px, transparent 0),
+        radial-gradient(rgba(94, 234, 212, 0.08) 1px, transparent 0);
+      background-size: 24px 24px, 48px 48px;
+      background-position: 0 0, 12px 12px;
+      color: var(--text-main);
+      font-family: 'VT323', monospace;
+      font-size: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ==========================================================================
+       2. CABECERA FLOTANTE FIJA Y PANEL DESPLEGABLE (COLLAPSIBLE HEADER)
+       ========================================================================== */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(32, 20, 41, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: var(--border-retro);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      width: 100%;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-radius: 4px;
+    }
+
+    .header-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .app-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 14px;
+      color: var(--accent-gold);
+      text-shadow: 2px 2px 0 var(--border-pixel);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .view-mode-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .dual-selector-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 4px 10px;
+      border: 2px solid var(--border-pixel);
+      border-radius: 4px;
+      flex-wrap: wrap;
+      max-width: 100%;
+    }
+
+    .selector-label {
+      font-family: 'Silkscreen', monospace;
+      font-size: 11px;
+      color: var(--accent-gold);
+    }
+
+    .nav-controls-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    /* Panel Desplegable (Collapsible) */
+    .collapsible-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+      padding-top: 10px;
+      width: 100%;
+      transition: all 0.2s ease-in-out;
+    }
+
+    /* Checkboxes de Capas Filtrables */
+    .header-layers-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+      padding-top: 8px;
+      width: 100%;
+    }
+
+    .layer-filters-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .filter-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      font-family: 'Silkscreen', monospace;
+      font-size: 11px;
+      user-select: none;
+      padding: 3px 6px;
+      border: 2px solid var(--border-pixel);
+      box-shadow: 2px 2px 0 var(--border-pixel);
+      border-radius: 3px;
+      transition: var(--pixel-transition);
+    }
+
+    .filter-checkbox input[type="checkbox"] {
+      appearance: none;
+      width: 13px;
+      height: 13px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-pixel);
+      cursor: pointer;
+      display: grid;
+      place-content: center;
+    }
+
+    .filter-checkbox input[type="checkbox"]:checked::before {
+      content: "✔";
+      font-size: 10px;
+      color: var(--accent-gold);
+      font-weight: bold;
+    }
+
+    .filter-menstrual { background: rgba(248, 113, 113, 0.18); color: var(--accent-coral); }
+    .filter-lunar { background: rgba(192, 132, 252, 0.18); color: var(--accent-lavender); }
+    .filter-pagan { background: rgba(74, 222, 128, 0.18); color: var(--accent-green); }
+    .filter-movement { background: rgba(251, 146, 60, 0.18); color: var(--accent-orange); }
+    .filter-nutrition { background: rgba(253, 224, 71, 0.18); color: var(--accent-gold); }
+    .filter-labor { background: rgba(94, 234, 212, 0.18); color: var(--accent-mint); }
+
+    /* Botones, Selects e Inputs Retro */
+    .pixel-btn {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 2px solid var(--border-pixel);
+      box-shadow: 2px 2px 0 var(--border-pixel);
+      font-family: 'Silkscreen', monospace;
+      font-size: 11px;
+      padding: 5px 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: var(--pixel-transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+    }
+
+    .pixel-btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--accent-gold);
+      transform: translate(-1px, -1px);
+    }
+
+    .pixel-btn.active {
+      background: var(--accent-lavender);
+      color: var(--border-pixel);
+      font-weight: bold;
+    }
+
+    .pixel-btn-accent {
+      background: var(--accent-pink);
+      color: var(--border-pixel);
+      font-weight: bold;
+    }
+
+    .pixel-select, .pixel-input-date, .pixel-textarea {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 2px solid var(--border-pixel);
+      box-shadow: 2px 2px 0 var(--border-pixel);
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      padding: 2px 6px;
+      outline: none;
+      cursor: pointer;
+      max-width: 100%;
+    }
+
+    .pixel-select:focus, .pixel-input-date:focus, .pixel-textarea:focus {
+      border-color: var(--accent-gold);
+    }
+
+    /* ==========================================================================
+       3. PANEL DE PROPÓSITOS & SABIDURÍA CÍCLICA (DESPLEGABLE INDEPENDIENTE)
+       ========================================================================== */
+    .seasonal-intentions-card {
+      background: var(--bg-panel);
+      border: var(--border-retro);
+      box-shadow: 4px 4px 0 #08040a;
+      padding: 12px 16px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .intentions-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      border-bottom: 2px dashed rgba(255, 255, 255, 0.12);
+      padding-bottom: 6px;
+    }
+
+    .intentions-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-shadow: 2px 2px 0 var(--border-pixel);
+    }
+
+    .energy-focus-badge {
+      background: rgba(253, 224, 71, 0.15);
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-gold);
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-family: 'Silkscreen', monospace;
+      font-size: 11px;
+    }
+
+    .collapsible-intentions-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .intentions-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .intentions-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .intentions-box {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .box-label {
+      font-family: 'Silkscreen', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .pixel-textarea {
+      width: 100%;
+      min-height: 48px;
+      resize: vertical;
+    }
+
+    /* Tarjetas de Sabiduría Cíclica & Autocuidado */
+    .cyclic-wisdom-section {
+      background: rgba(192, 132, 252, 0.08);
+      border: 2px dashed var(--accent-lavender);
+      padding: 10px 14px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .cyclic-wisdom-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      color: var(--accent-pink);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cyclic-wisdom-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 8px;
+    }
+
+    .wisdom-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-pixel);
+      padding: 6px 10px;
+      border-radius: 3px;
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      line-height: 22px;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .wisdom-card-tag {
+      font-family: 'Silkscreen', monospace;
+      font-size: 10px;
+      color: var(--accent-gold);
+    }
+
+    /* ==========================================================================
+       4. CONTENEDOR DE VISTAS (GRID RESPONSIVE DE EXACTAMENTE 7 COLUMNAS)
+       ========================================================================== */
+    .view-display-container {
+      width: 100%;
+      max-height: calc(100vh - 280px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-right: 4px;
+    }
+
+    .month-block {
+      background: var(--bg-panel);
+      border: var(--border-retro);
+      box-shadow: 4px 4px 0 #08040a;
+      padding: 12px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .month-title-header {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 12px;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 2px dashed rgba(255, 255, 255, 0.12);
+      padding-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-shadow: 2px 2px 0 var(--border-pixel);
+    }
+
+    .month-grid, .week-view-grid, .range-view-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 4px;
+      width: 100%;
+    }
+
+    .weekday-header {
+      background: var(--bg-card);
+      border: 1px solid var(--border-pixel);
+      text-align: center;
+      padding: 4px 2px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      color: var(--accent-lavender);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .day-cell {
+      background: var(--bg-card);
+      border: 2px solid var(--border-pixel);
+      box-shadow: 2px 2px 0 var(--border-pixel);
+      min-height: 100px;
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: var(--pixel-transition);
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .day-cell:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-pink);
+      transform: translateY(-2px);
+    }
+
+    .day-cell.other-month {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .day-cell.is-today {
+      border-color: var(--accent-gold);
+      box-shadow: inset 0 0 0 2px var(--accent-gold), 2px 2px 0 var(--border-pixel);
+    }
+
+    .day-num-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .day-num {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      color: var(--text-main);
+    }
+
+    .is-today .day-num {
+      color: var(--accent-gold);
+    }
+
+    .cell-badges {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 3px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .badge-item {
+      font-size: 13px;
+      padding: 1px 3px;
+      border-radius: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      border: 1px solid transparent;
+      max-width: 100%;
+    }
+
+    .badge-menstrual { background: rgba(248, 113, 113, 0.18); color: #fca5a5; border-color: rgba(248, 113, 113, 0.3); }
+    .badge-lunar { background: rgba(192, 132, 252, 0.18); color: #e9d5ff; border-color: rgba(192, 132, 252, 0.3); }
+    .badge-lunar-special { background: rgba(253, 224, 71, 0.25); color: #fef08a; border-color: rgba(253, 224, 71, 0.6); font-weight: bold; }
+    .badge-pagan { background: rgba(74, 222, 128, 0.22); color: #86efac; border-color: rgba(74, 222, 128, 0.4); font-weight: bold; }
+    .badge-movement { background: rgba(251, 146, 60, 0.22); color: #ffedd5; border-color: rgba(251, 146, 60, 0.4); }
+    .badge-nutrition { background: rgba(253, 224, 71, 0.18); color: #fef08a; border-color: rgba(253, 224, 71, 0.4); }
+    .badge-labor { background: rgba(94, 234, 212, 0.18); color: #99f6e4; border-color: rgba(94, 234, 212, 0.3); }
+
+    /* ==========================================================================
+       5. HOJA DE PERGAMINO MANUSCRITO (VISTA DIARIA Y MODAL EDITABLE)
+       ========================================================================== */
+    .parchment-page {
+      background-color: #f7edd3;
+      background-image: 
+        repeating-linear-gradient(transparent, transparent 31px, rgba(160, 110, 60, 0.2) 31px, rgba(160, 110, 60, 0.2) 32px);
+      border: 4px solid #3d2412;
+      box-shadow: 8px 8px 0 #0d0602, inset 0 0 35px rgba(120, 70, 20, 0.25);
+      color: #2b180a;
+      padding: 20px 24px;
+      border-radius: 6px;
+      font-family: 'Caveat', cursive;
+      font-size: 25px;
+      line-height: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      width: 100%;
+    }
+
+    .parchment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px dashed #8c4a27;
+      padding-bottom: 6px;
+      width: 100%;
+    }
+
+    .parchment-title {
+      font-family: 'Kalam', cursive;
+      font-size: 26px;
+      font-weight: 700;
+      color: #5c2008;
+    }
+
+    .handwritten-section {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+    }
+
+    .handwritten-label {
+      font-family: 'Kalam', cursive;
+      font-size: 21px;
+      font-weight: 700;
+      color: #7a310c;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .handwritten-text {
+      font-family: 'Caveat', cursive;
+      font-size: 24px;
+      color: #2b180a;
+    }
+
+    .handwritten-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px dashed #8c4a27;
+      border-radius: 4px;
+      padding: 6px 10px;
+      font-family: 'Caveat', cursive;
+      font-size: 24px;
+      line-height: 28px;
+      color: #2b180a;
+      outline: none;
+      resize: vertical;
+      transition: all 0.2s ease;
+    }
+
+    .handwritten-input:focus {
+      border: 1px solid #5c2008;
+      background: rgba(255, 255, 255, 0.45);
+      box-shadow: inset 0 0 6px rgba(140, 74, 39, 0.2);
+    }
+
+    .save-parchment-btn {
+      background: #5c2008;
+      color: #f7edd3;
+      border: 2px solid #3d2412;
+      border-radius: 4px;
+      font-family: 'Kalam', cursive;
+      font-size: 19px;
+      padding: 5px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .save-parchment-btn:hover {
+      background: #7a310c;
+      transform: translateY(-1px);
+      box-shadow: 2px 2px 0 #3d2412;
+    }
+
+    .save-status-msg {
+      font-family: 'Kalam', cursive;
+      font-size: 17px;
+      color: #2e7d32;
+      display: none;
+      margin-left: 8px;
+    }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(8, 4, 10, 0.85);
+      backdrop-filter: blur(3px);
+      display: none;
+      place-content: center;
+      z-index: 999;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: grid;
+    }
+
+    .modal-card-parchment {
+      width: 100%;
+      max-width: 650px;
+      max-height: 88vh;
+      overflow-y: auto;
+    }
+
+    .close-btn-parchment {
+      background: #a33218;
+      color: #fff;
+      border: 2px solid #3d2412;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      width: 26px;
+      height: 26px;
+      cursor: pointer;
+      display: grid;
+      place-content: center;
+    }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--bg-card-hover); border: 1px solid var(--border-pixel); }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- CABECERA FLOTANTE FIJA CON PANEL DESPLEGABLE -->
+    <header class="sticky-header">
+      <div class="header-top-bar">
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <h1 class="app-title">
+            <span>🔮</span> GRIMORIO CÍCLICO
+          </h1>
+          <a href="index.html" class="pixel-btn" style="background: var(--bg-card); color: var(--accent-gold);">
+            🏰 Portal Inicio
+          </a>
+        </div>
+
+        <!-- MODOS DE VISTA (CALENDARIO, SEMANAL, RANGO, DÍA) -->
+        <div class="view-mode-group">
+          <button class="pixel-btn active" id="btnViewQuarter" onclick="onCalendarBtnClick()">📅 Calendario</button>
+          <button class="pixel-btn" id="btnViewWeek" onclick="setViewMode('weekly')">📅 Semanal</button>
+          <button class="pixel-btn" id="btnViewRange" onclick="setViewMode('customRange')">📊 Rango</button>
+          <button class="pixel-btn" id="btnViewDay" onclick="setViewMode('day')">☀️ Día</button>
+        </div>
+
+        <!-- BOTÓN INTERACTIVO OCULTAR/MOSTRAR CONTROLES -->
+        <button class="pixel-btn pixel-btn-accent" id="btnToggleControls" onclick="toggleControlPanel()">
+          ⚙️ Controles <span id="toggleIcon">▲</span>
+        </button>
+
+        <div class="nav-controls-group">
+          <button class="pixel-btn" onclick="navigateTime(-1)">◄ Ant.</button>
+          <button class="pixel-btn" style="color: var(--accent-gold);" onclick="resetToToday()">✨ Hoy</button>
+          <button class="pixel-btn" onclick="navigateTime(1)">Sig. ►</button>
+        </div>
+      </div>
+
+      <!-- PANEL DESPLEGABLE CON TODOS LOS CONTROLES Y FILTROS -->
+      <div class="collapsible-panel" id="collapsibleControlPanel">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; width: 100%;">
+          <!-- SELECTOR DUAL DE INICIO TRIMESTRAL -->
+          <div class="dual-selector-group">
+            <span class="selector-label">Estación:</span>
+            <select class="pixel-select" id="seasonSelect" onchange="onSeasonSelectChange(this.value)">
+              <option value="winter">❄️ Invierno (Yule → Ostara)</option>
+              <option value="spring">🌸 Primavera (Ostara → Litha)</option>
+              <option value="summer" selected>☀️ Verano (Litha → Mabon)</option>
+              <option value="autumn">🍂 Otoño (Mabon → Yule)</option>
+            </select>
+
+            <span class="selector-label" style="margin-left: 4px;">Inicio:</span>
+            <select class="pixel-select" id="startMonthSelect" onchange="onManualDateChange()">
+              <option value="0">Ene</option>
+              <option value="1">Feb</option>
+              <option value="2">Mar</option>
+              <option value="3">Abr</option>
+              <option value="4">May</option>
+              <option value="5" selected>Jun</option>
+              <option value="6">Jul</option>
+              <option value="7">Ago</option>
+              <option value="8">Sep</option>
+              <option value="9">Oct</option>
+              <option value="10">Nov</option>
+              <option value="11">Dic</option>
+            </select>
+
+            <select class="pixel-select" id="startYearSelect" onchange="onManualDateChange()">
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026" selected>2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+            </select>
+
+            <input type="date" class="pixel-input-date" id="startDatePicker" onchange="onDatePickerChange(this.value)">
+          </div>
+
+          <!-- SELECTOR DE RANGO POR BLOQUES DE SEMANAS -->
+          <div style="display: flex; align-items: center; gap: 6px; background: rgba(0, 0, 0, 0.35); padding: 4px 8px; border: 2px solid var(--border-pixel); border-radius: 4px;">
+            <span class="selector-label" style="color: var(--accent-mint);">Rango Semanas:</span>
+            <select class="pixel-select" id="selectRangeWeeks" onchange="onCustomRangeWeeksChange(this.value)">
+              <option value="1">1 Semana (7 d)</option>
+              <option value="2" selected>2 Semanas (14 d)</option>
+              <option value="3">3 Semanas (21 d)</option>
+              <option value="4">4 Semanas (28 d)</option>
+              <option value="6">6 Semanas (42 d)</option>
+              <option value="8">8 Semanas (56 d)</option>
+            </select>
+          </div>
+
+          <!-- SELECTOR TOTAL DE INICIO DE SEMANA (7 DÍAS) -->
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <label for="weekStartSelect" class="selector-label" style="color: var(--text-muted);">Inicio Semana:</label>
+            <select class="pixel-select" id="weekStartSelect" onchange="changeWeekStart(this.value)">
+              <option value="1" selected>Lunes</option>
+              <option value="2">Martes</option>
+              <option value="3">Miércoles</option>
+              <option value="4">Jueves</option>
+              <option value="5">Viernes</option>
+              <option value="6">Sábado</option>
+              <option value="0">Domingo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="header-layers-row">
+          <!-- Capas Filtrables (6 Capas) con Botones Globales -->
+          <div class="layer-filters-container">
+            <span class="selector-label" style="color: var(--text-muted);">Capas:</span>
+
+            <div style="display: inline-flex; gap: 4px;">
+              <button class="pixel-btn" onclick="setAllLayers(true)" title="Seleccionar todas las capas" style="padding: 2px 6px; font-size: 10px;">✔ Todo</button>
+              <button class="pixel-btn" onclick="setAllLayers(false)" title="Deseleccionar todas las capas" style="padding: 2px 6px; font-size: 10px;">✖ Ninguno</button>
+            </div>
+
+            <label class="filter-checkbox filter-menstrual">
+              <input type="checkbox" id="chkMenstrual" checked onchange="toggleLayer('menstrual')">
+              <span>🩸 Menstrual</span>
+            </label>
+
+            <label class="filter-checkbox filter-lunar">
+              <input type="checkbox" id="chkLunar" checked onchange="toggleLayer('lunar')">
+              <span>🌙 Lunar</span>
+            </label>
+
+            <label class="filter-checkbox filter-pagan">
+              <input type="checkbox" id="chkPagan" checked onchange="toggleLayer('pagan')">
+              <span>🕯️ Pagana</span>
+            </label>
+
+            <label class="filter-checkbox filter-movement">
+              <input type="checkbox" id="chkMovement" checked onchange="toggleLayer('movement')">
+              <span>🧘 Movimiento</span>
+            </label>
+
+            <label class="filter-checkbox filter-nutrition">
+              <input type="checkbox" id="chkNutrition" checked onchange="toggleLayer('nutrition')">
+              <span>🥗 Nutrición</span>
+            </label>
+
+            <label class="filter-checkbox filter-labor">
+              <input type="checkbox" id="chkLabor" checked onchange="toggleLayer('labor')">
+              <span>💼 Laboral</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PANEL DE PROPÓSITOS ESTACIONALES Y SABIDURÍA CÍCLICA (DESPLEGABLE INDEPENDIENTE) -->
+    <section class="seasonal-intentions-card">
+      <div class="intentions-header" onclick="toggleIntentionsPanel()" style="cursor: pointer; user-select: none;" title="Haga clic para ocultar o mostrar propósitos y sabiduría cíclica">
+        <h2 class="intentions-title">
+          <span>🌿</span> PROPÓSITOS & SABIDURÍA CÍCLICA <span id="intentionsToggleIcon" style="font-size: 11px; margin-left: 6px; color: var(--accent-gold);">▲</span>
+        </h2>
+        <div class="energy-focus-badge" id="energyFocusDisplay">
+          Cargando energía estacional...
+        </div>
+      </div>
+
+      <div class="collapsible-intentions-body" id="collapsibleIntentionsBody">
+        <div class="intentions-body">
+          <div class="intentions-box">
+            <label for="inputSeasonIntention" class="box-label">✨ Propósito Principal & Intención Estacional:</label>
+            <textarea id="inputSeasonIntention" class="pixel-textarea" placeholder="Escribe tu intención para esta estación..." oninput="saveSeasonalData()"></textarea>
+          </div>
+
+          <div class="intentions-box">
+            <label for="inputGrowthGoals" class="box-label">🌱 Crecimiento Personal & Enfoque Cíclico:</label>
+            <textarea id="inputGrowthGoals" class="pixel-textarea" placeholder="Hábitos, metas y reflexiones energéticas..." oninput="saveSeasonalData()"></textarea>
+          </div>
+        </div>
+
+        <!-- SECCIÓN DE RECORDATORIOS Y SABIDURÍA CÍCLICA DE LUNAS & CICLO -->
+        <div class="cyclic-wisdom-section">
+          <div class="cyclic-wisdom-title">
+            <span>🔮</span> SABIDURÍA CÍCLICA & RECORDATORIOS DE AUTOCUIDADO
+          </div>
+          <div class="cyclic-wisdom-grid" id="cyclicWisdomGrid">
+            <!-- Tarjetas generadas dinámicamente -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL DE VISTAS (GRID RESPONSIVE DE EXACTAMENTE 7 COLUMNAS) -->
+    <main class="view-display-container" id="mainViewContainer">
+      <!-- Se genera dinámicamente -->
+    </main>
+
+  </div>
+
+  <!-- MODAL HOJA DE PERGAMINO MANUSCRITO PARA DETALLE DE DÍA -->
+  <div class="modal-overlay" id="dayDetailModal">
+    <div class="modal-card-parchment" id="modalBodyContent">
+      <!-- Contenido dinámico del Grimorio -->
+    </div>
+  </div>
+
+  <!-- LÓGICA JAVASCRIPT -->
+  <script>
+    /* ==========================================================================
+       ESTADO GLOBAL DEL CALENDARIO
+       ========================================================================== */
+    const state = {
+      viewMode: 'quarterly', // 'quarterly' | 'weekly' | 'customRange' | 'day'
+      customRangeWeeks: 2,   // 1, 2, 3, 4, 6, 8 semanas
+      season: 'summer',
+      startYear: 2026,
+      startMonth: 5,         // Junio (0-indexed)
+      selectedDate: new Date(),
+      weekStartDay: 1,       // 1 = Lunes, 0 = Domingo...
+      layers: {
+        menstrual: true,
+        lunar: true,
+        pagan: true,
+        movement: true,
+        nutrition: true,
+        labor: true
+      },
+      menstrualRef: new Date(2026, 7, 5),
+      cycleLength: 28
+    };
+
+    const DAY_NAMES_ES = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const DAY_SHORT_ES = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+    const MONTH_NAMES_ES = [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+
+    const TRADITIONAL_MOON_NAMES = [
+      'Luna del Lobo 🐺',       // Enero
+      'Luna de Nieve ❄️',      // Febrero
+      'Luna de Gusano 🪱',     // Marzo
+      'Luna Rosa 🌸',          // Abril
+      'Luna de Flores 💐',     // Mayo
+      'Luna de Fresa 🍓',      // Junio
+      'Luna de Ciervo 🦌',     // Julio
+      'Luna de Esturión 🐟',   // Agosto
+      'Luna de Cosecha 🌾',    // Septiembre
+      'Luna del Cazador 🏹',   // Octubre
+      'Luna del Castor 🦫',    // Noviembre
+      'Luna Fría 🧊'          // Diciembre
+    ];
+
+    const SEASON_DATA = {
+      winter: {
+        name: 'Invierno ❄️',
+        startMonth: 11,
+        focus: 'Foco: Introspección, gestación de semillas, quietud y Yule → Ostara'
+      },
+      spring: {
+        name: 'Primavera 🌸',
+        startMonth: 2,
+        focus: 'Foco: Brotes de proyectos, renacimiento e impulso y Ostara → Litha'
+      },
+      summer: {
+        name: 'Verano ☀️',
+        startMonth: 5,
+        focus: 'Foco: Expansión, plenitud solar, fuerza y Litha → Mabon'
+      },
+      autumn: {
+        name: 'Otoño 🍂',
+        startMonth: 8,
+        focus: 'Foco: Cosecha, equilibrio, gratitud y Mabon → Yule'
+      }
+    };
+
+    /* ==========================================================================
+       1. CONTROLES PLEGABLES (COLLAPSIBLE PANELS)
+       ========================================================================== */
+    function toggleControlPanel() {
+      const panel = document.getElementById('collapsibleControlPanel');
+      const icon = document.getElementById('toggleIcon');
+
+      if (panel.style.display === 'none') {
+        panel.style.display = 'flex';
+        icon.innerText = '▲';
+      } else {
+        panel.style.display = 'none';
+        icon.innerText = '▼';
+      }
+    }
+
+    function toggleIntentionsPanel() {
+      const body = document.getElementById('collapsibleIntentionsBody');
+      const icon = document.getElementById('intentionsToggleIcon');
+
+      if (body.style.display === 'none') {
+        body.style.display = 'flex';
+        icon.innerText = '▲';
+      } else {
+        body.style.display = 'none';
+        icon.innerText = '▼';
+      }
+    }
+
+    /* ==========================================================================
+       2. ASTROFÍSICA SOLAR Y LUNAR CON NOMBRES TRADICIONALES + ZODIACO
+       ========================================================================== */
+    function getSunTimes(date) {
+      const m = date.getMonth();
+      let sunrise = '07:15';
+      let sunset = '19:45';
+      if (m >= 5 && m <= 7) { sunrise = '06:30'; sunset = '21:30'; }
+      else if (m === 11 || m === 0 || m === 1) { sunrise = '08:15'; sunset = '18:00'; }
+      return { sunrise, sunset };
+    }
+
+    function getMoonZodiac(date) {
+      const refDate = new Date(Date.UTC(2024, 0, 11, 11, 57, 0));
+      const diffDays = (date.getTime() - refDate.getTime()) / (1000 * 60 * 60 * 24);
+      const refLong = 285;
+      let moonLong = (refLong + diffDays * 13.176358) % 360;
+      if (moonLong < 0) moonLong += 360;
+
+      const SIGNS = [
+        { name: 'Aries', emoji: '♈' }, { name: 'Tauro', emoji: '♉' },
+        { name: 'Géminis', emoji: '♊' }, { name: 'Cáncer', emoji: '♋' },
+        { name: 'Leo', emoji: '♌' }, { name: 'Virgo', emoji: '♍' },
+        { name: 'Libra', emoji: '♎' }, { name: 'Escorpio', emoji: '♏' },
+        { name: 'Sagitario', emoji: '♐' }, { name: 'Capricornio', emoji: '♑' },
+        { name: 'Acuario', emoji: '♒' }, { name: 'Piscis', emoji: '♓' }
+      ];
+
+      const signIdx = Math.floor(moonLong / 30) % 12;
+      return SIGNS[signIdx];
+    }
+
+    function getLunarPhase(date) {
+      const refNewMoon = new Date(Date.UTC(2024, 0, 11, 11, 57, 0));
+      const diffDays = (date.getTime() - refNewMoon.getTime()) / (1000 * 60 * 60 * 24);
+      const cycle = 29.53058770576;
+      let phaseDay = diffDays % cycle;
+      if (phaseDay < 0) phaseDay += cycle;
+
+      const illumination = Math.round((1 - Math.cos((phaseDay / cycle) * 2 * Math.PI)) / 2 * 100);
+      const zodiac = getMoonZodiac(date);
+
+      let phaseName = '';
+      let emoji = '';
+      let isSpecial = false;
+
+      if (phaseDay < 1.84566) { phaseName = 'Luna Nueva'; emoji = '🌑'; isSpecial = true; }
+      else if (phaseDay < 5.53699) { phaseName = 'Creciente Cóncava'; emoji = '🌒'; }
+      else if (phaseDay < 9.22831) { phaseName = 'Cuarto Creciente'; emoji = '🌓'; }
+      else if (phaseDay < 12.91963) { phaseName = 'Creciente Convexa'; emoji = '🌔'; }
+      else if (phaseDay < 16.61096) { phaseName = 'Luna Llena'; emoji = '🌕'; isSpecial = true; }
+      else if (phaseDay < 20.30228) { phaseName = 'Menguante Convexa'; emoji = '🌖'; }
+      else if (phaseDay < 23.99361) { phaseName = 'Cuarto Menguante'; emoji = '🌗'; }
+      else if (phaseDay < 27.68493) { phaseName = 'Menguante Cóncava'; emoji = '🌘'; }
+      else { phaseName = 'Luna Nueva'; emoji = '🌑'; isSpecial = true; }
+
+      let moonrise = '08:00';
+      let moonset = '20:30';
+      if (phaseName.includes('Llena')) { moonrise = '21:15'; moonset = '07:45'; }
+      else if (phaseName.includes('Creciente')) { moonrise = '13:00'; moonset = '01:30'; }
+      else if (phaseName.includes('Menguante')) { moonrise = '01:45'; moonset = '14:15'; }
+
+      const tradName = TRADITIONAL_MOON_NAMES[date.getMonth()];
+      const zodiacLabel = `${zodiac.name} ${zodiac.emoji}`;
+      const fullLabel = isSpecial ? `${emoji} ${phaseName} (${tradName}) en ${zodiacLabel}` : `${emoji} ${zodiacLabel}`;
+
+      return { phaseDay: phaseDay.toFixed(1), illumination, phaseName, emoji, zodiac, tradName, fullLabel, isSpecial, moonrise, moonset };
+    }
+
+    /* ==========================================================================
+       3. CICLO MENSTRUAL
+       ========================================================================== */
+    function getMenstrualPhase(date) {
+      const msPerDay = 1000 * 60 * 60 * 24;
+      const diffTime = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) -
+                       Date.UTC(state.menstrualRef.getFullYear(), state.menstrualRef.getMonth(), state.menstrualRef.getDate());
+      let diffDays = Math.floor(diffTime / msPerDay);
+      let dayOfCycle = (diffDays % state.cycleLength);
+      if (dayOfCycle < 0) dayOfCycle += state.cycleLength;
+      dayOfCycle += 1;
+
+      let phase = '';
+      let emoji = '';
+      let desc = '';
+
+      if (dayOfCycle <= 5) {
+        phase = 'Menstruación'; emoji = '🩸'; desc = `Día ${dayOfCycle}/${state.cycleLength}: Reposo y descanso.`;
+      } else if (dayOfCycle <= 11) {
+        phase = 'Folicular'; emoji = '🌸'; desc = `Día ${dayOfCycle}/${state.cycleLength}: Renovación de energía.`;
+      } else if (dayOfCycle <= 16) {
+        const isPeak = (dayOfCycle === 14);
+        phase = isPeak ? 'Ovulación ✨' : 'Ovulatoria'; emoji = isPeak ? '✨' : '🌺';
+        desc = isPeak ? `Día 14: Día pico de Ovulación.` : `Día ${dayOfCycle}/${state.cycleLength}: Ventana fértil.`;
+      } else {
+        const isPMS = (dayOfCycle >= 25);
+        phase = isPMS ? 'Fase Lútea (SPM)' : 'Lútea'; emoji = isPMS ? '⚡' : '🔮';
+        desc = isPMS ? `Día ${dayOfCycle}/${state.cycleLength}: Síndrome Premenstrual.` : `Día ${dayOfCycle}/${state.cycleLength}: Introspección.`;
+      }
+
+      return { dayOfCycle, phase, emoji, desc };
+    }
+
+    /* ==========================================================================
+       4. SANTUARIO DE MOVIMIENTO
+       ========================================================================== */
+    function getMovementRoutine(date) {
+      const m = getMenstrualPhase(date);
+      const dayOfWeek = date.getDay();
+      let title = '';
+      let desc = '';
+      let emoji = '🧘';
+
+      if (dayOfWeek === 0 || dayOfWeek === 6) {
+        title = 'Caminata / Ciclismo 🚴'; desc = 'Movimiento libre en la naturaleza.'; emoji = '🚴';
+      } else if (m.dayOfCycle <= 5) {
+        title = 'Yoga Restaurativo 🧘'; desc = 'Estiramientos suaves de pelvis y espalda.'; emoji = '🧘';
+      } else if (m.dayOfCycle <= 11) {
+        title = 'Running / Cardio 🏃'; desc = 'Activación de energía y tono vascular.'; emoji = '🏃';
+      } else if (m.dayOfCycle <= 16) {
+        title = 'Fuerza & HIIT 🏋️'; desc = 'Entrenamiento de alta energía muscular.'; emoji = '🏋️';
+      } else if (m.dayOfCycle <= 24) {
+        title = 'Pilates & Movilidad 🧘‍♀️'; desc = 'Core y flexibilidad articular.'; emoji = '🧘‍♀️';
+      } else {
+        title = 'Estiramientos Cadera 🌸'; desc = 'Release miofascial pre-regla.'; emoji = '🌸';
+      }
+
+      return { title, desc, emoji };
+    }
+
+    /* ==========================================================================
+       5. ALIMENTACIÓN CONSCIENTE
+       ========================================================================== */
+    function getNutritionGuide(date) {
+      const m = getMenstrualPhase(date);
+      let title = '';
+      let desc = '';
+
+      if (m.dayOfCycle <= 5) {
+        title = 'Nutrición Menstrual 🍲';
+        desc = 'Caldo de verduras, alimentos ricos en hierro (espinacas, lentejas) & Semillas de Lino y Calabaza (Seed Cycling). Infusión de manzanilla.';
+      } else if (m.dayOfCycle <= 11) {
+        title = 'Nutrición Folicular 🥗';
+        desc = 'Ensaladas frescas, germinados, aguacate & Semillas de Lino y Calabaza. Alimentos fermentados y probióticos.';
+      } else if (m.dayOfCycle <= 16) {
+        title = 'Nutrición Ovulatoria 🫐';
+        desc = 'Frutos rojos, antioxidantes, vegetales de hoja verde y fibra. Abundante hidratación consciente.';
+      } else {
+        title = 'Nutrición Lútea 🍠';
+        desc = 'Raíces horneadas (boniato, calabaza), chocolate negro (>85%) & Semillas de Sésamo y Girasol (Seed Cycling). Infusión de jengibre.';
+      }
+
+      return { title, desc };
+    }
+
+    /* ==========================================================================
+       6. EVENTOS LABORALES Y RUEDA DEL AÑO
+       ========================================================================== */
+    function getLaborEvents(date) {
+      const events = [];
+      const dayOfMonth = date.getDate();
+      const dayOfWeek = date.getDay();
+      const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+
+      if (dayOfMonth === 28 || dayOfMonth === lastDayOfMonth) events.push({ title: 'Nómina 💰', desc: 'Cobro de salario mensual' });
+      if (dayOfMonth === 20) events.push({ title: 'Impuestos IVA 📈', desc: 'Cierre fiscal y facturación' });
+      if (dayOfMonth === 15) events.push({ title: 'Presupuesto 💳', desc: 'Control presupuestal' });
+      if (dayOfWeek === 1) events.push({ title: 'Sprint Plan 💼', desc: 'Planificación de metas' });
+      if (dayOfWeek === 5) events.push({ title: 'Code Freeze 🚀', desc: 'Demo y entregas' });
+
+      return events;
+    }
+
+    function getPaganFestivals(date) {
+      const festivals = [];
+      const m = date.getMonth();
+      const d = date.getDate();
+
+      if ((m === 9 && d === 31) || (m === 10 && d === 1)) festivals.push({ title: 'Samhain 🎃', desc: 'Año Nuevo Wicca, ancestros y velo sutil.' });
+      if (m === 11 && (d === 21 || d === 22)) festivals.push({ title: 'Yule ❄️', desc: 'Solsticio de Invierno. Renacimiento del Sol.' });
+      if (m === 1 && (d === 1 || d === 2)) festivals.push({ title: 'Imbolc 🕯️', desc: 'Fiesta de la luz y purificación.' });
+      if (m === 2 && (d === 20 || d === 21)) festivals.push({ title: 'Ostara 🌸', desc: 'Equinoccio de Primavera. Equilibrio y vida.' });
+      if ((m === 3 && d === 30) || (m === 4 && d === 1)) festivals.push({ title: 'Beltane 🔥', desc: 'Gran fuego de primavera y vitalidad.' });
+      if (m === 5 && (d === 21 || d === 22)) festivals.push({ title: 'Litha ☀️', desc: 'Solsticio de Verano. Plenitud solar.' });
+      if (m === 7 && (d === 1 || d === 2)) festivals.push({ title: 'Lughnasadh 🌾', desc: 'Primera cosecha del grano.' });
+      if (m === 8 && (d >= 21 && d <= 23)) festivals.push({ title: 'Mabon 🍂', desc: 'Equinoccio de Otoño. Segunda cosecha.' });
+
+      return festivals;
+    }
+
+    /* ==========================================================================
+       7. PERSISTENCIA LOCALSTORAGE POR FECHA
+       ========================================================================== */
+    function formatDateKey(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function loadDailyData(date) {
+      const key = formatDateKey(date);
+      return {
+        journal: localStorage.getItem(`daily_journal_${key}`) || '',
+        movement: localStorage.getItem(`daily_movement_${key}`) || '',
+        nutrition: localStorage.getItem(`daily_nutrition_${key}`) || '',
+        labor: localStorage.getItem(`daily_labor_${key}`) || ''
+      };
+    }
+
+    function saveDailyData(dateISOStr) {
+      const parts = dateISOStr.split('-');
+      const key = `${parts[0]}-${parts[1]}-${parts[2]}`;
+
+      const journalVal = document.getElementById('inputDailyJournal')?.value || '';
+      const movementVal = document.getElementById('inputDailyMovement')?.value || '';
+      const nutritionVal = document.getElementById('inputDailyNutrition')?.value || '';
+      const laborVal = document.getElementById('inputDailyLabor')?.value || '';
+
+      localStorage.setItem(`daily_journal_${key}`, journalVal);
+      localStorage.setItem(`daily_movement_${key}`, movementVal);
+      localStorage.setItem(`daily_nutrition_${key}`, nutritionVal);
+      localStorage.setItem(`daily_labor_${key}`, laborVal);
+
+      const statusMsg = document.getElementById('saveStatusMsg');
+      if (statusMsg) {
+        statusMsg.style.display = 'inline';
+        setTimeout(() => { statusMsg.style.display = 'none'; }, 2500);
+      }
+      renderMainView();
+    }
+
+    /* ==========================================================================
+       8. GENERADOR DE SABIDURÍA CÍCLICA Y RECORDATORIOS DINÁMICOS
+       ========================================================================== */
+    function updateCyclicWisdomCard() {
+      const grid = document.getElementById('cyclicWisdomGrid');
+      if (!grid) return;
+
+      const date = state.selectedDate;
+      const lunar = getLunarPhase(date);
+      const menstrual = getMenstrualPhase(date);
+      const season = SEASON_DATA[state.season];
+      const tradMoonName = TRADITIONAL_MOON_NAMES[date.getMonth()];
+
+      let cardsHTML = '';
+
+      // 1. Recordatorio Lunar & Peluquería
+      cardsHTML += `
+        <div class="wisdom-card">
+          <span class="wisdom-card-tag">🌕 LUNACIÓN Y CORTE DE CABELLO</span>
+          <span>✂️ <strong>Próxima Luna Llena (${tradMoonName}):</strong> Ideal para fijar cita de peluquería si buscas fortalecer el volumen. ¿Qué aprendizajes o frutos te regaló la última luna llena de esta estación?</span>
+        </div>
+      `;
+
+      // 2. Autocuidado Menstrual & SPA
+      const daysToPeriod = (28 - menstrual.dayOfCycle + 1);
+      if (daysToPeriod <= 7 || menstrual.dayOfCycle <= 5) {
+        cardsHTML += `
+          <div class="wisdom-card">
+            <span class="wisdom-card-tag">💅 RITUAL SPA & REFUGIO EN CASA</span>
+            <span>🧖‍♀️ <strong>Fase Menstrual Próxima/Activa:</strong> ¿Vas a preparar spa, mascarillas, uñas, té caliente de manzanilla y lista de películas acogedoras en casa para la semana de regla?</span>
+          </div>
+        `;
+      } else {
+        cardsHTML += `
+          <div class="wisdom-card">
+            <span class="wisdom-card-tag">⚡ ENERGÍA & EXPANSIÓN</span>
+            <span>🌸 Te encuentras en la fase <strong>${menstrual.phase}</strong> (${menstrual.desc}). ¡Excelente momento para impulsar proyectos creativos y actividad física!</span>
+          </div>
+        `;
+      }
+
+      // 3. Balance Estacional & Propósitos
+      cardsHTML += `
+        <div class="wisdom-card">
+          <span class="wisdom-card-tag">🍂 BALANCE DE LA RUEDA DEL AÑO</span>
+          <span>🕯️ <strong>${season.name}:</strong> Se acerca la transición estacional. ¿Qué 3 propósitos clave quieres sembrar y evaluar en cada Luna Llena de esta estación?</span>
+        </div>
+      `;
+
+      grid.innerHTML = cardsHTML;
+    }
+
+    /* ==========================================================================
+       CONSTRUCTOR DE CELDAS Y BLOQUES DE MES
+       ========================================================================== */
+    function createMonthBlockElement(year, month) {
+      const block = document.createElement('section');
+      block.className = 'month-block';
+      block.id = `month-${year}-${String(month + 1).padStart(2, '0')}`;
+
+      const header = document.createElement('div');
+      header.className = 'month-title-header';
+      header.innerHTML = `
+        <span>🗓️ ${MONTH_NAMES_ES[month]} ${year}</span>
+        <span style="font-size: 13px; color: var(--text-muted); font-family: 'VT323';">${year}</span>
+      `;
+      block.appendChild(header);
+
+      const grid = document.createElement('div');
+      grid.className = 'month-grid';
+
+      for (let i = 0; i < 7; i++) {
+        const dayIdx = (state.weekStartDay + i) % 7;
+        const headCell = document.createElement('div');
+        headCell.className = 'weekday-header';
+        headCell.innerText = DAY_SHORT_ES[dayIdx];
+        grid.appendChild(headCell);
+      }
+
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+
+      let offset = (firstDay.getDay() - state.weekStartDay + 7) % 7;
+      const totalCells = Math.ceil((offset + lastDay.getDate()) / 7) * 7;
+      const today = new Date();
+
+      for (let i = 0; i < totalCells; i++) {
+        const dayOffset = i - offset + 1;
+        const cellDate = new Date(year, month, dayOffset);
+        const isCurrentMonth = (cellDate.getMonth() === month);
+
+        const cell = document.createElement('div');
+        cell.className = `day-cell ${isCurrentMonth ? '' : 'other-month'}`;
+
+        if (isCurrentMonth) {
+          const isToday = cellDate.getDate() === today.getDate() &&
+                          cellDate.getMonth() === today.getMonth() &&
+                          cellDate.getFullYear() === today.getFullYear();
+
+          if (isToday) {
+            cell.classList.add('is-today');
+            cell.id = 'todayCell';
+          }
+
+          cell.onclick = () => {
+            state.selectedDate = cellDate;
+            openModal(cellDate);
+          };
+
+          const numHeader = document.createElement('div');
+          numHeader.className = 'day-num-header';
+
+          const numSpan = document.createElement('span');
+          numSpan.className = 'day-num';
+          numSpan.innerText = cellDate.getDate();
+          numHeader.appendChild(numSpan);
+
+          if (state.layers.lunar) {
+            const lunar = getLunarPhase(cellDate);
+            const moonSpan = document.createElement('span');
+            moonSpan.innerText = `${lunar.emoji} ${lunar.zodiac.emoji}`;
+            moonSpan.title = lunar.fullLabel;
+            numHeader.appendChild(moonSpan);
+          }
+
+          cell.appendChild(numHeader);
+
+          const badges = document.createElement('div');
+          badges.className = 'cell-badges';
+
+          // Indicador de Lunas Llenas y Nuevas Tradicionales
+          if (state.layers.lunar) {
+            const lunar = getLunarPhase(cellDate);
+            if (lunar.isSpecial) {
+              const b = document.createElement('div');
+              b.className = 'badge-item badge-lunar-special';
+              b.innerHTML = `<span>${lunar.emoji} ${lunar.tradName}</span>`;
+              badges.appendChild(b);
+            }
+          }
+
+          // Indicador de Notas Guardadas en el Diario
+          const savedData = loadDailyData(cellDate);
+          if (savedData.journal.trim()) {
+            const b = document.createElement('div');
+            b.className = 'badge-item badge-lunar';
+            b.innerHTML = `✍️ <span>Diario escrito</span>`;
+            badges.appendChild(b);
+          }
+
+          if (state.layers.pagan) {
+            const pagans = getPaganFestivals(cellDate);
+            pagans.forEach(p => {
+              const b = document.createElement('div');
+              b.className = 'badge-item badge-pagan';
+              b.innerHTML = `<span>${p.title}</span>`;
+              badges.appendChild(b);
+            });
+          }
+
+          if (state.layers.movement) {
+            const mov = getMovementRoutine(cellDate);
+            const b = document.createElement('div');
+            b.className = 'badge-item badge-movement';
+            const movLabel = savedData.movement.trim() ? `🧘 ${savedData.movement}` : `${mov.emoji} ${mov.title}`;
+            b.innerHTML = `<span>${movLabel}</span>`;
+            badges.appendChild(b);
+          }
+
+          if (state.layers.nutrition) {
+            const nut = getNutritionGuide(cellDate);
+            const b = document.createElement('div');
+            b.className = 'badge-item badge-nutrition';
+            const nutLabel = savedData.nutrition.trim() ? `🥗 ${savedData.nutrition}` : `🥗 ${nut.title}`;
+            b.innerHTML = `<span>${nutLabel}</span>`;
+            badges.appendChild(b);
+          }
+
+          if (state.layers.menstrual) {
+            const m = getMenstrualPhase(cellDate);
+            const b = document.createElement('div');
+            b.className = 'badge-item badge-menstrual';
+            b.innerHTML = `${m.emoji} <span>${m.phase}</span>`;
+            badges.appendChild(b);
+          }
+
+          if (state.layers.labor) {
+            const laborEvents = getLaborEvents(cellDate);
+            laborEvents.forEach(evt => {
+              const b = document.createElement('div');
+              b.className = 'badge-item badge-labor';
+              b.innerHTML = `💼 <span>${evt.title}</span>`;
+              badges.appendChild(b);
+            });
+            if (savedData.labor.trim()) {
+              const b = document.createElement('div');
+              b.className = 'badge-item badge-labor';
+              b.innerHTML = `💼 <span>${savedData.labor}</span>`;
+              badges.appendChild(b);
+            }
+          }
+
+          cell.appendChild(badges);
+        }
+
+        grid.appendChild(cell);
+      }
+
+      block.appendChild(grid);
+      return block;
+    }
+
+    /* ==========================================================================
+       RENDERIZADO DE VISTAS (CALENDARIO, SEMANAL, RANGO POR SEMANAS, DÍA)
+       ========================================================================== */
+    function renderMainView() {
+      const container = document.getElementById('mainViewContainer');
+      container.innerHTML = '';
+
+      syncSelectors(state.startYear, state.startMonth);
+
+      const seasonInfo = SEASON_DATA[state.season];
+      document.getElementById('energyFocusDisplay').innerText = seasonInfo.focus;
+      loadSeasonalData();
+      updateCyclicWisdomCard();
+
+      if (state.viewMode === 'quarterly') {
+        for (let i = 0; i < 3; i++) {
+          const d = new Date(state.startYear, state.startMonth + i, 1);
+          const block = createMonthBlockElement(d.getFullYear(), d.getMonth());
+          container.appendChild(block);
+        }
+      } else if (state.viewMode === 'weekly') {
+        renderWeeklyView(container);
+      } else if (state.viewMode === 'customRange') {
+        renderCustomRangeView(container);
+      } else if (state.viewMode === 'day') {
+        renderDayViewParchment(container);
+      }
+    }
+
+    function renderWeeklyView(container) {
+      const block = document.createElement('section');
+      block.className = 'month-block';
+
+      const curr = new Date(state.selectedDate);
+      const dayOfWeek = curr.getDay();
+      const diffToStart = (dayOfWeek - state.weekStartDay + 7) % 7;
+      
+      const startDate = new Date(curr);
+      startDate.setDate(curr.getDate() - diffToStart);
+
+      const header = document.createElement('div');
+      header.className = 'month-title-header';
+      header.innerHTML = `
+        <span>📅 VISTA SEMANAL: ${startDate.getDate()} ${MONTH_NAMES_ES[startDate.getMonth()]} ${startDate.getFullYear()}</span>
+        <span style="font-size: 13px; color: var(--text-muted); font-family: 'VT323';">7 Días en Foco</span>
+      `;
+      block.appendChild(header);
+
+      const grid = document.createElement('div');
+      grid.className = 'week-view-grid';
+
+      for (let i = 0; i < 7; i++) {
+        const dayIdx = (state.weekStartDay + i) % 7;
+        const headCell = document.createElement('div');
+        headCell.className = 'weekday-header';
+        headCell.innerText = DAY_SHORT_ES[dayIdx];
+        grid.appendChild(headCell);
+      }
+
+      const today = new Date();
+
+      for (let i = 0; i < 7; i++) {
+        const cellDate = new Date(startDate);
+        cellDate.setDate(startDate.getDate() + i);
+
+        const isToday = cellDate.getDate() === today.getDate() &&
+                        cellDate.getMonth() === today.getMonth() &&
+                        cellDate.getFullYear() === today.getFullYear();
+
+        const cell = document.createElement('div');
+        cell.className = `day-cell ${isToday ? 'is-today' : ''}`;
+        cell.onclick = () => {
+          state.selectedDate = cellDate;
+          openModal(cellDate);
+        };
+
+        const numHeader = document.createElement('div');
+        numHeader.className = 'day-num-header';
+
+        const numSpan = document.createElement('span');
+        numSpan.className = 'day-num';
+        numSpan.innerText = `${cellDate.getDate()} / ${cellDate.getMonth() + 1}`;
+        numHeader.appendChild(numSpan);
+
+        if (state.layers.lunar) {
+          const lunar = getLunarPhase(cellDate);
+          const moonSpan = document.createElement('span');
+          moonSpan.innerText = `${lunar.emoji} ${lunar.zodiac.emoji}`;
+          numHeader.appendChild(moonSpan);
+        }
+
+        cell.appendChild(numHeader);
+
+        const badges = document.createElement('div');
+        badges.className = 'cell-badges';
+
+        if (state.layers.lunar) {
+          const lunar = getLunarPhase(cellDate);
+          if (lunar.isSpecial) {
+            const b = document.createElement('div');
+            b.className = 'badge-item badge-lunar-special';
+            b.innerHTML = `<span>${lunar.emoji} ${lunar.tradName}</span>`;
+            badges.appendChild(b);
+          }
+        }
+
+        const savedData = loadDailyData(cellDate);
+        if (savedData.journal.trim()) {
+          const b = document.createElement('div');
+          b.className = 'badge-item badge-lunar';
+          b.innerHTML = `✍️ <span>Diario escrito</span>`;
+          badges.appendChild(b);
+        }
+
+        if (state.layers.pagan) {
+          const pagans = getPaganFestivals(cellDate);
+          pagans.forEach(p => {
+            const b = document.createElement('div');
+            b.className = 'badge-item badge-pagan';
+            b.innerHTML = `<span>${p.title}</span>`;
+            badges.appendChild(b);
+          });
+        }
+
+        if (state.layers.movement) {
+          const mov = getMovementRoutine(cellDate);
+          const b = document.createElement('div');
+          b.className = 'badge-item badge-movement';
+          const movLabel = savedData.movement.trim() ? `🧘 ${savedData.movement}` : `${mov.emoji} ${mov.title}`;
+          b.innerHTML = `<span>${movLabel}</span>`;
+          badges.appendChild(b);
+        }
+
+        if (state.layers.nutrition) {
+          const nut = getNutritionGuide(cellDate);
+          const b = document.createElement('div');
+          b.className = 'badge-item badge-nutrition';
+          const nutLabel = savedData.nutrition.trim() ? `🥗 ${savedData.nutrition}` : `🥗 ${nut.title}`;
+          b.innerHTML = `<span>${nutLabel}</span>`;
+          badges.appendChild(b);
+        }
+
+        if (state.layers.menstrual) {
+          const m = getMenstrualPhase(cellDate);
+          const b = document.createElement('div');
+          b.className = 'badge-item badge-menstrual';
+          b.innerHTML = `${m.emoji} <span>${m.phase}</span>`;
+          badges.appendChild(b);
+        }
+
+        if (state.layers.labor) {
+          const laborEvents = getLaborEvents(cellDate);
+          laborEvents.forEach(evt => {
+            const b = document.createElement('div');
+            b.className = 'badge-item badge-labor';
+            b.innerHTML = `💼 <span>${evt.title}</span>`;
+            badges.appendChild(b);
+          });
+          if (savedData.labor.trim()) {
+            const b = document.createElement('div');
+            b.className = 'badge-item badge-labor';
+            b.innerHTML = `💼 <span>${savedData.labor}</span>`;
+            badges.appendChild(b);
+          }
+        }
+
+        cell.appendChild(badges);
+        grid.appendChild(cell);
+      }
+
+      block.appendChild(grid);
+      container.appendChild(block);
+    }
+
+    function renderCustomRangeView(container) {
+      const block = document.createElement('section');
+      block.className = 'month-block';
+
+      const curr = new Date(state.selectedDate);
+      const dayOfWeek = curr.getDay();
+      const diffToStart = (dayOfWeek - state.weekStartDay + 7) % 7;
+      
+      const startDate = new Date(curr);
+      startDate.setDate(curr.getDate() - diffToStart);
+
+      const totalWeeks = state.customRangeWeeks;
+      const totalDays = totalWeeks * 7;
+
+      const endDate = new Date(startDate);
+      endDate.setDate(startDate.getDate() + totalDays - 1);
+
+      const header = document.createElement('div');
+      header.className = 'month-title-header';
+      header.innerHTML = `
+        <span>📊 VISTA DE RANGO: ${totalWeeks} SEMANA${totalWeeks > 1 ? 'S' : ''} (${totalDays} DÍAS)</span>
+        <span style="font-size: 13px; color: var(--text-muted); font-family: 'VT323';">${startDate.getDate()} ${MONTH_NAMES_ES[startDate.getMonth()]} → ${endDate.getDate()} ${MONTH_NAMES_ES[endDate.getMonth()]} ${endDate.getFullYear()}</span>
+      `;
+      block.appendChild(header);
+
+      const grid = document.createElement('div');
+      grid.className = 'range-view-grid';
+
+      for (let i = 0; i < 7; i++) {
+        const dayIdx = (state.weekStartDay + i) % 7;
+        const headCell = document.createElement('div');
+        headCell.className = 'weekday-header';
+        headCell.innerText = DAY_SHORT_ES[dayIdx];
+        grid.appendChild(headCell);
+      }
+
+      const today = new Date();
+
+      for (let i = 0; i < totalDays; i++) {
+        const cellDate = new Date(startDate);
+        cellDate.setDate(startDate.getDate() + i);
+
+        const isToday = cellDate.getDate() === today.getDate() &&
+                        cellDate.getMonth() === today.getMonth() &&
+                        cellDate.getFullYear() === today.getFullYear();
+
+        const cell = document.createElement('div');
+        cell.className = `day-cell ${isToday ? 'is-today' : ''}`;
+        cell.onclick = () => {
+          state.selectedDate = cellDate;
+          openModal(cellDate);
+        };
+
+        const numHeader = document.createElement('div');
+        numHeader.className = 'day-num-header';
+
+        const numSpan = document.createElement('span');
+        numSpan.className = 'day-num';
+        numSpan.innerText = `${cellDate.getDate()}/${cellDate.getMonth() + 1}`;
+        numHeader.appendChild(numSpan);
+
+        if (state.layers.lunar) {
+          const lunar = getLunarPhase(cellDate);
+          const moonSpan = document.createElement('span');
+          moonSpan.innerText = `${lunar.emoji} ${lunar.zodiac.emoji}`;
+          numHeader.appendChild(moonSpan);
+        }
+
+        cell.appendChild(numHeader);
+
+        const badges = document.createElement('div');
+        badges.className = 'cell-badges';
+
+        if (state.layers.lunar) {
+          const lunar = getLunarPhase(cellDate);
+          if (lunar.isSpecial) {
+            const b = document.createElement('div');
+            b.className = 'badge-item badge-lunar-special';
+            b.innerHTML = `<span>${lunar.emoji} ${lunar.tradName}</span>`;
+            badges.appendChild(b);
+          }
+        }
+
+        const savedData = loadDailyData(cellDate);
+        if (savedData.journal.trim()) {
+          const b = document.createElement('div');
+          b.className = 'badge-item badge-lunar';
+          b.innerHTML = `✍️ <span>Diario escrito</span>`;
+          badges.appendChild(b);
+        }
+
+        if (state.layers.pagan) {
+          const pagans = getPaganFestivals(cellDate);
+          pagans.forEach(p => {
+            const b = document.createElement('div');
+            b.className = 'badge-item badge-pagan';
+            b.innerHTML = `<span>${p.title}</span>`;
+            badges.appendChild(b);
+          });
+        }
+
+        if (state.layers.movement) {
+          const mov = getMovementRoutine(cellDate);
+          const b = document.createElement('div');
+          b.className = 'badge-item badge-movement';
+          const movLabel = savedData.movement.trim() ? `🧘 ${savedData.movement}` : `${mov.emoji} ${mov.title}`;
+          b.innerHTML = `<span>${movLabel}</span>`;
+          badges.appendChild(b);
+        }
+
+        if (state.layers.nutrition) {
+          const nut = getNutritionGuide(cellDate);
+          const b = document.createElement('div');
+          b.className = 'badge-item badge-nutrition';
+          const nutLabel = savedData.nutrition.trim() ? `🥗 ${savedData.nutrition}` : `🥗 ${nut.title}`;
+          b.innerHTML = `<span>${nutLabel}</span>`;
+          badges.appendChild(b);
+        }
+
+        if (state.layers.menstrual) {
+          const m = getMenstrualPhase(cellDate);
+          const b = document.createElement('div');
+          b.className = 'badge-item badge-menstrual';
+          b.innerHTML = `${m.emoji} <span>${m.phase}</span>`;
+          badges.appendChild(b);
+        }
+
+        if (state.layers.labor) {
+          const laborEvents = getLaborEvents(cellDate);
+          laborEvents.forEach(evt => {
+            const b = document.createElement('div');
+            b.className = 'badge-item badge-labor';
+            b.innerHTML = `💼 <span>${evt.title}</span>`;
+            badges.appendChild(b);
+          });
+          if (savedData.labor.trim()) {
+            const b = document.createElement('div');
+            b.className = 'badge-item badge-labor';
+            b.innerHTML = `💼 <span>${savedData.labor}</span>`;
+            badges.appendChild(b);
+          }
+        }
+
+        cell.appendChild(badges);
+        grid.appendChild(cell);
+      }
+
+      block.appendChild(grid);
+      container.appendChild(block);
+    }
+
+    function renderDayViewParchment(container) {
+      const page = document.createElement('div');
+      page.className = 'parchment-page';
+      page.innerHTML = generateParchmentHTML(state.selectedDate, false);
+      container.appendChild(page);
+    }
+
+    function setViewMode(mode) {
+      state.viewMode = mode;
+      document.getElementById('btnViewQuarter').classList.toggle('active', mode === 'quarterly');
+      document.getElementById('btnViewWeek').classList.toggle('active', mode === 'weekly');
+      document.getElementById('btnViewRange').classList.toggle('active', mode === 'customRange');
+      document.getElementById('btnViewDay').classList.toggle('active', mode === 'day');
+      renderMainView();
+    }
+
+    function onCalendarBtnClick() {
+      state.viewMode = 'quarterly';
+      resetToToday();
+    }
+
+    function onCustomRangeWeeksChange(val) {
+      state.customRangeWeeks = parseInt(val, 10);
+      if (state.viewMode === 'customRange') {
+        renderMainView();
+      }
+    }
+
+    function toggleLayer(layerKey) {
+      state.layers[layerKey] = document.getElementById(`chk${layerKey.charAt(0).toUpperCase() + layerKey.slice(1)}`).checked;
+      renderMainView();
+    }
+
+    function setAllLayers(enabled) {
+      const layerKeys = ['menstrual', 'lunar', 'pagan', 'movement', 'nutrition', 'labor'];
+      layerKeys.forEach(key => {
+        state.layers[key] = enabled;
+        const chk = document.getElementById(`chk${key.charAt(0).toUpperCase() + key.slice(1)}`);
+        if (chk) chk.checked = enabled;
+      });
+      renderMainView();
+    }
+
+    function changeWeekStart(val) {
+      state.weekStartDay = parseInt(val, 10);
+      renderMainView();
+    }
+
+    function syncSelectors(year, month) {
+      if (month === 11 || month === 0 || month === 1) state.season = 'winter';
+      else if (month >= 2 && month <= 4) state.season = 'spring';
+      else if (month >= 5 && month <= 7) state.season = 'summer';
+      else state.season = 'autumn';
+
+      document.getElementById('seasonSelect').value = state.season;
+      document.getElementById('startMonthSelect').value = month;
+      document.getElementById('startYearSelect').value = year;
+
+      const mm = String(month + 1).padStart(2, '0');
+      document.getElementById('startDatePicker').value = `${year}-${mm}-01`;
+    }
+
+    function loadSeasonalData() {
+      const keyIntention = `season_intention_${state.season}_${state.startYear}`;
+      const keyGoals = `season_goals_${state.season}_${state.startYear}`;
+      document.getElementById('inputSeasonIntention').value = localStorage.getItem(keyIntention) || '';
+      document.getElementById('inputGrowthGoals').value = localStorage.getItem(keyGoals) || '';
+    }
+
+    function saveSeasonalData() {
+      const keyIntention = `season_intention_${state.season}_${state.startYear}`;
+      const keyGoals = `season_goals_${state.season}_${state.startYear}`;
+      localStorage.setItem(keyIntention, document.getElementById('inputSeasonIntention').value);
+      localStorage.setItem(keyGoals, document.getElementById('inputGrowthGoals').value);
+    }
+
+    /* ==========================================================================
+       MANIPULACIÓN DE CONTROLES
+       ========================================================================== */
+    function onSeasonSelectChange(val) {
+      state.season = val;
+      state.startMonth = SEASON_DATA[val].startMonth;
+      renderMainView();
+      document.getElementById('mainViewContainer').scrollTop = 0;
+    }
+
+    function onManualDateChange() {
+      state.startMonth = parseInt(document.getElementById('startMonthSelect').value, 10);
+      state.startYear = parseInt(document.getElementById('startYearSelect').value, 10);
+      renderMainView();
+      document.getElementById('mainViewContainer').scrollTop = 0;
+    }
+
+    function onDatePickerChange(dateStr) {
+      if (!dateStr) return;
+      const parts = dateStr.split('-');
+      state.startYear = parseInt(parts[0], 10);
+      state.startMonth = parseInt(parts[1], 10) - 1;
+      state.selectedDate = new Date(state.startYear, state.startMonth, parseInt(parts[2], 10));
+      renderMainView();
+      document.getElementById('mainViewContainer').scrollTop = 0;
+    }
+
+    function navigateTime(dir) {
+      if (state.viewMode === 'quarterly') {
+        let m = state.startMonth + (dir * 3);
+        let y = state.startYear;
+        while (m > 11) { m -= 12; y++; }
+        while (m < 0) { m += 12; y--; }
+        state.startMonth = m;
+        state.startYear = y;
+      } else if (state.viewMode === 'weekly') {
+        state.selectedDate.setDate(state.selectedDate.getDate() + (dir * 7));
+        state.startMonth = state.selectedDate.getMonth();
+        state.startYear = state.selectedDate.getFullYear();
+      } else if (state.viewMode === 'customRange') {
+        state.selectedDate.setDate(state.selectedDate.getDate() + (dir * state.customRangeWeeks * 7));
+        state.startMonth = state.selectedDate.getMonth();
+        state.startYear = state.selectedDate.getFullYear();
+      } else if (state.viewMode === 'day') {
+        state.selectedDate.setDate(state.selectedDate.getDate() + dir);
+        state.startMonth = state.selectedDate.getMonth();
+        state.startYear = state.selectedDate.getFullYear();
+      }
+      renderMainView();
+      document.getElementById('mainViewContainer').scrollTop = 0;
+    }
+
+    function resetToToday() {
+      const now = new Date();
+      state.selectedDate = now;
+      state.startYear = now.getFullYear();
+      state.startMonth = now.getMonth();
+      renderMainView();
+
+      setTimeout(() => {
+        const todayCell = document.getElementById('todayCell');
+        if (todayCell) {
+          todayCell.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 50);
+    }
+
+    /* ==========================================================================
+       GENERADOR DE HOJA DE PERGAMINO MANUSCRITO (MODAL Y VISTA DIARIA EDITABLE)
+       ========================================================================== */
+    function generateParchmentHTML(date, isModal = true) {
+      const sun = getSunTimes(date);
+      const lunar = getLunarPhase(date);
+      const menstrual = getMenstrualPhase(date);
+      const mov = getMovementRoutine(date);
+      const nut = getNutritionGuide(date);
+      const laborEvents = getLaborEvents(date);
+      const pagans = getPaganFestivals(date);
+      const savedData = loadDailyData(date);
+      const dateISO = formatDateKey(date);
+
+      let html = `
+        <div class="parchment-header">
+          <div class="parchment-title">
+            📜 ${DAY_NAMES_ES[date.getDay()]}, ${date.getDate()} de ${MONTH_NAMES_ES[date.getMonth()]} de ${date.getFullYear()}
+          </div>
+          ${isModal ? `<button class="close-btn-parchment" onclick="closeModal()">X</button>` : ''}
+        </div>
+      `;
+
+      // 1. Astronomía Solar
+      html += `
+        <div class="handwritten-section">
+          <div class="handwritten-label">☀️ Astronomía Solar:</div>
+          <div class="handwritten-text">🌅 El Sol amanece a las ${sun.sunrise} y se oculta suavemente a las ${sun.sunset}.</div>
+        </div>
+      `;
+
+      // 2. Lunación & Cosmos con Nombres Tradicionales
+      if (state.layers.lunar) {
+        html += `
+          <div class="handwritten-section">
+            <div class="handwritten-label">🌙 Lunación & Cosmos:</div>
+            <div class="handwritten-text">La Luna vaga en ${lunar.fullLabel} (${lunar.illumination}% iluminada). Nace a las ${lunar.moonrise} y descansa a las ${lunar.moonset}.</div>
+          </div>
+        `;
+      }
+
+      // 3. Ciclo Menstrual
+      if (state.layers.menstrual) {
+        html += `
+          <div class="handwritten-section">
+            <div class="handwritten-label">🩸 Ritmo Biológico & Menstrual:</div>
+            <div class="handwritten-text">Día ${menstrual.dayOfCycle} de ${state.cycleLength} del ciclo: ${menstrual.emoji} ${menstrual.phase}. ${menstrual.desc}</div>
+          </div>
+        `;
+      }
+
+      // 4. Diario Personal & Escritura Manuscrita Libre
+      html += `
+        <div class="handwritten-section">
+          <div class="handwritten-label">✍️ Diario Personal & Reflexiones del Día:</div>
+          <textarea id="inputDailyJournal" class="handwritten-input" rows="3" placeholder="Escribe aquí tus intenciones, reflexiones o vivencias de hoy...">${savedData.journal}</textarea>
+        </div>
+      `;
+
+      // 5. Santuario de Movimiento (Editable)
+      if (state.layers.movement) {
+        html += `
+          <div class="handwritten-section">
+            <div class="handwritten-label">🧘‍♀️ Santuario de Movimiento & Ejercicio:</div>
+            <div class="handwritten-text" style="font-size: 22px; color: #7a310c;">Sugerencia de fase: ${mov.emoji} ${mov.title} (${mov.desc})</div>
+            <textarea id="inputDailyMovement" class="handwritten-input" rows="2" placeholder="Anota el ejercicio, estiramiento o rutina realizada hoy...">${savedData.movement}</textarea>
+          </div>
+        `;
+      }
+
+      // 6. Alimentación Consciente (Editable)
+      if (state.layers.nutrition) {
+        html += `
+          <div class="handwritten-section">
+            <div class="handwritten-label">🥗 Alimentación & Bienestar Nutritivo:</div>
+            <div class="handwritten-text" style="font-size: 22px; color: #7a310c;">Pauta biológica: ${nut.title} - ${nut.desc}</div>
+            <textarea id="inputDailyNutrition" class="handwritten-input" rows="2" placeholder="Anota tus recetas, infusiones o semillas consumidas hoy...">${savedData.nutrition}</textarea>
+          </div>
+        `;
+      }
+
+      // 7. Laboral & Rueda del Año (Editable)
+      if (state.layers.labor || state.layers.pagan) {
+        html += `
+          <div class="handwritten-section">
+            <div class="handwritten-label">💼 Estructura Laboral & 🕯️ Rueda del Año:</div>
+        `;
+
+        if (state.layers.pagan && pagans.length > 0) {
+          pagans.forEach(p => {
+            html += `<div class="handwritten-text">🕯️ Sabbat Sagrado: ${p.title} - ${p.desc}</div>`;
+          });
+        }
+
+        if (state.layers.labor) {
+          if (laborEvents.length > 0) {
+            laborEvents.forEach(e => {
+              html += `<div class="handwritten-text">💼 ${e.title} - ${e.desc}</div>`;
+            });
+          }
+          html += `
+            <textarea id="inputDailyLabor" class="handwritten-input" rows="2" placeholder="Anota tus metas de trabajo, sprints o recordatorios laborales...">${savedData.labor}</textarea>
+          `;
+        }
+
+        html += `</div>`;
+      }
+
+      // Botón Guardar Apuntes
+      html += `
+        <div style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <button class="save-parchment-btn" onclick="saveDailyData('${dateISO}')">💾 Guardar Apuntes en el Grimorio</button>
+            <span class="save-status-msg" id="saveStatusMsg">✨ ¡Guardado con éxito!</span>
+          </div>
+        </div>
+      `;
+
+      return html;
+    }
+
+    function openModal(date) {
+      const modal = document.getElementById('dayDetailModal');
+      const body = document.getElementById('modalBodyContent');
+
+      body.innerHTML = `
+        <div class="parchment-page">
+          ${generateParchmentHTML(date, true)}
+        </div>
+      `;
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('dayDetailModal').classList.remove('active');
+    }
+
+    document.getElementById('dayDetailModal').addEventListener('click', (e) => {
+      if (e.target.id === 'dayDetailModal') closeModal();
+    });
+
+    /* INICIALIZACIÓN */
+    window.addEventListener('DOMContentLoaded', () => {
+      resetToToday();
+    });
+  </script>
+</body>
+</html>

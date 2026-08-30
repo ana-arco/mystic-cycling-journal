@@ -58,7 +58,7 @@ body {
 h1,
 h2,
 h3 {
-  font-family: 'Cinzel', serif;
+  font-family: 'Press Start 2P', monospace;
   font-weight: 700;
   text-align: center;
 }
@@ -272,12 +272,14 @@ h3 {
 }
 
 .panel-header {
-  font-size: 22px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 13px;
   color: var(--accent-gold);
   border-bottom: 2px dashed var(--border-color);
   padding-bottom: 8px;
   margin-bottom: 4px;
-  text-shadow: 1px 1px 0px #000;
+  text-shadow: 2px 2px 0px #000;
+  letter-spacing: 1px;
 }
 
 .data-row {
@@ -287,8 +289,8 @@ h3 {
 }
 
 .data-label {
-  font-family: 'Press Start 2P', monospace;
-  font-size: 8px;
+  font-family: 'Silkscreen', monospace;
+  font-size: 11px;
   color: var(--text-muted);
   text-transform: uppercase;
 }
