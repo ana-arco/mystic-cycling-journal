@@ -8,11 +8,11 @@
   <link rel="icon"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16' style='image-rendering:pixelated'%3E%3Crect x='2' y='1' width='12' height='14' fill='%23382216' stroke='%231b0f0a' stroke-width='1'/%3E%3Crect x='1' y='3' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='7' width='2' height='2' fill='%237c8389'/%3E%3Crect x='1' y='11' width='2' height='2' fill='%237c8389'/%3E%3Crect x='7' y='6' width='3' height='3' fill='%23d4af37'/%3E%3Crect x='8' y='7' width='1' height='1' fill='%23ffee7d'/%3E%3C/svg%3E">
 
-  <!-- Google Fonts for Pixel Art & Medieval vibes -->
+  <!-- Google Fonts 100% Retro Pixel Art -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Press+Start+2P&family=VT323&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&display=swap"
     rel="stylesheet">
 
   <style>
@@ -22,17 +22,11 @@
     :root {
       /* Tema por defecto: Pergamino Cozy */
       --bg-page: #d4c5a1;
-      /* Fondo cálido madera/mesa */
       --bg-book: #f4eccf;
-      /* Pergamino claro */
       --bg-darker: #e2d7b2;
-      /* Pergamino sombreado */
       --text-main: #3c2a1a;
-      /* Marrón oscuro cuero */
       --text-muted: #7d5c41;
-      /* Marrón medio */
       --border-color: #2e1d11;
-      /* Borde oscuro pixel */
 
       --accent-gold: #b3861b;
       --accent-gold-glow: #ffd700;
@@ -41,25 +35,17 @@
       --accent-purple: #5c2d7a;
 
       --shadow-color: rgba(46, 29, 17, 0.25);
-
-      /* Animaciones */
       --retro-transition: all 0.15s steps(4);
     }
 
     [data-theme="stone"] {
       /* Tema Alternativo: Piedra Arcana Nocturna */
       --bg-page: #0f0a18;
-      /* Espacio exterior / calabozo oscuro */
       --bg-book: #1f182c;
-      /* Piedra oscura */
       --bg-darker: #150f1f;
-      /* Huecos oscuros */
       --text-main: #e6dbf3;
-      /* Lilac luminoso */
       --text-muted: #8d79a5;
-      /* Morado apagado */
       --border-color: #45355c;
-      /* Borde runa */
 
       --accent-gold: #f4be37;
       --accent-gold-glow: #ffee7d;
@@ -71,7 +57,7 @@
     }
 
     /* ==========================================
-       2. REGLAS GENERALES Y RESET
+       2. REGLAS GENERALES Y RESET (100% TIPOGRAFÍA PIXEL ART)
        ========================================== */
     * {
       box-sizing: border-box;
@@ -102,11 +88,8 @@
       background-image: radial-gradient(var(--accent-purple) 1px, transparent 1px);
     }
 
-    h1,
-    h2,
-    h3,
-    h4 {
-      font-family: 'Cinzel', serif;
+    h1, h2, h3, h4 {
+      font-family: 'Press Start 2P', monospace;
       font-weight: 700;
       letter-spacing: 1px;
     }
@@ -170,17 +153,19 @@
     }
 
     .header-title {
-      font-size: 38px;
-      margin-bottom: 6px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 18px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       gap: 12px;
       text-shadow: 2px 2px 0 var(--shadow-color);
+      color: var(--accent-gold);
     }
 
     .header-subtitle {
       font-family: 'Press Start 2P', monospace;
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-muted);
       margin-bottom: 16px;
       text-transform: uppercase;
@@ -308,7 +293,8 @@
     }
 
     .page-title {
-      font-size: 26px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 13px;
       margin-bottom: 16px;
       border-bottom: 2px dashed var(--border-color);
       padding-bottom: 8px;
@@ -375,15 +361,213 @@
     }
 
     .wheel-center-txt {
-      font-family: 'Cinzel', serif;
-      font-size: 11px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
       fill: var(--text-muted);
       text-anchor: middle;
       pointer-events: none;
     }
 
     /* ==========================================
-       7. VISTA 2: ANILLO DE 28 DÍAS (MENSTRUAL)
+       7. VISTA: SIGNOS DEL ZODÍACO
+       ========================================== */
+    .zodiac-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .zodiac-card {
+      border: 2px solid var(--border-color);
+      border-radius: 4px;
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--retro-transition);
+      gap: 3px;
+    }
+
+    .zodiac-card.element-fuego { background: rgba(239, 68, 68, 0.14); border-color: #ef4444; color: var(--text-main); }
+    .zodiac-card.element-fuego:hover { background: rgba(239, 68, 68, 0.28); border-color: #f87171; box-shadow: 0 0 8px rgba(248, 113, 113, 0.5); transform: translateY(-2px); }
+    .zodiac-card.element-fuego .zodiac-name { color: #f87171; }
+
+    .zodiac-card.element-tierra { background: rgba(74, 222, 128, 0.14); border-color: #3b7e46; color: var(--text-main); }
+    .zodiac-card.element-tierra:hover { background: rgba(74, 222, 128, 0.28); border-color: #4ade80; box-shadow: 0 0 8px rgba(74, 222, 128, 0.5); transform: translateY(-2px); }
+    .zodiac-card.element-tierra .zodiac-name { color: #4ade80; }
+
+    .zodiac-card.element-aire { background: rgba(56, 189, 248, 0.14); border-color: #38bdf8; color: var(--text-main); }
+    .zodiac-card.element-aire:hover { background: rgba(56, 189, 248, 0.28); border-color: #7dd3fc; box-shadow: 0 0 8px rgba(56, 189, 248, 0.5); transform: translateY(-2px); }
+    .zodiac-card.element-aire .zodiac-name { color: #38bdf8; }
+
+    .zodiac-card.element-agua { background: rgba(96, 165, 250, 0.14); border-color: #60a5fa; color: var(--text-main); }
+    .zodiac-card.element-agua:hover { background: rgba(96, 165, 250, 0.28); border-color: #93c5fd; box-shadow: 0 0 8px rgba(96, 165, 250, 0.5); transform: translateY(-2px); }
+    .zodiac-card.element-agua .zodiac-name { color: #60a5fa; }
+
+    .zodiac-card.element-fuego.selected { border-color: #ff7aa2; box-shadow: 0 0 0 3px #f87171; background: rgba(239, 68, 68, 0.35); }
+    .zodiac-card.element-tierra.selected { border-color: #fde047; box-shadow: 0 0 0 3px #4ade80; background: rgba(74, 222, 128, 0.35); }
+    .zodiac-card.element-aire.selected { border-color: #fde047; box-shadow: 0 0 0 3px #38bdf8; background: rgba(56, 189, 248, 0.35); }
+    .zodiac-card.element-agua.selected { border-color: #5eead4; box-shadow: 0 0 0 3px #60a5fa; background: rgba(96, 165, 250, 0.35); }
+
+    .zodiac-icon-box {
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 0 4px #ffd700);
+    }
+
+    .zodiac-name {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .zodiac-dates {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7px;
+      color: var(--text-muted);
+      line-height: 1.2;
+    }
+
+    .zodiac-vibe {
+      font-family: 'VT323', monospace;
+      font-size: 15px;
+      color: var(--text-main);
+      line-height: 1.2;
+      margin-top: 4px;
+      border-top: 1px dashed var(--border-color);
+      padding-top: 4px;
+      width: 100%;
+    }
+
+    /* ==========================================
+       8. VISTA: BIBLIOTECA Y CATÁLOGO DE OBRAS
+       ========================================== */
+    .library-filter-panel {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+      background: var(--bg-darker);
+      border: 2px solid var(--border-color);
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-book);
+      border: 2px solid var(--border-color);
+      padding: 6px 10px;
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      color: var(--text-main);
+      outline: none;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .filter-select {
+      flex: 1;
+      min-width: 120px;
+      background: var(--bg-book);
+      border: 2px solid var(--border-color);
+      padding: 4px 6px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7px;
+      color: var(--text-main);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .book-card {
+      background: var(--bg-darker);
+      border: 2px solid var(--border-color);
+      border-radius: 4px;
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--retro-transition);
+      gap: 4px;
+    }
+
+    .book-card:hover {
+      background: var(--bg-book);
+      border-color: var(--accent-gold);
+      transform: translateY(-2px);
+    }
+
+    .book-card.selected {
+      border-color: var(--accent-gold-glow);
+      box-shadow: 0 0 0 2px var(--accent-gold-glow);
+      background: var(--bg-book);
+    }
+
+    .book-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      line-height: 1.3;
+    }
+
+    .book-author {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7px;
+      color: var(--text-muted);
+    }
+
+    .book-badge {
+      font-family: 'VT323', monospace;
+      font-size: 14px;
+      background: var(--bg-book);
+      border: 1px solid var(--border-color);
+      padding: 1px 4px;
+      border-radius: 2px;
+      color: var(--text-main);
+    }
+
+    .book-sync-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+      margin-top: 4px;
+    }
+
+    .sync-tag {
+      font-family: 'VT323', monospace;
+      font-size: 13px;
+      padding: 1px 5px;
+      border: 1px solid var(--border-color);
+      border-radius: 2px;
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    /* ==========================================
+       9. VISTA: ANILLO DE 28 DÍAS (MENSTRUAL)
        ========================================== */
     .ring-container {
       position: relative;
@@ -402,7 +586,6 @@
 
     .ring-bead:hover {
       filter: brightness(1.3) drop-shadow(0 0 3px var(--accent-gold-glow));
-
     }
 
     .ring-bead.selected {
@@ -467,7 +650,7 @@
     }
 
     /* ==========================================
-       8. VISTA 3: CALENDARIO DE LA LUNA
+       10. VISTA: CALENDARIO DE LA LUNA
        ========================================== */
     .almanaque-grid {
       display: grid;
@@ -521,57 +704,8 @@
       line-height: 1;
     }
 
-    .lunar-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 8px;
-      width: 100%;
-      max-width: 380px;
-    }
-
-    .lunar-day-card {
-      background: var(--bg-darker);
-      border: 2px solid var(--border-color);
-      aspect-ratio: 0.9;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      padding: 4px;
-      cursor: pointer;
-      transition: var(--retro-transition);
-    }
-
-    .lunar-day-card:hover {
-      background: var(--bg-book);
-      border-color: var(--accent-gold-glow);
-      transform: translateY(-2px);
-    }
-
-    .lunar-day-card.selected {
-      border-color: var(--accent-gold);
-      box-shadow: 0 0 0 2px var(--accent-gold-glow);
-      background: var(--bg-book);
-    }
-
-    .lunar-day-num {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 7px;
-      color: var(--text-muted);
-    }
-
-    .lunar-day-icon {
-      width: 24px;
-      height: 24px;
-    }
-
-    .lunar-day-card.major-phase {
-      border: 2px double var(--accent-gold);
-      background: linear-gradient(135deg, var(--bg-darker), rgba(255, 215, 0, 0.05));
-    }
-
     /* ==========================================
-       9. VISTA 4: SELECCIÓN LIBRE (PAINT GRID)
+       11. VISTA: SELECCIÓN LIBRE (PAINT GRID)
        ========================================== */
     .free-selection-container {
       display: flex;
@@ -679,7 +813,7 @@
     }
 
     /* ==========================================
-       10. PÁGINA DERECHA (EL DIARIO / GRIMORIO)
+       12. PÁGINA DERECHA (EL DIARIO / GRIMORIO)
        ========================================== */
     .journal-frame {
       border: 4px double var(--border-color);
@@ -705,12 +839,14 @@
     }
 
     .journal-title {
-      font-size: 24px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
       text-align: center;
       margin-bottom: 12px;
       color: var(--text-main);
       border-bottom: 2px dashed var(--border-color);
-      padding-bottom: 4px;
+      padding-bottom: 6px;
+      line-height: 1.4;
     }
 
     .journal-section {
@@ -775,7 +911,7 @@
     }
 
     /* ==========================================
-       11. COMPONENTE DE NOTIFICACIÓN PIXEL
+       13. COMPONENTE DE NOTIFICACIÓN PIXEL
        ========================================== */
     .toast-notification {
       position: fixed;
@@ -800,32 +936,13 @@
       transform: translateY(0);
     }
 
-    /* SVG Pixel Icons inside styling */
-    .pixel-icon {
-      image-rendering: pixelated;
-    }
+    .pixel-icon { image-rendering: pixelated; }
+    .icon-blood { fill: var(--accent-red); }
+    .icon-fire { fill: var(--accent-red); }
+    .icon-candle { fill: var(--text-main); }
+    .icon-star { fill: var(--accent-gold-glow); }
+    .icon-broom { fill: var(--accent-gold); }
 
-    .icon-blood {
-      fill: var(--accent-red);
-    }
-
-    .icon-fire {
-      fill: var(--accent-red);
-    }
-
-    .icon-candle {
-      fill: var(--text-main);
-    }
-
-    .icon-star {
-      fill: var(--accent-gold-glow);
-    }
-
-    .icon-broom {
-      fill: var(--accent-gold);
-    }
-
-    /* Estrellas decorativas del fondo */
     .star-bg {
       position: absolute;
       width: 4px;
@@ -838,15 +955,8 @@
     }
 
     @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 0.2;
-      }
-
-      50% {
-        opacity: 0.9;
-      }
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.9; }
     }
   </style>
 </head>
@@ -862,9 +972,9 @@
   <!-- Cabecera -->
   <header>
     <h1 class="header-title">
-      <span style="font-size: 32px;">🔮</span>
+      <span style="font-size: 28px;">🔮</span>
       Grimorio Ciclo Místico
-      <span style="font-size: 32px;">✨</span>
+      <span style="font-size: 28px;">✨</span>
     </h1>
     <p class="header-subtitle">Registros Lunares y de la Tierra</p>
 
@@ -895,7 +1005,9 @@
     <div class="grimoire-tabs">
       <button class="grimoire-tab active" onclick="switchView('moon', this)">🌙 Lunación</button>
       <button class="grimoire-tab" onclick="switchView('stations', this)">🌱 Estaciones</button>
+      <button class="grimoire-tab" onclick="switchView('zodiac', this)">✨ Zodíaco</button>
       <button class="grimoire-tab" onclick="switchView('cycle28', this)">🔮 Anillo 28 Días</button>
+      <button class="grimoire-tab" onclick="switchView('library', this)">📜 Biblioteca</button>
       <button class="grimoire-tab" onclick="switchView('free', this)">🕯️ Pintar Ritual</button>
     </div>
 
@@ -912,7 +1024,6 @@
           <!-- El contenido de la vista activa se renderizará aquí dinámicamente -->
         </div>
       </div>
-
 
       <!-- Lomo del libro -->
       <div class="grimoire-spine"></div>
@@ -934,8 +1045,7 @@
           <div id="journal-content-area">
             <!-- Detalles cargados dinámicamente -->
             <p style="text-align: center; color: var(--text-muted); margin-top: 40px;">
-              Haz clic en cualquier nodo de la Rueda del Año, gema del ciclo menstrual o día lunar para leer el
-              conocimiento místico guardado.
+              Haz clic en cualquier nodo de la Rueda del Año, signo zodiacal, gema del ciclo menstrual, día lunar o libro para leer el conocimiento místico guardado.
             </p>
           </div>
 
@@ -965,14 +1075,16 @@
   </div>
 
   <!-- ==========================================
-       12. LÓGICA JAVASCRIPT EMBUDIDA
-       ========================================== -->
+       14. LÓGICA JAVASCRIPT EMBUDIDA
+       ========================================== */
   <script>
     /* ----------------------------------------------------
        Variables Globales y Estado
        ---------------------------------------------------- */
     let currentView = 'moon';
     let selectedSabbat = 'yule';
+    let selectedZodiac = 'aries';
+    let selectedBook = 'segundo-sexo';
     let selectedCycleDay = 1;
     let selectedLunarDay = 1;
     let selectedFreeDay = 1;
@@ -982,6 +1094,12 @@
     // Herramienta activa para Vista de Pintado Libre
     let activeTool = 'blood';
     let isDrawing = false;
+
+    // Filtros de la Biblioteca
+    let librarySearchQuery = "";
+    let libraryThemeFilter = "all";
+    let libraryMenstrualFilter = "all";
+    let libraryLunarFilter = "all";
 
     // Datos guardados del usuario (Pintura y Notas)
     let savedFreeGrid = JSON.parse(localStorage.getItem('savedFreeGrid')) || {};
@@ -1025,7 +1143,6 @@
         if (this.muted) return;
         this.init();
         const now = this.ctx.currentTime;
-        // Escala pentatónica mágica retro (Arpegio rápido)
         const notes = [523.25, 659.25, 783.99, 987.77, 1046.50];
 
         notes.forEach((freq, index) => {
@@ -1124,132 +1241,198 @@
        ---------------------------------------------------- */
     const PIXEL_SVGS = {
       blood: `<svg viewBox="0 0 8 8" class="pixel-icon icon-blood"><rect x="3" y="0" width="2" height="1"/><rect x="2" y="1" width="4" height="1"/><rect x="1" y="2" width="6" height="1"/><rect x="0" y="3" width="8" height="3"/><rect x="1" y="6" width="6" height="1"/><rect x="2" y="7" width="4" height="1"/><rect x="2" y="3" width="1" height="2" fill="#fff" opacity="0.65"/></svg>`,
-
       fire: `<svg viewBox="0 0 8 8" class="pixel-icon icon-fire"><rect x="3" y="0" width="2" height="1"/><rect x="2" y="1" width="4" height="2"/><rect x="1" y="3" width="6" height="2"/><rect x="0" y="5" width="8" height="2"/><rect x="1" y="7" width="6" height="1"/><rect x="3" y="4" width="2" height="2" fill="#ffb834"/></svg>`,
-
       candle: `<svg viewBox="0 0 8 8" class="pixel-icon icon-candle"><rect x="3" y="0" width="2" height="1" fill="var(--accent-gold-glow)"/><rect x="3" y="1" width="2" height="1" fill="var(--accent-gold)"/><rect x="2" y="2" width="4" height="5"/><rect x="3" y="3" width="2" height="1" fill="#fff" opacity="0.7"/><rect x="1" y="7" width="6" height="1" fill="var(--border-color)"/></svg>`,
-
       star: `<svg viewBox="0 0 8 8" class="pixel-icon icon-star"><rect x="3" y="0" width="2" height="1"/><rect x="2" y="1" width="4" height="1"/><rect x="1" y="2" width="6" height="1"/><rect x="0" y="3" width="8" height="2"/><rect x="1" y="5" width="6" height="1"/><rect x="2" y="6" width="4" height="1"/><rect x="3" y="7" width="2" height="1"/></svg>`,
-
       broom: `<svg viewBox="0 0 8 8" class="pixel-icon icon-broom"><rect x="6" y="0" width="2" height="2" fill="var(--text-muted)"/><rect x="5" y="2" width="2" height="1" fill="var(--text-muted)"/><rect x="4" y="3" width="2" height="1" fill="var(--text-muted)"/><rect x="3" y="4" width="2" height="1" fill="var(--text-muted)"/><rect x="1" y="5" width="3" height="2" fill="var(--accent-gold)"/><rect x="0" y="7" width="5" height="1" fill="var(--accent-gold)"/></svg>`
     };
 
+    /* 12 Iconos Estilo Constelación Pixel Art en Polvo de Estrellas Dorado */
+    const PIXEL_ZODIAC_SVGS = {
+      aries: `<svg viewBox="0 0 14 14" class="pixel-icon" style="width: 32px; height: 32px;"><line x1="2" y1="4" x2="6" y2="3" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="6" y1="3" x2="10" y2="7" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="10" y1="7" x2="12" y2="10" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><rect x="1" y="3" width="2" height="2" fill="#ffffff"/><rect x="5" y="2" width="2" height="2" fill="#ffd700"/><rect x="9" y="6" width="2" height="2" fill="#ffd700"/><rect x="11" y="9" width="2" height="2" fill="#ffffff"/><rect x="2" y="2" width="1" height="1" fill="#ffd700"/><rect x="10" y="5" width="1" height="1" fill="#ffee7d"/></svg>`,
+      tauro: `<svg viewBox="0 0 14 14" class="pixel-icon" style="width: 32px; height: 32px;"><line x1="2" y1="2" x2="5" y2="5" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="12" y1="2" x2="8" y2="6" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="5" y1="5" x2="8" y2="6" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="5" y1="5" x2="4" y2="10" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="8" y1="6" x2="9" y2="11" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><rect x="1" y="1" width="2" height="2" fill="#ffffff"/><rect x="11" y="1" width="2" height="2" fill="#ffffff"/><rect x="4" y="4" width="2" height="2" fill="#ffd700"/><rect x="7" y="5" width="2" height="2" fill="#ffd700"/><rect x="3" y="9" width="2" height="2" fill="#ffee7d"/><rect x="8" y="10" width="2" height="2" fill="#ffee7d"/><rect x="1" y="8" width="1" height="1" fill="#ffffff"/><rect x="2" y="9" width="1" height="1" fill="#ffd700"/></svg>`,
+      geminis: `<svg viewBox="0 0 14 14" class="pixel-icon" style="width: 32px; height: 32px;"><line x1="3" y1="2" x2="4" y2="11" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="10" y1="2" x2="9" y2="11" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="3" y1="2" x2="10" y2="2" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="4" y1="6" x2="9" y2="6" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><rect x="2" y="1" width="2" height="2" fill="#ffffff"/><rect x="9" y="1" width="2" height="2" fill="#ffffff"/><rect x="3" y="5" width="2" height="2" fill="#ffd700"/><rect x="8" y="5" width="2" height="2" fill="#ffd700"/><rect x="3" y="10" width="2" height="2" fill="#ffee7d"/><rect x="8" y="10" width="2" height="2" fill="#ffee7d"/></svg>`,
+      cancer: `<svg viewBox="0 0 14 14" class="pixel-icon" style="width: 32px; height: 32px;"><line x1="7" y1="7" x2="3" y2="3" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="7" y1="7" x2="11" y2="3" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="7" y1="7" x2="7" y2="12" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><rect x="6" y="6" width="2" height="2" fill="#ffffff"/><rect x="2" y="2" width="2" height="2" fill="#ffd700"/><rect x="10" y="2" width="2" height="2" fill="#ffd700"/><rect x="6" y="11" width="2" height="2" fill="#ffee7d"/><rect x="1" y="4" width="1" height="1" fill="#ffffff"/><rect x="12" y="4" width="1" height="1" fill="#ffffff"/></svg>`,
+      leo: `<svg viewBox="0 0 14 14" class="pixel-icon" style="width: 32px; height: 32px;"><line x1="3" y1="8" x2="5" y2="4" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="5" y1="4" x2="9" y2="2" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="9" y1="2" x2="11" y2="5" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="11" y1="5" x2="8" y2="8" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="8" y1="8" x2="3" y2="8" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="3" y1="8" x2="2" y2="11" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="8" y1="8" x2="10" y2="11" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><rect x="2" y="7" width="2" height="2" fill="#ffffff"/><rect x="4" y="3" width="2" height="2" fill="#ffd700"/><rect x="8" y="1" width="2" height="2" fill="#ffee7d"/><rect x="10" y="4" width="2" height="2" fill="#ffd700"/><rect x="7" y="7" width="2" height="2" fill="#ffffff"/><rect x="1" y="10" width="2" height="2" fill="#ffee7d"/><rect x="9" y="10" width="2" height="2" fill="#ffd700"/></svg>`,
+      virgo: `<svg viewBox="0 0 14 14" class="pixel-icon" style="width: 32px; height: 32px;"><line x1="2" y1="3" x2="5" y2="6" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="5" y1="6" x2="9" y2="5" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="9" y1="5" x2="12" y2="9" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="5" y1="6" x2="4" y2="11" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="9" y1="5" x2="8" y2="11" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><rect x="1" y="2" width="2" height="2" fill="#ffee7d"/><rect x="4" y="5" width="2" height="2" fill="#ffd700"/><rect x="8" y="4" width="2" height="2" fill="#ffffff"/><rect x="11" y="8" width="2" height="2" fill="#ffd700"/><rect x="3" y="10" width="2" height="2" fill="#ffee7d"/><rect x="7" y="10" width="2" height="2" fill="#ffffff"/></svg>`,
+      libra: `<svg viewBox="0 0 14 14" class="pixel-icon" style="width: 32px; height: 32px;"><line x1="3" y1="3" x2="11" y2="3" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="3" y1="3" x2="5" y2="9" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="11" y1="3" x2="9" y2="9" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="5" y1="9" x2="9" y2="9" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><rect x="2" y="2" width="2" height="2" fill="#ffffff"/><rect x="10" y="2" width="2" height="2" fill="#ffffff"/><rect x="4" y="8" width="2" height="2" fill="#ffd700"/><rect x="8" y="8" width="2" height="2" fill="#ffd700"/><rect x="6" y="2" width="2" height="2" fill="#ffee7d"/></svg>`,
+      escorpio: `<svg viewBox="0 0 14 14" class="pixel-icon" style="width: 32px; height: 32px;"><line x1="2" y1="3" x2="5" y2="4" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="5" y1="4" x2="7" y2="7" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="7" y1="7" x2="9" y2="10" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="9" y1="10" x2="12" y2="9" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="12" y1="9" x2="11" y2="6" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><rect x="1" y="2" width="2" height="2" fill="#ffee7d"/><rect x="4" y="3" width="2" height="2" fill="#ffffff"/><rect x="6" y="6" width="2" height="2" fill="#ffd700"/><rect x="8" y="9" width="2" height="2" fill="#ffd700"/><rect x="11" y="8" width="2" height="2" fill="#ffee7d"/><rect x="10" y="5" width="2" height="2" fill="#ffffff"/></svg>`,
+      sagitario: `<svg viewBox="0 0 14 14" class="pixel-icon" style="width: 32px; height: 32px;"><line x1="3" y1="10" x2="8" y2="5" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="8" y1="5" x2="11" y2="2" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="6" y1="2" x2="11" y2="2" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="11" y1="2" x2="11" y2="7" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="3" y1="10" x2="2" y2="6" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="3" y1="10" x2="7" y2="11" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><rect x="2" y="9" width="2" height="2" fill="#ffd700"/><rect x="7" y="4" width="2" height="2" fill="#ffffff"/><rect x="10" y="1" width="2" height="2" fill="#ffffff"/><rect x="5" y="1" width="2" height="2" fill="#ffee7d"/><rect x="10" y="6" width="2" height="2" fill="#ffee7d"/><rect x="1" y="5" width="2" height="2" fill="#ffd700"/><rect x="6" y="10" width="2" height="2" fill="#ffd700"/></svg>`,
+      capricornio: `<svg viewBox="0 0 14 14" class="pixel-icon" style="width: 32px; height: 32px;"><line x1="2" y1="3" x2="6" y2="5" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="6" y1="5" x2="11" y2="3" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="11" y1="3" x2="9" y2="10" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="9" y1="10" x2="4" y2="9" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="4" y1="9" x2="2" y2="3" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><rect x="1" y="2" width="2" height="2" fill="#ffffff"/><rect x="5" y="4" width="2" height="2" fill="#ffd700"/><rect x="10" y="2" width="2" height="2" fill="#ffffff"/><rect x="8" y="9" width="2" height="2" fill="#ffee7d"/><rect x="3" y="8" width="2" height="2" fill="#ffd700"/></svg>`,
+      acuario: `<svg viewBox="0 0 14 14" class="pixel-icon" style="width: 32px; height: 32px;"><line x1="2" y1="3" x2="5" y2="5" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="5" y1="5" x2="8" y2="3" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="8" y1="3" x2="12" y2="5" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="2" y1="8" x2="5" y2="10" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="5" y1="10" x2="8" y2="8" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="8" y1="8" x2="12" y2="10" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><rect x="1" y="2" width="2" height="2" fill="#ffffff"/><rect x="4" y="4" width="2" height="2" fill="#ffd700"/><rect x="7" y="2" width="2" height="2" fill="#ffee7d"/><rect x="11" y="4" width="2" height="2" fill="#ffffff"/><rect x="1" y="7" width="2" height="2" fill="#ffd700"/><rect x="4" y="9" width="2" height="2" fill="#ffee7d"/><rect x="7" y="7" width="2" height="2" fill="#ffffff"/><rect x="11" y="9" width="2" height="2" fill="#ffd700"/></svg>`,
+      piscis: `<svg viewBox="0 0 14 14" class="pixel-icon" style="width: 32px; height: 32px;"><line x1="2" y1="3" x2="6" y2="11" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><line x1="6" y1="11" x2="11" y2="4" stroke="#ffee7d" stroke-width="1" stroke-dasharray="1 1"/><rect x="1" y="2" width="2" height="2" fill="#ffffff"/><rect x="3" y="1" width="2" height="2" fill="#ffee7d"/><rect x="5" y="10" width="2" height="2" fill="#ffd700"/><rect x="10" y="3" width="2" height="2" fill="#ffffff"/><rect x="11" y="6" width="2" height="2" fill="#ffee7d"/></svg>`
+    };
+
     /* ----------------------------------------------------
-       Datos del Universo Místico
+       Datos de la Biblioteca (Obras de la Historia de la Humanidad)
        ---------------------------------------------------- */
-    const sabbatsData = [
+    const libraryData = [
       {
-        id: "yule",
-        name: "Yule",
-        title: "Solsticio de Invierno",
-        date: "21-22 de Diciembre",
-        description: "El punto de giro del año. La noche es la más larga, pero contiene la promesa del retorno de la luz. Es el renacimiento de la chispa solar del vientre oscuro de la Tierra.",
-        ritual: "Enciende tres velas (dorada, roja y verde) rodeadas de piñas de pino. Escribe las cosas que deseas ver nacer en el ciclo venidero y quémalas bajo la llama de la vela dorada.",
-        color: "#3a7f9c",
-        symbol: "❄️",
-        x: 100, y: 22,
-        element: "Tierra / Agua",
-        energy: "Renacimiento e Introspección"
+        id: "segundo-sexo",
+        title: "El Segundo Sexo",
+        author: "Simone de Beauvoir",
+        year: "1949",
+        theme: "Feminismo",
+        menstrualPhase: "Folicular",
+        lunarPhase: "Llena",
+        season: "Verano",
+        synopsis: "La obra cumbre del pensamiento feminista existencialista. Analiza la construcción histórica, cultural y social de la mujer como 'el Otro', proclamando que 'no se nace mujer, se llega a serlo'.",
+        keyQuote: "No se nace mujer: llega uno a serlo.",
+        ritual: "Lee durante la Fase Folicular bajo la luz de la Luna Llena para canalizar energía de independencia, estudio activo y emancipación consciente."
       },
       {
-        id: "imbolc",
-        name: "Imbolc",
-        title: "Fiesta de Brigid",
-        date: "1-2 de Febrero",
-        description: "El despertar inicial de las semillas profundas. Purificación y preparación del suelo de la conciencia. Es la transición de la oscuridad del invierno a los primeros hilos de luz primaveral.",
-        ritual: "Realiza una limpieza física de tu altar o grimorio. Bendice una vela blanca y unge tus muñecas con un aceite esencial de lavanda para consagrar tu camino espiritual.",
-        color: "#ebe5c5",
-        symbol: "🕯️",
-        x: 155, y: 45,
-        element: "Fuego",
-        energy: "Purificación e Iniciación"
+        id: "republica",
+        title: "La República",
+        author: "Platón",
+        year: "~375 a.C.",
+        theme: "Filosofía",
+        menstrualPhase: "Lútea",
+        lunarPhase: "Nueva",
+        season: "Invierno",
+        synopsis: "Diálogo fundamental sobre la justicia, la estructura de la ciudad ideal y la famosa Alegoría de la Caverna. Explora la luz de la verdad filosófica frente a las sombras de la ilusión.",
+        keyQuote: "La educación es enseñar a desear lo que es bello.",
+        ritual: "Acompaña su lectura en la Fase Lútea e Invierno con una vela blanca, reflexionando en tu diario sobre las sombras y las verdades de tu propia vida."
       },
       {
-        id: "ostara",
-        name: "Ostara",
-        title: "Equinoccio de Primavera",
-        date: "20-23 de Marzo",
-        description: "Luz y oscuridad en perfecto balance. La vida renace en la naturaleza con fuerza arrolladora. Tiempo de siembra activa, renovación y balance de nuestras polaridades internas.",
-        ritual: "Dibuja símbolos rúnicos protectores en cáscaras de huevo cocido con tintes naturales. Siembra semillas reales en una maceta para enlazar tu intención de crecimiento con el crecimiento físico de la planta.",
-        color: "#5db468",
-        symbol: "🌱",
-        x: 178, y: 100,
-        element: "Aire",
-        energy: "Renovación y Crecimiento"
+        id: "habitacion-propia",
+        title: "Una Habitación Propia",
+        author: "Virginia Woolf",
+        year: "1929",
+        theme: "Feminismo",
+        menstrualPhase: "Menstruación",
+        lunarPhase: "Menguante",
+        season: "Otoño",
+        synopsis: "Un ensayo poético sobre la necesidad de espacio propio, independencia económica y libertad creativa para que la mente femenina pueda florecer sin ataduras.",
+        keyQuote: "Una mujer debe tener dinero y una habitación propia si va a escribir ficción.",
+        ritual: "Ideal para la Fase Menstrual en Otoño. Crea un ambiente cómodo de introspección, sirve una infusión caliente y escribe libremente en tu cuaderno."
       },
       {
-        id: "beltane",
-        name: "Beltane",
-        title: "Fuegos de Mayo",
-        date: "30 de Abril - 1 de Mayo",
-        description: "El pico de la primavera. La energía sexual, creativa y vital fluye desbordante. Representa la unión de las polaridades que trae la abundancia y belleza al reino físico.",
-        ritual: "Crea una corona floral o trenza cintas de tres colores (rojo, blanco, verde). Baila o realiza estiramientos al aire libre para activar la energía de la vitalidad y el placer corporal.",
-        color: "#c94680",
-        symbol: "🌸",
-        x: 155, y: 155,
-        element: "Fuego / Tierra",
-        energy: "Vitalidad, Unión y Placer"
+        id: "contrato-social",
+        title: "El Contrato Social",
+        author: "Jean-Jacques Rousseau",
+        year: "1762",
+        theme: "Política",
+        menstrualPhase: "Ovulatoria",
+        lunarPhase: "Creciente",
+        season: "Primavera",
+        synopsis: "Tratado clásico sobre la voluntad general, la soberanía popular y la libertad civil en el nacimiento del Estado moderno.",
+        keyQuote: "El hombre ha nacido libre y por doquiera se encuentra encadenado.",
+        ritual: "Lee en la Fase Ovulatoria durante la Primavera para debatir ideas políticas y sociales con tu entorno desde la fuerza comunicativa."
       },
       {
-        id: "litha",
-        name: "Litha",
-        title: "Solsticio de Verano",
-        date: "20-22 de Junio",
-        description: "El solsticio de verano, la máxima luz y poder del Sol. Celebración de los logros cosechados y consolidación de nuestra fuerza de voluntad.",
-        ritual: "Deja un cuenco con agua limpia al sol de mediodía junto con cristales de cuarzo o citrino. Usa esa agua solarizada para limpiar tus ojos y tu rostro para expandir tu percepción espiritual.",
-        color: "#cca627",
-        symbol: "☀️",
-        x: 100, y: 178,
-        element: "Fuego / Aire",
-        energy: "Poder, Éxito y Celebración"
+        id: "vindicacion-derechos",
+        title: "Vindicación de los Derechos de la Mujer",
+        author: "Mary Wollstonecraft",
+        year: "1792",
+        theme: "Feminismo",
+        menstrualPhase: "Folicular",
+        lunarPhase: "Llena",
+        season: "Primavera",
+        synopsis: "Una de las primeras obras de la filosofía feminista. Exige educación racional e igualitaria para las mujeres como seres racionales con plena capacidad ética.",
+        keyQuote: "No deseo que las mujeres tengan poder sobre los hombres, sino sobre sí mismas.",
+        ritual: "Combina esta lectura con un paseo primaveral matutino, anotando decretos de autogobierno y poder propio."
       },
       {
-        id: "lammas",
-        name: "Lammas / Lughnasadh",
-        title: "Primera Cosecha",
-        date: "1-2 de Agosto",
-        description: "La festividad del primer corte y agradecimiento por el alimento. La energía solar comienza a madurar los frutos. Aprender a sacrificar lo innecesario para asegurar el sustento.",
-        ritual: "Hornea o consume un pan integral de cereales bendecido. Escribe tres cosas por las cuales estás profundamente agradecida y entierra una pequeña porción de pan en la tierra como ofrenda.",
-        color: "#d07335",
-        symbol: "🌾",
-        x: 45, y: 155,
-        element: "Tierra",
-        energy: "Gratitud y Desapego"
+        id: "condicion-humana",
+        title: "La Condición Humana",
+        author: "Hannah Arendt",
+        year: "1958",
+        theme: "Sociología",
+        menstrualPhase: "Lútea",
+        lunarPhase: "Nueva",
+        season: "Invierno",
+        synopsis: "Investigación sobre la *vita activa* (labor, trabajo y acción) en el espacio público y la libertad política en el mundo moderno.",
+        keyQuote: "Con la palabra y el acto nos insertamos en el mundo humano.",
+        ritual: "Perfecto para noches frías de Invierno. Medita en la diferencia entre producir objetos y actuar libremente en comunidad."
       },
       {
-        id: "mabon",
-        name: "Mabon",
-        title: "Equinoccio de Otoño",
-        date: "20-23 de Septiembre",
-        description: "Segundo equilibrio del ciclo. Agradecimiento por la cosecha total y preparación para el repliegue. El día y la noche vuelven a igualar su duración antes de entrar al reposo frío.",
-        ritual: "Crea una ofrenda con manzanas cortadas, canela y nueces. Comparte este banquete de otoño con seres queridos, reflexionando en voz alta sobre las lecciones de maduración del año.",
-        color: "#b0542d",
-        symbol: "🍎",
-        x: 22, y: 100,
-        element: "Agua / Tierra",
-        energy: "Balance e Integración"
+        id: "caliban-bruja",
+        title: "Calibán y la Bruja",
+        author: "Silvia Federici",
+        year: "2004",
+        theme: "Sociología",
+        menstrualPhase: "Lútea",
+        lunarPhase: "Llena",
+        season: "Otoño",
+        synopsis: "Un análisis histórico audaz sobre la caza de brujas, la acumulación originaria del capitalismo y la expropiación del cuerpo femenino y los saberes comunitarios.",
+        keyQuote: "El cuerpo femenino ha sido para las mujeres lo que las fábricas para los trabajadores masculinos.",
+        ritual: "Lee en la Luna Llena de Otoño encendiendo un sahumerio purificador para honrar a las sanadoras ancestrales y reconectar con la sabiduría del cuerpo."
       },
       {
-        id: "samhain",
-        name: "Samhain",
-        title: "Año Nuevo Místico",
-        date: "31 de Octubre - 1 de Noviembre",
-        description: "El velo se desvanece entre los reinos visible e invisible. Es el final y el comienzo de la rueda pagana. Tiempo de honrar a los ancestros, soltar lo obsoleto y entrar al vacío creativo.",
-        ritual: "Enciende una vela negra en la ventana para guiar los espíritus del pasado. Escribe en un pergamino tus miedos o dependencias que deseas quemar definitivamente en un caldero.",
-        color: "#55327b",
-        symbol: "🎃",
-        x: 45, y: 45,
-        element: "Agua / Espíritu",
-        energy: "Trascendencia y Transmutación"
+        id: "etica-nicomaco",
+        title: "Ética a Nicómaco",
+        author: "Aristóteles",
+        year: "~340 a.C.",
+        theme: "Humanismo",
+        menstrualPhase: "Folicular",
+        lunarPhase: "Creciente",
+        season: "Primavera",
+        synopsis: "Examen sobre la virtud, la eudaimonía (felicidad plena) y el justo medio como camino de realización de la naturaleza humana.",
+        keyQuote: "La felicidad depende de nosotros mismos.",
+        ritual: "Aplica sus enseñanzas cultivando hábitos saludables diarios durante la Fase Folicular."
+      },
+      {
+        id: "pedagogia-oprimido",
+        title: "Pedagogía del Oprimido",
+        author: "Paulo Freire",
+        year: "1968",
+        theme: "Sociedad",
+        menstrualPhase: "Ovulatoria",
+        lunarPhase: "Llena",
+        season: "Verano",
+        synopsis: "Obra clave de la educación liberadora y la concientización dialógica para la emancipación comunitaria.",
+        keyQuote: "Nadie educa a nadie, nadie se educa a sí mismo, los hombres se educan entre sí con la mediación del mundo.",
+        ritual: "Estudia este texto en grupos de lectura o círculos de mujeres para ejercitar el diálogo transformador."
+      },
+      {
+        id: "espejo-almas-simples",
+        title: "El Espejo de las Almas Simples",
+        author: "Marguerite Porete",
+        year: "~1295",
+        theme: "Filosofía",
+        menstrualPhase: "Menstruación",
+        lunarPhase: "Nueva",
+        season: "Invierno",
+        synopsis: "Texto místico-filosófico medieval quemado por la inquisición. Trata sobre la unificación del alma con el Amor Divino a través del aniquilamiento del ego.",
+        keyQuote: "El Alma libre no busca nada, pues posee el Todo en la nada.",
+        ritual: "Medita en la quietud absoluta de la Luna Nueva y la Menstruación para soltar el juicio del ego."
       }
     ];
 
-    // Datos del Anillo de 28 Días
+    /* ----------------------------------------------------
+       Datos de los 12 Signos del Zodíaco
+       ---------------------------------------------------- */
+    const zodiacData = [
+      { id: "aries", symbol: "♈", name: "Aries", dates: "21 Mar - 19 Abr", elementKey: "fuego", vibe: "Impulso pionero, fuego primigenio y chispa guerrera.", element: "Fuego 🔥", ruler: "Marte ♂️", quality: "Cardinal", archetype: "El Guerrero / El Pionero", crystals: "Cornalina, Jaspe Rojo, Diamante", deepLore: "Aries representa la chispa que enciende el año astrológico. Su energía desborda iniciativa, coraje y acción pura.", ritual: "Enciende una vela roja y realiza afirmaciones de liderazgo y poder personal." },
+      { id: "tauro", symbol: "♉", name: "Tauro", dates: "20 Abr - 20 May", elementKey: "tierra", vibe: "Placer sensorial, estabilidad de la tierra y constancia.", element: "Tierra 🌿", ruler: "Venus ♀️", quality: "Fijo", archetype: "El Constructor / La Tierra Nutricia", crystals: "Esmeralda, Cuarzo Rosa, Malaquita", deepLore: "Tauro enraiza la chispa de Aries en la materia fértil. Rige los sentidos, el aprecio por la belleza táctil y la paciencia.", ritual: "Prepara un baño ritual con sales y pétalos de rosa. Camina descalza sobre la hierba." },
+      { id: "geminis", symbol: "♊", name: "Géminis", dates: "21 May - 20 Jun", elementKey: "aire", vibe: "Curiosidad sin fin, brisa de ideas y juego mental.", element: "Aire 💨", ruler: "Mercurio ☿", quality: "Mutable", archetype: "El Mensajero / Los Gemelos Divinos", crystals: "Ágata, Citrino, Ojo de Tigre", deepLore: "Géminis expande la percepción tejiendo puentes entre mundos. Su mente agilísima explora posibilidades sin fin.", ritual: "Escribe dos cartas cortas: una a tu mente racional y otra a tu mente intuitiva." },
+      { id: "cancer", symbol: "♋", name: "Cáncer", dates: "21 Jun - 22 Jul", elementKey: "agua", vibe: "Sensibilidad oceánica, refugio e intuición ancestral.", element: "Agua 🌊", ruler: "La Luna 🌙", quality: "Cardinal", archetype: "La Gran Madre / La Protectora", crystals: "Piedra de Luna, Perla, Selenita", deepLore: "Cáncer es el santuario de la memoria y la emoción profunda. Sincronizado con las mareas de la Luna.", ritual: "Prepara una infusión de manzanilla bajo la luz de la luna. Escribe recuerdos preciados." },
+      { id: "leo", symbol: "♌", name: "Leo", dates: "23 Jul - 22 Ago", elementKey: "fuego", vibe: "Brillo solar, soberanía del corazón y expresión magnética.", element: "Fuego 🔥", ruler: "El Sol ☀️", quality: "Fijo", archetype: "El Rey / El Creador Radiante", crystals: "Ojo de Tigre, Pirita, Citrino", deepLore: "Leo encarna el esplendor solar en pleno verano. Es la valentía de habitar la propia luz con orgullo generoso.", ritual: "Medita frente al sol matutino colocándote las manos en el centro del pecho." },
+      { id: "virgo", symbol: "♍", name: "Virgo", dates: "23 Ago - 22 Sep", elementKey: "tierra", vibe: "Devoción al detalle, alquimia sagrada y maestría.", element: "Tierra 🌿", ruler: "Mercurio ☿", quality: "Mutable", archetype: "La Sacerdotisa / La Sanadora", crystals: "Jaspe Verde, Peridoto, Jaspe Picassiano", deepLore: "Virgo es la alquimista que refina el caótico mundo en orden sagrado. Sana a través del hábito y el servicio.", ritual: "Organiza y purifica un espacio de trabajo o altar utilizando humo de salvia." },
+      { id: "libra", symbol: "♎", name: "Libra", dates: "23 Sep - 22 Oct", elementKey: "aire", vibe: "Armonía estética, equilibrio y belleza compartida.", element: "Aire 💨", ruler: "Venus ♀️", quality: "Cardinal", archetype: "La Diplomática / El Espejo de Venus", crystals: "Lapis Lázuli, Cuarzo Rosa, Turmalina Rosa", deepLore: "Libra busca la belleza y la simetría perfecta en todas las relaciones. Sostiene la balanza en perfecto balance.", ritual: "Coloca dos velas del mismo tamaño sobre tu altar y enciéndelas en sintonía." },
+      { id: "escorpio", symbol: "♏", name: "Escorpio", dates: "23 Oct - 21 Nov", elementKey: "agua", vibe: "Misterio abisal, transmutación y magnetismo oculto.", element: "Agua 🌊", ruler: "Plutón ♇ / Marte ♂️", quality: "Fijo", archetype: "El Alquimista / El Fénix", crystals: "Obsidiana, Granate, Turmalina Negra", deepLore: "Escorpio desciende a las profundidades donde reside el poder verdadero para renacer de las cenizas.", ritual: "Escribe en un pergamino una sombra que desees transmutar y quémala ritualmente." },
+      { id: "sagitario", symbol: "♐", name: "Sagitario", dates: "22 Nov - 21 Dic", elementKey: "fuego", vibe: "Búsqueda del horizonte, fe expansiva y sabiduría salvaje.", element: "Fuego 🔥", ruler: "Júpiter ♃", quality: "Mutable", archetype: "El Explorador / El Filósofo Centauro", crystals: "Turquesa, Lapislázuli, Azurita", deepLore: "Sagitario apunta su flecha hacia las estrellas en busca del significado supremo y la libertad incondicional.", ritual: "Enciende una vela dorada mientras estudias un mapa o texto místico antiguo." },
+      { id: "capricornio", symbol: "♑", name: "Capricornio", dates: "22 Dic - 19 Ene", elementKey: "tierra", vibe: "Perseverancia de montaña, maestría y ambición noble.", element: "Tierra 🌿", ruler: "Saturno ♄", quality: "Cardinal", archetype: "El Anciano Sabio / El Guardián de la Cumbre", crystals: "Onyx, Cuarzo Ahumado, Hematita", deepLore: "Capricornio asciende la cumbre helada paso a paso con determinación inquebrantable.", ritual: "Escribe una lista de metas a 1 y 5 años con pasos realistas." },
+      { id: "acuario", symbol: "♒", name: "Acuario", dates: "20 Ene - 18 Feb", elementKey: "aire", vibe: "Visión del futuro, rebeldía sagrada y libertad.", element: "Aire 💨", ruler: "Urano ♅ / Saturno ♄", quality: "Fijo", archetype: "El Innovador / El Aguador Cósmico", crystals: "Amatista, Labradorita, Fluorita", deepLore: "Acuario vierte el agua de la conciencia divina sobre la humanidad. Rompe dogmas con visión futurista.", ritual: "Visualiza una red de luz brillante que conecta a todas las almas del planeta." },
+      { id: "piscis", symbol: "♓", name: "Piscis", dates: "19 Feb - 20 Mar", elementKey: "agua", vibe: "Compasión infinita, océano de sueños y misticismo.", element: "Agua 🌊", ruler: "Neptuno ♆ / Júpiter ♃", quality: "Mutable", archetype: "El Místico / El Soñador Divino", crystals: "Aguamarina, Amatista, Piedra de Luna", deepLore: "Piscis disuelve los límites del ser en el océano infinito de la creación y la compasión universal.", ritual: "Escucha música etérea junto a un cuenco con agua limpia y anota tus visiones." }
+    ];
+
+    const sabbatsData = [
+      { id: "yule", name: "Yule", title: "Solsticio de Invierno", date: "21-22 de Diciembre", description: "El punto de giro del año. La noche es la más larga, pero contiene la promesa del retorno de la luz.", ritual: "Enciende tres velas rodeadas de piñas de pino y decreta tus renacimientos.", color: "#3a7f9c", symbol: "❄️", x: 100, y: 22, element: "Tierra / Agua", energy: "Renacimiento e Introspección" },
+      { id: "imbolc", name: "Imbolc", title: "Fiesta de Brigid", date: "1-2 de Febrero", description: "El despertar inicial de las semillas profundas. Purificación y preparación del suelo de la conciencia.", ritual: "Realiza una limpieza física de tu altar y unge tus muñecas con lavanda.", color: "#ebe5c5", symbol: "🕯️", x: 155, y: 45, element: "Fuego", energy: "Purificación e Iniciación" },
+      { id: "ostara", name: "Ostara", title: "Equinoccio de Primavera", date: "20-23 de Marzo", description: "Luz y oscuridad en perfecto balance. La vida renace en la naturaleza con fuerza arrolladora.", ritual: "Siembra semillas reales en una maceta para enlazar tu intención de crecimiento.", color: "#5db468", symbol: "🌱", x: 178, y: 100, element: "Aire", energy: "Renovación y Crecimiento" },
+      { id: "beltane", name: "Beltane", title: "Fuegos de Mayo", date: "30 de Abril - 1 de Mayo", description: "El pico de la primavera. La energía vital fluye desbordante trayendo plenitud y belleza.", ritual: "Trenza cintas de tres colores y baila celebrando el placer corporal.", color: "#c94680", symbol: "🌸", x: 155, y: 155, element: "Fuego / Tierra", energy: "Vitalidad, Unión y Placer" },
+      { id: "litha", name: "Litha", title: "Solsticio de Verano", date: "20-22 de Junio", description: "El solsticio de verano, la máxima luz y poder del Sol.", ritual: "Solariza agua pura en un cuenco con cuarzos al sol de mediodía.", color: "#cca627", symbol: "☀️", x: 100, y: 178, element: "Fuego / Aire", energy: "Poder, Éxito y Celebración" },
+      { id: "lammas", name: "Lammas / Lughnasadh", title: "Primera Cosecha", date: "1-2 de Agosto", description: "La festividad del primer corte y agradecimiento por el alimento.", ritual: "Hornea o consume pan integral de cereales bendecido.", color: "#d07335", symbol: "🌾", x: 45, y: 155, element: "Tierra", energy: "Gratitud y Desapego" },
+      { id: "mabon", name: "Mabon", title: "Equinoccio de Otoño", date: "20-23 de Septiembre", description: "Segundo equilibrio del ciclo. Agradecimiento por la cosecha total.", ritual: "Crea una ofrenda con manzanas y canela compartiendo reflexiones.", color: "#b0542d", symbol: "🍎", x: 22, y: 100, element: "Agua / Tierra", energy: "Balance e Integración" },
+      { id: "samhain", name: "Samhain", title: "Año Nuevo Místico", date: "31 de Octubre - 1 de Noviembre", description: "El velo se desvanece entre los reinos. Tiempo de honrar a los ancestros.", ritual: "Enciende una vela negra en la ventana guíando a tus ancestros.", color: "#55327b", symbol: "🎃", x: 45, y: 45, element: "Agua / Espíritu", energy: "Trascendencia y Transmutación" }
+    ];
+
     const cyclePhases = [
-      { name: "Menstruación", range: [1, 5], color: "var(--accent-red)", archetype: "La Anciana / Bruja", description: "Fase de descanso, sangrado y renovación. La energía física está en su nivel más bajo, pero la intuición y la conexión espiritual están al máximo.", guidance: "Disminuye el ritmo, descansa y medita. Excelente momento para soñar despierta y escribir tus visiones." },
-      { name: "Fase Folicular", range: [6, 11], color: "var(--accent-green)", archetype: "La Doncella", description: "Inicio del crecimiento folicular. La energía física y el entusiasmo mental retornan. Claridad para iniciar proyectos y aprender habilidades nuevas.", guidance: "Planifica tus metas, haz ejercicio estimulante y lánzate a nuevas aventuras creativas." },
-      { name: "Fase Ovulatoria", range: [12, 16], color: "var(--accent-gold)", archetype: "La Madre", description: "Pico de fertilidad y magnetismo social. Energía expansiva, propicia para la comunicación, la empatía y la materialización de proyectos.", guidance: "Conecta con los demás, haz presentaciones públicas, celebra rituales de abundancia y autocuidado." },
-      { name: "Fase Lútea", range: [17, 28], color: "var(--accent-purple)", archetype: "La Hechicera", description: "Fase de introspección y preparación. La energía se vuelca hacia el interior. Sensibilidad a flor de piel y necesidad de límites saludables.", guidance: "Realiza rituales de desterrar y limpieza energética. Escribe en tu diario de sombras sobre tus verdaderos deseos ocultos." }
+      { name: "Menstruación", range: [1, 5], color: "var(--accent-red)", archetype: "La Anciana / Bruja", description: "Fase de descanso, sangrado y renovación. Intuición espiritual al máximo.", guidance: "Disminuye el ritmo, descansa y medita profundamente." },
+      { name: "Fase Folicular", range: [6, 11], color: "var(--accent-green)", archetype: "La Doncella", description: "Inicio del crecimiento. Entusiasmo mental y aprendizaje activo.", guidance: "Planifica metas y lánzate a nuevas aventuras creativas." },
+      { name: "Fase Ovulatoria", range: [12, 16], color: "var(--accent-gold)", archetype: "La Madre", description: "Pico de fertilidad y magnetismo social. Energía expansiva.", guidance: "Conecta con los demás y celebra rituales de abundancia." },
+      { name: "Fase Lútea", range: [17, 28], color: "var(--accent-purple)", archetype: "La Hechicera", description: "Introspección y sensibilidad. Necesidad de límites saludables.", guidance: "Realiza rituales de desterrar y limpieza energética." }
     ];
 
     /* ----------------------------------------------------
@@ -1259,28 +1442,31 @@
       if (currentView === viewName) return;
       currentView = viewName;
 
-      // Reproducir sonido de cambio
       audio.playBookFlip();
 
-      // Actualizar pestañas
       document.querySelectorAll('.grimoire-tab').forEach(t => t.classList.remove('active'));
       tabEl.classList.add('active');
 
-      // Actualizar título y contenido del lado izquierdo
       const leftTitle = document.getElementById('left-page-title');
       const leftContent = document.getElementById('left-page-content');
 
       if (viewName === 'stations') {
-        leftTitle.innerHTML = `<span>🌱</span> Rueda de las Estaciones`;
+        leftTitle.innerHTML = `<span>🌱</span> RUEDA DE LAS ESTACIONES`;
         renderStationsView(leftContent);
+      } else if (viewName === 'zodiac') {
+        leftTitle.innerHTML = `<span>✨</span> RUEDA ZODIACAL`;
+        renderZodiacView(leftContent);
+      } else if (viewName === 'library') {
+        leftTitle.innerHTML = `<span>📜</span> BIBLIOTECA CÍCLICA`;
+        renderLibraryView(leftContent);
       } else if (viewName === 'cycle28') {
-        leftTitle.innerHTML = `<span>🔮</span> Anillo de 28 Días`;
+        leftTitle.innerHTML = `<span>🔮</span> ANILLO DE 28 DÍAS`;
         renderCycle28View(leftContent);
       } else if (viewName === 'moon') {
-        leftTitle.innerHTML = `<span>🌙</span> Lunación Sinódica`;
+        leftTitle.innerHTML = `<span>🌙</span> LUNACIÓN SINÓDICA`;
         renderMoonView(leftContent);
       } else if (viewName === 'free') {
-        leftTitle.innerHTML = `<span>🕯️</span> Registro del Ritual`;
+        leftTitle.innerHTML = `<span>🕯️</span> REGISTRO DEL RITUAL`;
         renderFreeView(leftContent);
       }
     }
@@ -1288,6 +1474,147 @@
     /* ----------------------------------------------------
        Renders de las Páginas del Calendario (Página Izquierda)
        ---------------------------------------------------- */
+
+    // Vista Biblioteca: Catálogo de Obras Literarias y Filtros Cruzados
+    function renderLibraryView(container) {
+      container.innerHTML = `
+        <div class="library-filter-panel">
+          <input type="text" class="search-input" id="lib-search" placeholder="🔍 Buscar obra, autor o concepto..." value="${librarySearchQuery}" oninput="handleLibrarySearch(this.value)">
+          
+          <div class="filter-row">
+            <select class="filter-select" onchange="handleLibraryTheme(this.value)">
+              <option value="all" ${libraryThemeFilter==='all'?'selected':''}>📚 TEMÁTICA: TODAS</option>
+              <option value="Filosofía" ${libraryThemeFilter==='Filosofía'?'selected':''}>🏛️ FILOSOFÍA</option>
+              <option value="Sociología" ${libraryThemeFilter==='Sociología'?'selected':''}>⚖️ SOCIOLOGÍA</option>
+              <option value="Política" ${libraryThemeFilter==='Política'?'selected':''}>📜 POLÍTICA</option>
+              <option value="Sociedad" ${libraryThemeFilter==='Sociedad'?'selected':''}>🌍 SOCIEDAD</option>
+              <option value="Humanismo" ${libraryThemeFilter==='Humanismo'?'selected':''}>🕊️ HUMANISMO</option>
+              <option value="Feminismo" ${libraryThemeFilter==='Feminismo'?'selected':''}>👑 FEMINISMO</option>
+            </select>
+
+            <select class="filter-select" onchange="handleLibraryMenstrual(this.value)">
+              <option value="all" ${libraryMenstrualFilter==='all'?'selected':''}>🩸 FASE MENSTRUAL: TODAS</option>
+              <option value="Menstruación" ${libraryMenstrualFilter==='Menstruación'?'selected':''}>🩸 MENSTRUACIÓN</option>
+              <option value="Folicular" ${libraryMenstrualFilter==='Folicular'?'selected':''}>🌱 FOLICULAR</option>
+              <option value="Ovulatoria" ${libraryMenstrualFilter==='Ovulatoria'?'selected':''}>🌕 OVULATORIA</option>
+              <option value="Lútea" ${libraryMenstrualFilter==='Lútea'?'selected':''}>🔮 LÚTEA</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="library-grid" id="library-grid-container">
+          <!-- Renderizado dinámico de tarjetas -->
+        </div>
+      `;
+
+      filterAndRenderLibraryGrid();
+      updateJournalForBook(selectedBook);
+    }
+
+    function handleLibrarySearch(val) {
+      librarySearchQuery = val.toLowerCase();
+      filterAndRenderLibraryGrid();
+    }
+
+    function handleLibraryTheme(val) {
+      libraryThemeFilter = val;
+      filterAndRenderLibraryGrid();
+    }
+
+    function handleLibraryMenstrual(val) {
+      libraryMenstrualFilter = val;
+      filterAndRenderLibraryGrid();
+    }
+
+    function filterAndRenderLibraryGrid() {
+      const gridContainer = document.getElementById('library-grid-container');
+      if (!gridContainer) return;
+
+      const filtered = libraryData.filter(b => {
+        const matchesSearch = b.title.toLowerCase().includes(librarySearchQuery) || 
+                              b.author.toLowerCase().includes(librarySearchQuery) ||
+                              b.theme.toLowerCase().includes(librarySearchQuery) ||
+                              b.synopsis.toLowerCase().includes(librarySearchQuery);
+        
+        const matchesTheme = (libraryThemeFilter === 'all') || (b.theme === libraryThemeFilter);
+        const matchesMenstrual = (libraryMenstrualFilter === 'all') || (b.menstrualPhase === libraryMenstrualFilter);
+
+        return matchesSearch && matchesTheme && matchesMenstrual;
+      });
+
+      if (filtered.length === 0) {
+        gridContainer.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-size: 16px;">No se encontraron libros con estos filtros.</p>`;
+        return;
+      }
+
+      let html = '';
+      filtered.forEach(b => {
+        const isSelected = b.id === selectedBook;
+        html += `
+          <div class="book-card ${isSelected ? 'selected' : ''}" onclick="selectBook('${b.id}')">
+            <span class="book-badge">${b.theme.toUpperCase()}</span>
+            <div class="book-title">${b.title}</div>
+            <div class="book-author">${b.author} (${b.year})</div>
+            <div class="book-sync-tags">
+              <span class="sync-tag">🩸 ${b.menstrualPhase}</span>
+              <span class="sync-tag">🌙 ${b.lunarPhase}</span>
+            </div>
+          </div>
+        `;
+      });
+
+      gridContainer.innerHTML = html;
+    }
+
+    function selectBook(id) {
+      audio.playShimmer();
+      selectedBook = id;
+      filterAndRenderLibraryGrid();
+      updateJournalForBook(id);
+    }
+
+    function updateJournalForBook(id) {
+      const b = libraryData.find(item => item.id === id);
+      if (!b) return;
+
+      document.getElementById('journal-title').innerText = `📜 OBRA: ${b.title.toUpperCase()}`;
+
+      const contentArea = document.getElementById('journal-content-area');
+      contentArea.innerHTML = `
+        <div class="journal-section">
+          <div class="section-title">Autor & Época Historica</div>
+          <div class="journal-body"><strong>${b.author}</strong> (${b.year})</div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Disciplina & Temática</div>
+          <div class="journal-body"><span class="stat-badge">${b.theme}</span></div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Sincronía Cíclica Recomendada</div>
+          <div class="journal-body">
+            🩸 <strong>Ciclo:</strong> ${b.menstrualPhase} | 🌙 <strong>Luna:</strong> ${b.lunarPhase} ${b.season ? `| 🌱 <strong>Estación:</strong> ${b.season}` : ''}
+          </div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Sinopsis Filosófica</div>
+          <div class="journal-body">${b.synopsis}</div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Cita Clave Ilustrativa</div>
+          <div class="journal-body" style="border-left: 2px solid var(--accent-gold); padding-left: 8px; font-style: italic;">
+            "${b.keyQuote}"
+          </div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Ritual de Lectura Sugerido</div>
+          <div class="journal-body" style="background: var(--bg-book); padding: 6px; border: 1px dashed var(--border-color);">
+            ${b.ritual}
+          </div>
+        </div>
+      `;
+
+      document.getElementById('notes-form').style.display = 'none';
+    }
 
     // Vista 1: Rueda de las Estaciones (Sabbats)
     function renderStationsView(container) {
@@ -1299,14 +1626,10 @@
           <g class="sabbat-node ${isSelected ? 'selected' : ''}" 
              data-id="${s.id}" 
              onclick="selectSabbat('${s.id}')">
-            <!-- Halo de brillo para seleccionado -->
             ${isSelected ? `<circle cx="${s.x}" cy="${s.y}" r="17" fill="none" stroke="var(--accent-gold-glow)" stroke-width="2" stroke-dasharray="2 2"/>` : ''}
-            <!-- Círculo del nodo -->
             <circle cx="${s.x}" cy="${s.y}" r="11" fill="${s.color}"/>
             <circle cx="${s.x}" cy="${s.y}" r="8" fill="var(--bg-book)" opacity="0.3"/>
-            <!-- Símbolo de texto -->
             <text x="${s.x}" y="${s.y + 2.5}" font-size="10">${s.symbol}</text>
-            <!-- Nombre del Sabbat fuera del nodo -->
             <text x="${s.x}" y="${s.y < 100 ? s.y - 15 : s.y + 20}" font-size="7">${s.name.toUpperCase()}</text>
           </g>
         `;
@@ -1315,47 +1638,59 @@
       container.innerHTML = `
         <div class="wheel-container">
           <svg viewBox="0 0 200 200" class="wheel-svg">
-            <!-- Divisiones de las 4 estaciones -->
-            <!-- Primavera (Derecha Superior) -->
             <path d="M 100 100 L 100 20 A 80 80 0 0 1 180 100 Z" fill="rgba(93, 180, 104, 0.08)" />
-            <!-- Verano (Derecha Inferior) -->
             <path d="M 100 100 L 180 100 A 80 80 0 0 1 100 180 Z" fill="rgba(204, 166, 39, 0.08)" />
-            <!-- Otoño (Izquierda Inferior) -->
             <path d="M 100 100 L 100 180 A 80 80 0 0 1 20 100 Z" fill="rgba(176, 84, 45, 0.08)" />
-            <!-- Invierno (Izquierda Superior) -->
             <path d="M 100 100 L 20 100 A 80 80 0 0 1 100 20 Z" fill="rgba(58, 127, 156, 0.08)" />
 
-            <!-- Líneas de las estaciones -->
             <line x1="100" y1="18" x2="100" y2="182" stroke="var(--border-color)" stroke-width="2.5" />
             <line x1="18" y1="100" x2="182" y2="100" stroke="var(--border-color)" stroke-width="2.5" />
             
-            <!-- Anillo Interior Astrológico -->
             <circle cx="100" cy="100" r="50" fill="none" stroke="var(--border-color)" stroke-dasharray="3 3" stroke-width="1.5" />
-            
             <text x="100" y="103" class="wheel-center-txt">RUEDA</text>
-            
-            <!-- Inyección de los Nodos Sabbat -->
             ${nodesHtml}
           </svg>
         </div>
       `;
 
-      // Cargar detalles de Sabbat activo por defecto en la derecha
       updateJournalForSabbat(selectedSabbat);
+    }
+
+    // Vista Zodíaco
+    function renderZodiacView(container) {
+      let gridHtml = '';
+
+      zodiacData.forEach(z => {
+        const isSelected = selectedZodiac === z.id;
+        const iconSvg = PIXEL_ZODIAC_SVGS[z.id] || z.symbol;
+        gridHtml += `
+          <div class="zodiac-card element-${z.elementKey} ${isSelected ? 'selected' : ''}" onclick="selectZodiacSign('${z.id}')">
+            <div class="zodiac-icon-box">${iconSvg}</div>
+            <div class="zodiac-name">${z.name.toUpperCase()}</div>
+            <div class="zodiac-dates">${z.dates}</div>
+            <div class="zodiac-vibe">${z.vibe}</div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = `
+        <div class="zodiac-grid">
+          ${gridHtml}
+        </div>
+      `;
+
+      updateJournalForZodiacSign(selectedZodiac);
     }
 
     // Vista 2: Anillo de 28 Días
     function renderCycle28View(container) {
       let beadsHtml = '';
-      const R = 72; // Radio del anillo
+      const R = 72;
       const cx = 100;
       const cy = 100;
 
       for (let day = 1; day <= 28; day++) {
-        // Encontrar la fase a la que pertenece
         const phase = cyclePhases.find(p => day >= p.range[0] && day <= p.range[1]);
-
-        // Calcular posición en el círculo (partiendo desde las 12 en sentido horario)
         const angle = (day - 1) * (360 / 28) - 90;
         const rad = (angle * Math.PI) / 180;
         const bx = cx + R * Math.cos(rad);
@@ -1377,20 +1712,15 @@
         `;
       }
 
-      // Obtener detalles de la fase seleccionada
       const activePhase = cyclePhases.find(p => selectedCycleDay >= p.range[0] && selectedCycleDay <= p.range[1]);
 
       container.innerHTML = `
         <div class="ring-container">
           <svg viewBox="0 0 200 200" style="width:100%; height:100%;">
-            <!-- Fondo orbital -->
             <circle cx="100" cy="100" r="72" fill="none" stroke="var(--border-color)" stroke-width="1" stroke-dasharray="2 2" />
-            
-            <!-- Gemas del ciclo -->
             ${beadsHtml}
           </svg>
           
-          <!-- Cuadro informativo interior -->
           <div class="ring-center-panel">
             <div class="ring-center-day">DÍA ${selectedCycleDay}</div>
             <div class="ring-center-phase" style="color: ${activePhase.color};">${activePhase.name.toUpperCase()}</div>
@@ -1417,20 +1747,16 @@
         "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"
       ];
 
-      // Calcular primer día y total de días
-      const primerDia = new Date(añoAlmanaqueActivo, mesAlmanaqueActivo, 1).getDay(); // 0 = Domingo, 1 = Lunes...
-      // Desfase para que Lunes sea el primer día de la semana (0:L, 1:M, 2:X, 3:J, 4:V, 5:S, 6:D)
+      const primerDia = new Date(añoAlmanaqueActivo, mesAlmanaqueActivo, 1).getDay();
       const desfase = (primerDia === 0) ? 6 : primerDia - 1;
       const totalDias = new Date(añoAlmanaqueActivo, mesAlmanaqueActivo + 1, 0).getDate();
 
       let gridHtml = '';
 
-      // Rellenar días de desfase vacíos
       for (let i = 0; i < desfase; i++) {
         gridHtml += `<div class="almanaque-dia-vacio"></div>`;
       }
 
-      // Rellenar días del mes
       for (let dia = 1; dia <= totalDias; dia++) {
         const fechaDia = new Date(añoAlmanaqueActivo, mesAlmanaqueActivo, dia);
         const datosLuna = obtenerDatosLunares(fechaDia);
@@ -1454,26 +1780,20 @@
           📅 ALMANAQUE LUNAR 2026
         </div>
 
-        <!-- Controles del Mes -->
         <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 12px;">
           <button class="pixel-btn" id="btnMesAnterior" style="padding: 4px 8px; font-size: 10px;">◀</button>
-          <span id="nombreMesAlmanaque" style="font-family: 'Cinzel', serif; font-size: 20px; color: var(--accent-gold); min-width: 140px; text-align: center;">
+          <span id="nombreMesAlmanaque" style="font-family: 'Press Start 2P', monospace; font-size: 12px; color: var(--accent-gold); min-width: 140px; text-align: center;">
             ${nombresMeses[mesAlmanaqueActivo]} ${añoAlmanaqueActivo}
           </span>
           <button class="pixel-btn" id="btnMesSiguiente" style="padding: 4px 8px; font-size: 10px;">▶</button>
         </div>
 
-
-
-        <!-- Rejilla del Almanaque -->
         <div id="cuadrculaAlmanaque" class="almanaque-grid" style="margin-bottom: 20px;">
           ${gridHtml}
         </div>
 
-        <!-- ALMANAQUE MÍSTICO COMPLETO -->
         <div class="almanaque-lunar" style="display: flex; flex-direction: column; gap: 20px; border-top: 2px dashed var(--border-color); padding-top: 15px; margin-top: 15px; text-align: left;">
           
-          <!-- BLOQUE 1: El Almanaque de las 13 Lunas Llenas del Año -->
           <div class="bloque-almanaque-lunas">
             <h3 style="font-family:'Press Start 2P', monospace; font-size: 8px; color: var(--accent-gold); margin-bottom: 12px; text-align: left;">
               🌟 LAS 13 LUNAS LLENAS
@@ -1495,7 +1815,6 @@
             </ul>
           </div>
           
-          <!-- BLOQUE 2: Guía de Intenciones de Luna Nueva 🌑 -->
           <div class="bloque-intenciones-nueva" style="border-top: 1px dashed var(--border-color); padding-top: 15px;">
             <h3 style="font-family:'Press Start 2P', monospace; font-size: 8px; color: var(--accent-gold); margin-bottom: 12px; text-align: left;">
               🌑 GUÍA DE INTENCIONES DE LUNA NUEVA
@@ -1510,7 +1829,6 @@
         </div>
       `;
 
-      // Registrar los escuchadores de eventos para los botones de cambio de mes
       const btnAnterior = document.getElementById('btnMesAnterior');
       const btnSiguiente = document.getElementById('btnMesSiguiente');
       if (btnAnterior) {
@@ -1533,10 +1851,9 @@
       updateJournalForLunarDay(selectedLunarDay);
     }
 
-    // Calcular la fase lunar calibrada para 2026 (Anclada al Lunes 15 de Junio de 2026 como Luna Nueva 0%)
     function obtenerDatosLunares(fecha) {
-      const fechaReferencia = new Date(2026, 5, 15, 20, 0, 0); // 15 de Junio de 2026 (Mes indexado 5)
-      const longitudCiclo = 29.530588853; // Duración media del mes sinódico
+      const fechaReferencia = new Date(2026, 5, 15, 20, 0, 0);
+      const longitudCiclo = 29.530588853;
 
       const diffTiempo = fecha - fechaReferencia;
       const diffDias = diffTiempo / (1000 * 60 * 60 * 24);
@@ -1544,12 +1861,10 @@
       let diasCiclo = diffDias % longitudCiclo;
       if (diasCiclo < 0) diasCiclo += longitudCiclo;
 
-      // Calcular porcentaje de iluminación exacto
       let iluminacion = (1 - Math.abs((diasCiclo / 14.7652944) - 1)) * 100;
       if (iluminacion < 0) iluminacion = 0;
       if (iluminacion > 100) iluminacion = 100;
 
-      // Determinar fase visual
       let faseNombre = "";
       let icono = "";
       if (diasCiclo < 1.0 || diasCiclo >= 28.53) { faseNombre = "Nueva"; icono = "🌑"; }
@@ -1597,26 +1912,24 @@
       };
     }
 
-
-    // Algoritmo matemático para dibujar el sprite SVG de la Luna en 16x16
     function generateMoonSvg(phaseIndex, lightColor = 'var(--accent-gold-glow)', shadowColor = 'var(--bg-book)') {
       let illuminatedPart = '';
 
-      if (phaseIndex === 0) { // Luna Nueva
+      if (phaseIndex === 0) {
         illuminatedPart = '';
-      } else if (phaseIndex === 1) { // Creciente Cóncava
+      } else if (phaseIndex === 1) {
         illuminatedPart = `<path d="M 8 1 A 7 7 0 0 1 8 15 A 3 7 0 0 1 8 1 Z" fill="${lightColor}"/>`;
-      } else if (phaseIndex === 2) { // Cuarto Creciente
+      } else if (phaseIndex === 2) {
         illuminatedPart = `<path d="M 8 1 A 7 7 0 0 1 8 15 Z" fill="${lightColor}"/>`;
-      } else if (phaseIndex === 3) { // Creciente Gibbosa
+      } else if (phaseIndex === 3) {
         illuminatedPart = `<path d="M 8 1 A 7 7 0 0 1 8 15 A 3 7 0 0 0 8 1 Z" fill="${lightColor}"/>`;
-      } else if (phaseIndex === 4) { // Luna Llena
+      } else if (phaseIndex === 4) {
         illuminatedPart = `<circle cx="8" cy="8" r="7" fill="${lightColor}"/>`;
-      } else if (phaseIndex === 5) { // Menguante Gibbosa
+      } else if (phaseIndex === 5) {
         illuminatedPart = `<path d="M 8 1 A 7 7 0 0 0 8 15 A 3 7 0 0 1 8 1 Z" fill="${lightColor}"/>`;
-      } else if (phaseIndex === 6) { // Cuarto Menguante
+      } else if (phaseIndex === 6) {
         illuminatedPart = `<path d="M 8 1 A 7 7 0 0 0 8 15 Z" fill="${lightColor}"/>`;
-      } else if (phaseIndex === 7) { // Menguante Cóncava
+      } else if (phaseIndex === 7) {
         illuminatedPart = `<path d="M 8 1 A 7 7 0 0 0 8 15 A 3 7 0 0 0 8 1 Z" fill="${lightColor}"/>`;
       }
 
@@ -1632,12 +1945,10 @@
     function renderFreeView(container) {
       let cellsHtml = '';
 
-      // 35 celdas para representar un tablero del mes
       for (let cell = 1; cell <= 35; cell++) {
         const cellData = savedFreeGrid[cell] || {};
         let iconsHtml = '';
 
-        // Agregar iconos pixel de los estados guardados
         if (cellData.blood) iconsHtml += PIXEL_SVGS.blood;
         if (cellData.fire) iconsHtml += PIXEL_SVGS.fire;
         if (cellData.candle) iconsHtml += PIXEL_SVGS.candle;
@@ -1665,7 +1976,6 @@
             PINCEL DE ENERGÍA Y SÍNTOMAS
           </div>
           
-          <!-- Herramientas del Pintor -->
           <div class="toolbox">
             <button class="tool-btn ${activeTool === 'blood' ? 'active' : ''}" onclick="selectTool('blood')" title="Registrar Sangrado (Gota)">
               ${PIXEL_SVGS.blood}
@@ -1694,7 +2004,6 @@
         </div>
       `;
 
-      // Escuchadores de fin de dibujo
       const grid = document.getElementById('drag-grid');
       grid.addEventListener('mouseup', () => { isDrawing = false; });
       grid.addEventListener('mouseleave', () => { isDrawing = false; });
@@ -1709,19 +2018,12 @@
       event.currentTarget.classList.add('active');
     }
 
-    /* ----------------------------------------------------
-       Lógica de Pintura y Arrastre (Drag and Paint)
-       ---------------------------------------------------- */
     function handleCellMouseDown(cellNum, e) {
       e.preventDefault();
       isDrawing = true;
       audio.playClick();
       selectedFreeDay = cellNum;
-
-      // Aplicar el estado de la herramienta
       applyToolToCell(cellNum);
-
-      // Volver a renderizar para ver seleccionados y cambios
       renderFreeView(document.getElementById('left-page-content'));
     }
 
@@ -1738,14 +2040,11 @@
       }
 
       if (activeTool === 'broom') {
-        // Borrar todo
         savedFreeGrid[cellNum] = { blood: false, fire: false, candle: false, star: false };
       } else {
-        // Alternar el estado seleccionado
         savedFreeGrid[cellNum][activeTool] = !savedFreeGrid[cellNum][activeTool];
       }
 
-      // Guardar en almacenamiento local
       localStorage.setItem('savedFreeGrid', JSON.stringify(savedFreeGrid));
     }
 
@@ -1755,9 +2054,13 @@
     function selectSabbat(id) {
       audio.playShimmer();
       selectedSabbat = id;
-
-      // Actualizar vista izquierda para marcar el seleccionado
       renderStationsView(document.getElementById('left-page-content'));
+    }
+
+    function selectZodiacSign(id) {
+      audio.playShimmer();
+      selectedZodiac = id;
+      renderZodiacView(document.getElementById('left-page-content'));
     }
 
     function selectCycleDay(dayNum) {
@@ -1776,10 +2079,52 @@
        Actualización del Diario de la Derecha
        ---------------------------------------------------- */
 
+    // Diario para Vista Zodíaco
+    function updateJournalForZodiacSign(id) {
+      const z = zodiacData.find(item => item.id === id);
+      document.getElementById('journal-title').innerText = `${z.symbol} SIGNO: ${z.name.toUpperCase()}`;
+
+      const contentArea = document.getElementById('journal-content-area');
+      contentArea.innerHTML = `
+        <div class="journal-section">
+          <div class="section-title">Período del Sol</div>
+          <div class="journal-body"><strong>${z.dates}</strong></div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Elemento & Regente</div>
+          <div class="journal-body">${z.element} | ${z.ruler} (${z.quality})</div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Arquetipo Astrológico</div>
+          <div class="journal-body"><strong>${z.archetype}</strong></div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Vibra & Mood Característico</div>
+          <div class="journal-body"><em>"${z.vibe}"</em></div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Sabiduría Ancestral del Signo</div>
+          <div class="journal-body">${z.deepLore}</div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Cristales Afines</div>
+          <div class="journal-body">${z.crystals}</div>
+        </div>
+        <div class="journal-section">
+          <div class="section-title">Ritual Astrológico Sugerido</div>
+          <div class="journal-body" style="border-left: 2px solid var(--accent-gold); padding-left: 8px;">
+            ${z.ritual}
+          </div>
+        </div>
+      `;
+
+      document.getElementById('notes-form').style.display = 'none';
+    }
+
     // Diario para Vista 1: Sabbat
     function updateJournalForSabbat(id) {
       const data = sabbatsData.find(s => s.id === id);
-      document.getElementById('journal-title').innerText = `${data.symbol} Sabbat: ${data.name}`;
+      document.getElementById('journal-title').innerText = `${data.symbol} SABBAT: ${data.name.toUpperCase()}`;
 
       const contentArea = document.getElementById('journal-content-area');
       contentArea.innerHTML = `
@@ -1807,16 +2152,14 @@
         </div>
       `;
 
-      // Ocultar formulario de notas
       document.getElementById('notes-form').style.display = 'none';
     }
 
     // Diario para Vista 2: Ciclo Menstrual
     function updateJournalForCycleDay(dayNum) {
       const phase = cyclePhases.find(p => dayNum >= p.range[0] && dayNum <= p.range[1]);
-      document.getElementById('journal-title').innerText = `Día ${dayNum}: ${phase.name}`;
+      document.getElementById('journal-title').innerText = `DÍA ${dayNum}: ${phase.name.toUpperCase()}`;
 
-      // Niveles simulados de energía por fase para hacerlo interactivo
       let energyHeart = '💖💖💖💖';
       let socialState = 'Normal';
       if (phase.name === 'Menstruación') { energyHeart = '💖'; socialState = 'Ermitaña/Introspección'; }
@@ -1850,7 +2193,6 @@
         </div>
       `;
 
-      // Ocultar formulario de notas
       document.getElementById('notes-form').style.display = 'none';
     }
 
@@ -1871,9 +2213,8 @@
       ];
 
       const phaseName = lunarPhasesNames[phaseIndex];
-      document.getElementById('journal-title').innerText = `Día Lunar ${dayNum}`;
+      document.getElementById('journal-title').innerText = `DÍA LUNAR ${dayNum}`;
 
-      // Interpretaciones místicas simuladas basadas en fases arquetípicas
       let energyDesc = '';
       let crystalRitual = '';
 
@@ -1914,13 +2255,12 @@
         </div>
       `;
 
-      // Ocultar formulario de notas
       document.getElementById('notes-form').style.display = 'none';
     }
 
     // Diario para Vista 4: Selección Libre e Inyección del Editor de Notas
     function updateJournalForFreeDay(dayNum) {
-      document.getElementById('journal-title').innerText = `Registro Diario: Día ${dayNum}`;
+      document.getElementById('journal-title').innerText = `REGISTRO DIARIO: DÍA ${dayNum}`;
 
       const cellData = savedFreeGrid[dayNum] || {};
       let statuses = [];
@@ -1930,7 +2270,7 @@
       if (cellData.candle) statuses.push(`<span class="stat-badge">🕯️ Ritual</span>`);
       if (cellData.star) statuses.push(`<span class="stat-badge">🌟 Energía Alta</span>`);
 
-      const textNotes = savedNotes[`day_${dayNum}`] || "";
+      const textNotes = savedNotes[`day_${selectedFreeDay}`] || "";
 
       const contentArea = document.getElementById('journal-content-area');
       contentArea.innerHTML = `
@@ -1947,7 +2287,6 @@
         </div>
       `;
 
-      // Mostrar el formulario para editar notas
       const notesForm = document.getElementById('notes-form');
       notesForm.style.display = 'flex';
 
@@ -1967,14 +2306,8 @@
       savedNotes[`day_${selectedFreeDay}`] = noteContent;
 
       localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
-
-      // Reproducir sonido exitoso
       audio.playSuccess();
-
-      // Mostrar Toast Retro
       showToast("Notas guardadas en Grimorio");
-
-      // Actualizar diario
       updateJournalForFreeDay(selectedFreeDay);
     }
 
@@ -2004,7 +2337,6 @@
         audio.playSuccess();
         showToast("Grimorio purificado");
 
-        // Volver a renderizar la vista actual
         if (currentView === 'free') {
           renderFreeView(document.getElementById('left-page-content'));
         }
@@ -2015,7 +2347,6 @@
        Inicialización de la Aplicación
        ---------------------------------------------------- */
     window.addEventListener('DOMContentLoaded', () => {
-      // Cargar vista de lunación por defecto
       renderMoonView(document.getElementById('left-page-content'));
     });
   </script>
